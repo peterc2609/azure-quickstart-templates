@@ -29,7 +29,7 @@ while getopts ":u:p:v:h" optname; do
 done
 
 # Updating the Chef Server Hosts File
-sudo sed -i "2i10.0.1.4 CHEFSRV.contoso.corp CHEFSRV" /etc/hosts
+sudo sed -i "2i10.0.1.4 chefsrv.westeurope.cloudapp.azure.com CHEFSRV" /etc/hosts
 
 # Printing out the correct FQDN of the Server
 hostname -f
