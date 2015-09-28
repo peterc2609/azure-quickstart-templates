@@ -3,6 +3,12 @@
 # Script is designed to run as 'root'
 # USE THIS SCRIPT AT YOUR OWN RISK!
 
+# Updating the Chef Server Hosts File
+sudo sed -i "2i10.0.1.10 SLES12SRV.westeurope.cloudapp.azure.com SLES12SRV" /etc/hosts
+
+# Printing out the correct FQDN of the Server
+hostname -f
+
 # Creating Directory to store binaries
 mkdir /Downloads
 cd /Downloads/
@@ -16,10 +22,10 @@ sudo rpm -Uvh chef-12.4.3-1.el6.x86_64.rpm
 # Creating the /etc/chef directories
 mkdir /etc/chef/trusted_certs
 
-#scp chefadmin@chefsrv.westeurope.cloudapp.azure.com:/home/chefadmin/learn_chef_12_env.pem /etc/chef/learn_chef_12_env.pem
+#scp chefadmin@chefsrv.westeurope.cloudapp.azure.com:/home/chefadmin/learn_chef_12_env-validator.pem /etc/chef/learn_chef_12_env-validator.pem
 
 # Retrieving the Chef Server Certificate
-knife ssl fetch 
+knife ssl fetch https://chefsrv.westeurope.cloudapp.azure.com
 
 # Copying the Chef Server SSL to '/etc/chef/trusted_certs'
 cp /root/.chef/trusted_certs/chefsrv_westeurope_cloudapp_azure_com.crt /etc/chef/trusted_certs/

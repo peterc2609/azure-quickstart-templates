@@ -75,6 +75,6 @@ sudo cp /var/opt/opscode/nginx/ca/chefsrv.westeurope.cloudapp.azure.com.crt /hom
 sudo chef-server-ctl user-create $CHEF_USERNAME Chef Admin chefadmin@devops.io $CHEF_PASSWORD --filename /home/chefadmin/chefadmin.pem
 
 # Creating the First Organization on the Chef Server
-sudo chef-server-ctl org-create learn_chef_12_env Learn Chef 12 Environment --association_user $CHEF_USERNAME --filename /home/chefadmin/learn_chef_12_env.pem
+sudo chef-server-ctl org-create learn_chef_12_env Learn Chef 12 Environment --association_user $CHEF_USERNAME --filename /home/chefadmin/learn_chef_12_env-validator.pem
 
 echo "Chef Server 12 Installation is Complete!"

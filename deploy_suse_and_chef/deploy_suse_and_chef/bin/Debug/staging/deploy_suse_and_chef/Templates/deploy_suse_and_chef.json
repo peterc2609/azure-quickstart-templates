@@ -164,7 +164,9 @@
         "CHEFSRVNicName": "[concat(variables('CHEFSRVName'), 'NetworkInterface')]",
         "susesrvpubipName": "[parameters('susesrvpubipDnsName')]",
         "chefsrvpubipName": "[parameters('chefsrvpubipDnsName')]",
+        "installChefClientScriptUri": "https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_suse_and_chef/deploy_suse_and_chef/Scripts/install_chef-client.sh",
         "installChefServerScriptUri": "https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_suse_and_chef/deploy_suse_and_chef/Scripts/install_chef_server.sh",
+        "installChefClientScriptName": "install_chef-client.sh",
         "installChefServerScriptName": "install_chef_server.sh"
     },
     "resources": [
@@ -340,23 +342,21 @@
             "resources": [
                 {
                     "type": "Microsoft.Compute/virtualMachines/extensions",
-                    "name": "[concat(variables('SUSESRVName'), '/' ,'chefExtension')]",
+                    "name": "[concat(variables('SUSESRVName'), '/' ,'installchefclientscript')]",
                     "apiVersion": "2015-05-01-preview",
                     "location": "[variables('location')]",
                     "dependsOn": [
-                        "[concat('Microsoft.Compute/virtualMachines/', variables('SUSESRVName'))]",
-                        "[concat('Microsoft.Compute/virtualMachines/', variables('CHEFSRVName'),'/extensions/installchefserverscript')]"
+                        "[concat('Microsoft.Compute/virtualMachines/', variables('SUSESRVName'))]"
                     ],
                     "properties": {
-                        "publisher": "Chef.Bootstrap.WindowsAzure",
-                        "type": "LinuxChefClient",
-                        "typeHandlerVersion": "1210.12",
+                        "publisher": "Microsoft.OSTCExtensions",
+                        "type": "CustomScriptForLinux",
+                        "typeHandlerVersion": "1.2",
                         "settings": {
-                            "bootstrap_options": {
-                                "chef_node_name": "[variables('SUSESRVName')]",
-                                "chef_server_url": "https://chefsrv.westeurope.cloudapp.azure.com//organizations/learn_chef_12_env",
-                                "validation_client_name": "learn_chef_12_env-validator"
-                            }
+                            "fileUris": [
+                                "[concat(variables('installChefClientScriptUri'))]"
+                            ],
+                            "commandToExecute": "[concat('bash install_chef-client.sh')]"
                         }
                     }
                 }
