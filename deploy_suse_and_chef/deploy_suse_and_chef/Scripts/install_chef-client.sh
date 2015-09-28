@@ -4,7 +4,7 @@
 # USE THIS SCRIPT AT YOUR OWN RISK!
 
 # Updating the Chef Server Hosts File
-sudo sed -i "2i10.0.1.10 SLES12SRV.westeurope.cloudapp.azure.com SLES12SRV" /etc/hosts
+sudo sed -i "2i10.0.1.10 sles12srv.westeurope.cloudapp.azure.com SLES12SRV" /etc/hosts
 
 # Printing out the correct FQDN of the Server
 hostname -f
@@ -20,7 +20,7 @@ wget https://opscode-omnibus-packages.s3.amazonaws.com/el/6/x86_64/chef-12.4.3-1
 sudo rpm -Uvh chef-12.4.3-1.el6.x86_64.rpm
 
 # Creating the /etc/chef directories
-mkdir /etc/chef/trusted_certs
+mkdir -p /etc/chef/trusted_certs
 
 #scp chefadmin@chefsrv.westeurope.cloudapp.azure.com:/home/chefadmin/learn_chef_12_env-validator.pem /etc/chef/learn_chef_12_env-validator.pem
 
