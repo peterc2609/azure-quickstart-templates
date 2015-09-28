@@ -19,10 +19,10 @@ mkdir /etc/chef/trusted_certs
 #scp chefadmin@chefsrv.westeurope.cloudapp.azure.com:/home/chefadmin/learn_chef_12_env.pem /etc/chef/learn_chef_12_env.pem
 
 # Retrieving the Chef Server Certificate
-knife ssl fetch https://chefsrv.westeurope.cloudapp.azure.com
+knife ssl fetch 
 
 # Copying the Chef Server SSL to '/etc/chef/trusted_certs'
-cp /root/.chef/trusted_certs/CHEFSRV_contoso_corp.crt /etc/chef/trusted_certs/
+cp /root/.chef/trusted_certs/chefsrv_westeurope_cloudapp_azure_com.crt /etc/chef/trusted_certs/
 
-
+wget   /etc/chef/.
 

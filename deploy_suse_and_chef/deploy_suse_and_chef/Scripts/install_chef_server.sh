@@ -69,7 +69,7 @@ sudo opscode-reporting-ctl reconfigure
 sleep 15s
 
 # Copying the Chef Server Certificate to the chefadmin home directory for further use
-sudo cp /var/opt/opscode/nginx/ca/CHEFSRV.contoso.corp.crt /home/chefadmin/
+sudo cp /var/opt/opscode/nginx/ca/chefsrv.westeurope.cloudapp.azure.com.crt /home/chefadmin/
 
 # Creating First User on the Chef Server
 sudo chef-server-ctl user-create $CHEF_USERNAME Chef Admin chefadmin@devops.io $CHEF_PASSWORD --filename /home/chefadmin/chefadmin.pem
