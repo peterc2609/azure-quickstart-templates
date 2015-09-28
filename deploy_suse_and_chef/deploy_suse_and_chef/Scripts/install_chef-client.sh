@@ -34,7 +34,7 @@ cp /.chef/trusted_certs/chefsrv_westeurope_cloudapp_azure_com.crt /etc/chef/trus
 wget https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_suse_and_chef/deploy_suse_and_chef/Scripts/client.rb -P /etc/chef/
 
 # Copying expect script from GitHub 
-wget https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_suse_and_chef/deploy_suse_and_chef/Scripts/client.rb /Downloads
+wget https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_suse_and_chef/deploy_suse_and_chef/Scripts/retrieve-chef-client-validator-cert.exp /Downloads
 
 # Running expect script to retrieve Chef Client Validator Certificate from the Chef Server
 cd /Downloads/ 
@@ -42,5 +42,3 @@ cd /Downloads/
 
 # Adding SLES Server to Chef Server
 /usr/bin/chef-client
-
-
