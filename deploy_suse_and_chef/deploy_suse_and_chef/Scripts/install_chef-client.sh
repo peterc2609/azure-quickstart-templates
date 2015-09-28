@@ -28,8 +28,19 @@ mkdir -p /etc/chef/trusted_certs
 knife ssl fetch https://chefsrv.westeurope.cloudapp.azure.com
 
 # Copying the Chef Server SSL to '/etc/chef/trusted_certs'
-cp /root/.chef/trusted_certs/chefsrv_westeurope_cloudapp_azure_com.crt /etc/chef/trusted_certs/
+cp /.chef/trusted_certs/chefsrv_westeurope_cloudapp_azure_com.crt /etc/chef/trusted_certs/
 
 # Copying client.rb file to '/etc/chef' directory
 wget https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_suse_and_chef/deploy_suse_and_chef/Scripts/client.rb -P /etc/chef/
+
+# Copying expect script from GitHub 
+wget https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_suse_and_chef/deploy_suse_and_chef/Scripts/client.rb /Downloads
+
+# Running expect script to retrieve Chef Client Validator Certificate from the Chef Server
+cd /Downloads/ 
+/usr/bin/expect retrieve-chef-client-validator-cert.exp
+
+# Adding SLES Server to Chef Server
+/usr/bin/chef-client
+
 
