@@ -46,13 +46,16 @@ cd /Downloads/
 # Downloading and installing the Chef Development Kit
 wget https://opscode-omnibus-packages.s3.amazonaws.com/el/6/x86_64/chefdk-0.8.0-1.el6.x86_64.rpm /Downloads
 
+# Installing the Chef Development Kit
 cd /Downloads/
 sudo rpm -Uvh chefdk-0.8.0-1.el6.x86_64.rpm
 
+# Generating a local chef-repo under the '/root' directory
 cd /root
 chef generate repo chef-repo
 
-mkdir .chef
+# Creating the '.chef' directory in the chef-repo
+mkdir /root/chef-repo/.chef
 cp /etc/chef/learn_chef_12_env-validator.pem /root/chef-repo/.chef/
 
 # Copying knife.rb file to '/root/chef-repo/.chef' directory
@@ -65,4 +68,6 @@ wget https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/mast
 cd /Downloads/ 
 /usr/bin/expect retrieve-chefadmin-user-cert.exp
 
-
+# Retrieving the Chef Server SSL Certificate
+cd /root/chef-repo/
+knife ssl fetch
