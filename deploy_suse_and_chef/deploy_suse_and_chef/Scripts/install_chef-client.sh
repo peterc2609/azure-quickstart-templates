@@ -33,7 +33,7 @@ cp /.chef/trusted_certs/chefsrv_westeurope_cloudapp_azure_com.crt /etc/chef/trus
 # Copying client.rb file to '/etc/chef' directory
 wget https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_suse_and_chef/deploy_suse_and_chef/Scripts/client.rb -P /etc/chef/
 
-# Copying expect script from GitHub 
+# Copying retrieve-chef-client-validator-cert.exp expect script from GitHub 
 wget https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_suse_and_chef/deploy_suse_and_chef/Scripts/retrieve-chef-client-validator-cert.exp /Downloads
 
 # Running expect script to retrieve Chef Client Validator Certificate from the Chef Server
@@ -42,3 +42,27 @@ cd /Downloads/
 
 # Adding SLES Server to Chef Server
 /usr/bin/chef-client
+
+# Downloading and installing the Chef Development Kit
+wget https://opscode-omnibus-packages.s3.amazonaws.com/el/6/x86_64/chefdk-0.8.0-1.el6.x86_64.rpm /Downloads
+
+cd /Downloads/
+sudo rpm -Uvh chefdk-0.8.0-1.el6.x86_64.rpm
+
+cd /root
+chef generate repo chef-repo
+
+mkdir .chef
+cp /etc/chef/learn_chef_12_env-validator.pem /root/chef-repo/.chef/
+
+# Copying knife.rb file to '/root/chef-repo/.chef' directory
+wget https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_suse_and_chef/deploy_suse_and_chef/Scripts/knife.rb /root/chef-repo/.chef/
+
+# Copying retrieve-chefadmin-user-cert.exp expect script from GitHub 
+wget https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_suse_and_chef/deploy_suse_and_chef/Scripts/retrieve-chefadmin-user-cert.exp /Downloads
+
+# Running expect script to retrieve chefadmin user Certificate from the Chef Server
+cd /Downloads/ 
+/usr/bin/expect retrieve-chefadmin-user-cert.exp
+
+

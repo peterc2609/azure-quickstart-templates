@@ -198,7 +198,7 @@
             "apiVersion": "2015-05-01-preview",
             "dependsOn": [ ],
             "tags": {
-                "displayName": "contososusestorage"
+                "displayName": "[variables('contososusestorageName')]"
             },
             "properties": {
                 "accountType": "[variables('contososusestorageType')]"
@@ -270,7 +270,7 @@
             "location": "[variables('location')]",
             "apiVersion": "2015-05-01-preview",
             "tags": {
-                "displayName": "susesrvpubip"
+                "displayName": "[variables('susesrvpubipName')]"
             },
             "properties": {
                 "publicIPAllocationMethod": "Dynamic",
@@ -285,7 +285,7 @@
             "location": "[variables('location')]",
             "apiVersion": "2015-05-01-preview",
             "tags": {
-                "displayName": "chefsrvpubip"
+                "displayName": "[variables('chefsrvpubipName')]"
             },
             "properties": {
                 "publicIPAllocationMethod": "Dynamic",
@@ -300,7 +300,7 @@
             "location": "[variables('location')]",
             "apiVersion": "2015-05-01-preview",
             "tags": {
-                "displayName": "SUSESRV"
+                "displayName": "[variables('SUSESRVName')]"
             },
             "dependsOn": [
                 "[concat('Microsoft.Storage/storageAccounts/', variables('contososusestorageName'))]",
@@ -323,7 +323,7 @@
                         "version": "latest"
                     },
                     "osDisk": {
-                        "name": "SUSESRVOSDisk",
+                        "name": "[variables('SUSESRVOSDiskName')]",
                         "vhd": {
                             "uri": "[concat('http://', variables('contososusestorageName'), '.blob.core.windows.net/', variables('SUSESRVStorageAccountContainerName'), '/', variables('SUSESRVOSDiskName'), '.vhd')]"
                         },
@@ -342,12 +342,12 @@
             "resources": [
                 {
                     "type": "Microsoft.Compute/virtualMachines/extensions",
-                    "name": "[concat(variables('SUSESRVName'), '/' ,'installchefclientscript')]",
+                    "name": "[concat(variables('SUSESRVName'), '/' ,'InstallChefClientScript')]",
                     "apiVersion": "2015-05-01-preview",
                     "location": "[variables('location')]",
                     "dependsOn": [
                         "[concat('Microsoft.Compute/virtualMachines/', variables('SUSESRVName'))]",
-                        "[concat('Microsoft.Compute/virtualMachines/', variables('CHEFSRVName'),'/extensions/installchefserverscript')]"
+                        "[concat('Microsoft.Compute/virtualMachines/', variables('CHEFSRVName'),'/extensions/InstallChefServerScript')]"
                     ],
                     "properties": {
                         "publisher": "Microsoft.OSTCExtensions",
@@ -369,7 +369,7 @@
             "location": "[variables('location')]",
             "apiVersion": "2015-05-01-preview",
             "tags": {
-                "displayName": "CHEFSRV"
+                "displayName": "[variables('CHEFSRVName')]"
             },
             "dependsOn": [
                 "[concat('Microsoft.Storage/storageAccounts/', variables('contososusestorageName'))]",
@@ -392,7 +392,7 @@
                         "version": "14.04.201506100"
                     },
                     "osDisk": {
-                        "name": "CHEFSRVOSDisk",
+                        "name": "[variables('CHEFSRVOSDiskName')]",
                         "vhd": {
                             "uri": "[concat('http://', variables('contososusestorageName'), '.blob.core.windows.net/', variables('CHEFSRVStorageAccountContainerName'), '/', variables('CHEFSRVOSDiskName'), '.vhd')]"
                         },
@@ -411,7 +411,7 @@
             "resources": [
                 {
                     "type": "Microsoft.Compute/virtualMachines/extensions",
-                    "name": "[concat(variables('CHEFSRVName'), '/' ,'installchefserverscript')]",
+                    "name": "[concat(variables('CHEFSRVName'), '/' ,'InstallChefServerScript')]",
                     "apiVersion": "2015-05-01-preview",
                     "location": "[variables('location')]",
                     "dependsOn": [

@@ -1,0 +1,24 @@
+#!/usr/bin/expect -f
+#
+# retrieve-chef-client-validator-cert.exp - Expect Script
+#
+# USE AT YOUR OWN RISK!
+
+# Setting Variables
+set password "LearnChef!"
+
+# Connect to Chef Server via SCP
+spawn scp "chefadmin@chefsrv.westeurope.cloudapp.azure.com:/home/chefadmin/chefadmin.pem" /root/chef-repo/.chef/chefadmin.pem
+
+# Expect Start
+expect {
+  -re ".*word:*" {
+    exp_send "$password\r"
+    exp_continue
+  }
+  -re ".*es.*o.*" {
+    exp_send "yes\r"
+    exp_continue
+  }
+}
+interact
