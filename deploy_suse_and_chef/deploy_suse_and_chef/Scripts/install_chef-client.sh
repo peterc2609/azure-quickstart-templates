@@ -22,8 +22,6 @@ sudo rpm -Uvh chef-12.4.3-1.el6.x86_64.rpm
 # Creating the /etc/chef directories
 mkdir -p /etc/chef/trusted_certs
 
-#scp chefadmin@chefsrv.westeurope.cloudapp.azure.com:/home/chefadmin/learn_chef_12_env-validator.pem /etc/chef/learn_chef_12_env-validator.pem
-
 # Retrieving the Chef Server Certificate
 knife ssl fetch https://chefsrv.westeurope.cloudapp.azure.com
 
@@ -34,10 +32,10 @@ cp /.chef/trusted_certs/chefsrv_westeurope_cloudapp_azure_com.crt /etc/chef/trus
 wget https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_suse_and_chef/deploy_suse_and_chef/Scripts/client.rb -P /etc/chef/
 
 # Copying retrieve-chef-client-validator-cert.exp expect script from GitHub 
-wget https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_suse_and_chef/deploy_suse_and_chef/Scripts/retrieve-chef-client-validator-cert.exp /Downloads
+wget https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_suse_and_chef/deploy_suse_and_chef/Scripts/retrieve-chef-client-validator-cert.exp -P /Downloads
 
 # Running expect script to retrieve Chef Client Validator Certificate from the Chef Server
-cd /Downloads/ 
+cd /Downloads/
 /usr/bin/expect retrieve-chef-client-validator-cert.exp
 
 # Adding SLES Server to Chef Server
@@ -59,15 +57,16 @@ mkdir /root/chef-repo/.chef
 cp /etc/chef/learn_chef_12_env-validator.pem /root/chef-repo/.chef/
 
 # Copying knife.rb file to '/root/chef-repo/.chef' directory
-wget https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_suse_and_chef/deploy_suse_and_chef/Scripts/knife.rb /root/chef-repo/.chef/
+wget https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_suse_and_chef/deploy_suse_and_chef/Scripts/knife.rb -P /root/chef-repo/.chef/
 
 # Copying retrieve-chefadmin-user-cert.exp expect script from GitHub 
-wget https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_suse_and_chef/deploy_suse_and_chef/Scripts/retrieve-chefadmin-user-cert.exp /Downloads
+wget https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_suse_and_chef/deploy_suse_and_chef/Scripts/retrieve-chefadmin-user-cert.exp -P /Downloads
 
 # Running expect script to retrieve chefadmin user Certificate from the Chef Server
-cd /Downloads/ 
+cd /Downloads/
 /usr/bin/expect retrieve-chefadmin-user-cert.exp
 
 # Retrieving the Chef Server SSL Certificate
 cd /root/chef-repo/
-knife ssl fetch
+knife ssl fetch https://chefsrv.westeurope.cloudapp.azure.com/
+
