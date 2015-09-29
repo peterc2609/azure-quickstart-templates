@@ -17,8 +17,6 @@ This template provisions an environment in Azure for learning Chef.
  
 All of the VMs deployed in this template are **Standard_D1**.
 
-knife bootstrap sles12srv.westeurope.cloudapp.azure.com -x suseadmin -P LearnSuse! --sudo
-
 This template requires the following parameters which are preconfigured:
 
 
