@@ -24,26 +24,19 @@ This template requires the following parameters which are preconfigured:
 |:-----------------| :--------------------------------|
 | LOCATION | Location name where the corresponding Azure artifacts will be created |
 | ADDRESSPREFIX | Default Address Prefix for the entire Environment |
-| CHEFSUBNETPREFIX | Address Prefix for Hosts in the same Subnet as the Chef Server |
-| CONTOSOSYSCTRAPPTYPE | More on this later |
-| CONTOSOSYSCTRAPPLOCATION | Physical Location where the Environment will be deployed |
-| ADDCNAME | Name of the Domain Controller |
+| SUSESUBNETPREFIX | Address Prefix for both Hosts |
+| CONTOSOSUSESTORAGENAME | The Name of the Storage Container being deployed |
+| CONTOSOSUSESTORAGETYPE | The type of Storage being deployed |
+| SUSESRVNAME | Name of the SLES Server |
 | CHEFSRVNAME | Name of the Chef Server |
-| CHEFWINWKSNAME | Name of the Chef Windows Workstation |
-| ADDCADMINUSERNAME | Admin Username of the Domain Controller |
+| SUSESRVADMINUSERNAME | Admin Username of the SLES Server |
 | CHEFSRVADMINUSERNAME | Admin Username of the Chef Server |
-| CHEFWINWKSADMINUSERNAME | Admin Username of the Chef Windows Workstation |
-| ADDCADMINPASSWORD | Admin Password of the Domain Controller |
+| SUSESRVADMINPASSWORD | Admin Password of the SLES Server |
 | CHEFSRVADMINPASSWORD | Admin Password of the Chef Server |
-| CHEFWINWKSADMINPASSWORD | Admin Password of the Chef Windows Workstation |
-| ADDCWINDOWSOSVERSION | Windows OS Version that the Domain Controller is running |
+| SUSEOSVERSION | Suse OS Version that the SLES Server is running |
 | UBUNTUOSVERSION | Ubuntu OS Version that the Chef Server is running |
-| CHEFWINWKSWINDOWSOSVERSION | Windows OS Version that the Chef Windows Workstation is running |
-| ADPUBIPDNSNAME | Publicly accessible FQDN associated with the Domain Controller |
+| SUSESRVPUBIPDNSNAME | Publicly accessible FQDN associated with the SLES Server|
 | CHEFSRVPUBIPDNSNAME | Publicly accessible FQDN associated with the Chef Server |
-| CHEFWINWKSPUBIPDNSNAME | Publicly accessible FQDN associated with the Chef Windows Workstation |
-| ADDOMAINNAMEFQDN | FQDN of the Domain Controller |
-| ADNICIPADDRESS | Static IP Address of the Domain Controller NIC Card |
+| SUSESRVNICIPADDRESS | Static IP Address of the SLES Server NIC Card |
 | CHEFSRVNICIPADDRESS | Static IP Address of the Chef Server NIC Card |
 | ASSETLOCATION | Default Location of all Resources required to Deploy this Azure Template |
-
