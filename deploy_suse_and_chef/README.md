@@ -2,7 +2,7 @@
 
 | Deploy to Azure  | Author                          | Template Name   |
 |:-----------------|:--------------------------------| :---------------| :---------------|
-| <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fstarkfell%2Fazure-quickstart-templates%2Fmaster%2Fdeploy_suse_and_chef%2Fazuredeploy.json" target="_blank"><img src="http://azuredeploy.net/deploybutton_small.png"/></a> | [starkfell](https://github.com/starkfell) | Learn Chef (https://github.com/starkfell/azure-quickstart-templates/tree/master/deploy_suse_and_chef)
+| <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fstarkfell%2Fazure-quickstart-templates%2Fmaster%2Fdeploy_suse_and_chef%2Fdeploy_suse_and_chef%2FTemplates%2Fdeploy_suse_and_chef.json" target="_blank"><img src="http://azuredeploy.net/deploybutton_small.png"/></a> | [starkfell](https://github.com/starkfell) | Learn Chef (https://github.com/starkfell/azure-quickstart-templates/tree/master/deploy_suse_and_chef)
 
 This template provisions an environment in Azure for learning Chef.
  
@@ -17,6 +17,13 @@ This template provisions an environment in Azure for learning Chef.
  
 All of the VMs deployed in this template are **Standard_D1**.
 
+The following Parameter Values **MUST** be **unique to your region** in Azure! If they currently exist in the region you are deploying this template into the deployment will fail!
+
+ - **CONTOSOSUSESTORAGENAME**
+ - **SUSESRVPUBIPDNSNAME**
+ - **CHEFSRVPUBIPDNSNAME**
+
+ 
 This template requires the following parameters which are preconfigured:
 
 
