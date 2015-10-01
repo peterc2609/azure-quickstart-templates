@@ -13,61 +13,99 @@
                 "South East Asia"
             ],
             "metadata": {
-                "Description": "Deployment location"
+                "Description": "Deployment location."
+            }
+        },
+        "vNetName": {
+            "type": "string",
+            "defaultValue": "XplatNET",
+            "metadata": {
+                "Description": "Name of the Virtual Network where all of the Resources are being deployed."
             }
         },
         "addressPrefix": {
             "type": "string",
             "defaultValue": "10.0.0.0/16",
             "metadata": {
-                "Description": "Address prefix"
+                "Description": "Address prefix."
             }
         },
-        "SusesubnetPrefix": {
+        "linuxSubnetPrefix": {
             "type": "string",
             "defaultValue": "10.0.1.0/24",
             "metadata": {
-                "Description": "SUSE Subnet Prefix"
+                "Description": "Linux Subnet Prefix."
             }
         },
-        "contososusestorageName": {
+        "linuxSubnetName": {
             "type": "string",
-            "defaultValue": "contososusestorage"
+            "defaultValue": "LinuxSubnet",
+            "metadata": {
+                "Description": "Linux Subnet Name."
+            }
         },
-        "contososusestorageType": {
+        "contosoLinuxStorageName": {
+            "type": "string",
+            "defaultValue": "contosolinuxtorage",
+            "metadata": {
+                "Description": "Name of the Storage Account where the Resources are being deployed."
+            }
+        },
+        "contosoLinuxStorageType": {
             "type": "string",
             "defaultValue": "Standard_LRS",
             "allowedValues": [
                 "Standard_LRS",
                 "Standard_GRS",
                 "Standard_ZRS"
-            ]
+            ],
+            "metadata": {
+                "Description": "The Type of Storage used for the Resources being deployed."
+            }
         },
-        "SUSESRVName": {
+        "suseSrvName": {
             "type": "string",
-            "defaultValue": "SLES12SRV"
+            "defaultValue": "SLES12SRV",
+            "metadata": {
+                "Description": "The Name of the Suse Server."
+            }
         },
-        "CHEFSRVName": {
+        "ubuntuSrvName": {
             "type": "string",
-            "defaultValue": "CHEFSRV"
+            "defaultValue": "CHEFSRV",
+            "metadata": {
+                "Description": "The Name of the Ubuntu Server."
+            }
         },
-        "SUSESRVAdminUserName": {
+        "suseSrvAdminUsername": {
             "type": "string",
-            "defaultValue": "suseadmin"
+            "defaultValue": "suseadmin",
+            "metadata": {
+                "Description": "The name of the Suse Server account with sudo rights."
+            }
         },
-        "CHEFSRVAdminUserName": {
+        "ubuntuSrvAdminUsername": {
             "type": "string",
-            "defaultValue": "chefadmin"
+            "defaultValue": "chefadmin",
+            "metadata": {
+                "Description": "The name of the Ubuntu Server account with sudo rights."
+            }
         },
-        "SUSESRVAdminPassword": {
+        "suseSrvAdminPassword": {
             "type": "securestring",
-            "defaultValue": "LearnSuse!"
+            "defaultValue": "LearnSuse!",
+            "metadata": {
+                "Description": "The password of the Suse Server account with sudo rights."
+            }
         },
-        "CHEFSRVAdminPassword": {
+        "ubuntuSrvAdminPassword": {
             "type": "securestring",
-            "defaultValue": "LearnChef!"
+            "defaultValue": "LearnChef!",
+            "metadata": {
+                "Description": "The password of the Ubuntu Server account with sudo rights."
+            }
         },
-        "SuseOSVersion": {
+        "suseOSVersion": {
             "type": "string",
             "defaultValue": "12",
             "allowedValues": [
@@ -78,7 +116,27 @@
                 "description": "The Suse version for the VM. This will pick a fully patched image of this given Suse version."
             }
         },
-        "UbuntuOSVersion": {
+        "suseImagePublisher": {
+            "type": "string",
+            "defaultValue": "SUSE",
+            "allowedValues": [
+                "SUSE"
+            ],
+            "metadata": {
+                "description": "The Suse Image Publisher of the Image being used for the VM."
+            }
+        },
+        "suseImageOffer": {
+            "type": "string",
+            "defaultValue": "SLES",
+            "allowedValues": [
+                "SLES"
+            ],
+            "metadata": {
+                "description": "The Suse Image Offer of the Image being used for the VM."
+            }
+        },
+        "ubuntuOSVersion": {
             "type": "string",
             "defaultValue": "14.04.2-LTS",
             "allowedValues": [
@@ -92,7 +150,69 @@
                 "15.04"
             ],
             "metadata": {
-                "description": "The Ubuntu version for the VM. This will pick a fully patched image of this given Ubuntu version. Allowed values: 12.04.2-LTS, 12.04.3-LTS, 12.04.4-LTS, 12.04.5-LTS, 12.10, 14.04.2-LTS, 14.10, 15.04."
+                "description": "The Ubuntu version for the VM. This will pick a fully patched image of this given Ubuntu version."
+            }
+        },
+        "UbuntuImagePublisher": {
+            "type": "string",
+            "defaultValue": "Canonical",
+            "allowedValues": [
+                "Canonical"
+            ],
+            "metadata": {
+                "description": "The Ubuntu Image Publisher of the Image being used for the VM."
+            }
+        },
+        "UbuntuImageOffer": {
+            "type": "string",
+            "defaultValue": "UbuntuServer",
+            "allowedValues": [
+                "UbuntuServer"
+            ],
+            "metadata": {
+                "description": "The Ubuntu Image Offer of the Image being used for the VM."
+            }
+        },
+        "SuseOSDiskName": {
+            "type": "string",
+            "defaultValue": "SuseSrvOSDisk",
+            "metadata": {
+                "description": "The Name of the Suse Server OS Disk."
+            }
+        },
+        "UbuntuOSDiskName": {
+            "type": "string",
+            "defaultValue": "UbuntuSrvOSDisk",
+            "metadata": {
+                "description": "The Name of the Ubuntu Server OS Disk."
+            }
+        },
+        "SuseVMSize": {
+            "type": "string",
+            "defaultValue": "Standard_D1",
+            "allowedValues": [
+                "Standard_D1",
+                "Standard_A1",
+                "Standard_A2",
+                "Standard_A3",
+                "Standard_A4"
+            ],
+            "metadata": {
+                "description": "The Size of the Suse Server VM being deployed in Azure."
+            }
+        },
+        "UbuntuVMSize": {
+            "type": "string",
+            "defaultValue": "Standard_D1",
+            "allowedValues": [
+                "Standard_D1",
+                "Standard_A1",
+                "Standard_A2",
+                "Standard_A3",
+                "Standard_A4"
+            ],
+            "metadata": {
+                "description": "The Size of the Ubuntu Server VM being deployed in Azure."
             }
         },
         "susesrvpubipDnsName": {
@@ -102,7 +222,7 @@
                 "description": "The is the FQDN for SSH Access into the Suse Server."
             }
         },
-        "chefsrvpubipDnsName": {
+        "ubuntusrvpubipDnsName": {
             "type": "string",
             "defaultValue": "chefsrv",
             "metadata": {
@@ -111,107 +231,99 @@
         },
         "SuseSrvNicIPAddress": {
             "type": "string",
+            "defaultValue": "10.0.1.10",
             "metadata": {
                 "description": "The IP address of the new Chef Server VM."
-            },
-            "defaultValue": "10.0.1.10"
+            }
         },
         "ChefSrvNicIPAddress": {
             "type": "string",
+            "defaultValue": "10.0.1.4",
             "metadata": {
                 "description": "The IP address of the new Chef Server VM."
-            },
-            "defaultValue": "10.0.1.4"
+            }
+        },
+        "installChefClientScriptUri": {
+            "type": "string",
+            "defaultValue": "https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_suse_and_chef/deploy_suse_and_chef/Scripts/install_chef-client.sh",
+            "metadata": {
+                "description": "The location of the custom Chef Client Installation Script for the Suse Server VM."
+            }
+        },
+        "installChefClientScriptName": {
+            "type": "string",
+            "defaultValue": "install_chef-client.sh",
+            "metadata": {
+                "description": "The Name of the Chef Client Installation Script."
+            }
+        },
+        "installChefServerScriptUri": {
+            "type": "string",
+            "defaultValue": "https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_suse_and_chef/deploy_suse_and_chef/Scripts/install_chef_server.sh",
+            "metadata": {
+                "description": "The location of the custom Chef Server Installation Script for the Ubuntu Server VM."
+            }
+        },
+        "installChefClientScriptName": {
+            "type": "string",
+            "defaultValue": "install_chef_server.sh",
+            "metadata": {
+                "description": "The Name of the Chef Server Installation Script."
+            }
         },
         "AssetLocation": {
             "type": "string",
+            "defaultValue": "https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_suse_and_chef",
             "metadata": {
                 "description": "The location of resources such as templates and DSC modules that the template is dependent on."
-            },
-            "defaultValue": "https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_suse_and_chef"
+            }
         }
     },
     "variables": {
-        "location": "[parameters('location')]",
-        "addressPrefix": "[parameters('addressPrefix')]",
-        "SusesubnetPrefix": "[parameters('SusesubnetPrefix')]",
-        "contososusestorageName": "[parameters('contososusestorageName')]",
-        "contososusestorageType": "[parameters('contososusestorageType')]",
-        "SUSESRVName": "[parameters('SUSESRVName')]",
-        "SUSESRVAdminUserName": "[parameters('SUSESRVAdminUserName')]",
-        "SUSESRVAdminPassword": "[parameters('SUSESRVAdminPassword')]",
-        "CHEFSRVName": "[parameters('CHEFSRVName')]",
-        "CHEFSRVAdminUserName": "[parameters('CHEFSRVAdminUserName')]",
-        "CHEFSRVAdminPassword": "[parameters('CHEFSRVAdminPassword')]",
-        "SuseOSVersion": "[parameters('SuseOSVersion')]",
-        "UbuntuOSVersion": "[parameters('UbuntuOSVersion')]",
-        "SuseSrvNicIPAddress": "[parameters('SuseSrvNicIPAddress')]",
-        "ChefSrvNicIPAddress": "[parameters('ChefSrvNicIPAddress')]",
-        "AssetLocation": "[parameters('AssetLocation')]",
-        "SUSESRVImagePublisher": "SUSE",
-        "SUSESRVImageOffer": "SLES",
-        "SUSESRVOSDiskName": "SUSESRVOSDisk",
-        "SUSESRVVmSize": "Standard_D1",
-        "CHEFSRVImagePublisher": "Canonical",
-        "CHEFSRVImageOffer": "UbuntuServer",
-        "CHEFSRVOSDiskName": "CHEFSRVOSDisk",
-        "CHEFSRVVmSize": "Standard_D1",
-        "SUSEVnetID": "[resourceId('Microsoft.Network/virtualNetworks', 'ContosoNET')]",
-        "SuseSubnetRef": "[concat(variables('SUSEVnetID'), '/subnets/', 'SuseSubnet')]",
-        "SUSESRVStorageAccountContainerName": "vhds",
-        "CHEFSRVStorageAccountContainerName": "vhds",
-        "SUSESRVNicName": "[concat(variables('SUSESRVName'), 'NetworkInterface')]",
-        "CHEFSRVNicName": "[concat(variables('CHEFSRVName'), 'NetworkInterface')]",
-        "susesrvpubipName": "[parameters('susesrvpubipDnsName')]",
-        "chefsrvpubipName": "[parameters('chefsrvpubipDnsName')]",
-        "installChefClientScriptUri": "https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_suse_and_chef/deploy_suse_and_chef/Scripts/install_chef-client.sh",
-        "installChefServerScriptUri": "https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_suse_and_chef/deploy_suse_and_chef/Scripts/install_chef_server.sh",
-        "installChefClientScriptName": "install_chef-client.sh",
-        "installChefServerScriptName": "install_chef_server.sh"
     },
     "resources": [
         {
             "apiVersion": "2015-05-01-preview",
             "type": "Microsoft.Network/virtualNetworks",
-            "name": "ContosoNET",
-            "location": "[variables('location')]",
+            "name": "[parameters('vNetName')]",
+            "location": "[parameters('location')]",
             "properties": {
                 "addressSpace": {
                     "addressPrefixes": [
-                        "[variables('addressPrefix')]"
+                        "[parameters('addressPrefix')]"
                     ]
                 },
                 "subnets": [
                     {
-                        "name": "SuseSubnet",
+                        "name": "[parameters('linuxSubnetName')]",
                         "properties": {
-                            "addressPrefix": "[variables('SusesubnetPrefix')]"
+                            "addressPrefix": "[parameters('linuxSubnetPrefix')]"
                         }
                     }
                 ]
             }
         },
         {
-            "name": "[variables('contososusestorageName')]",
+            "name": "[parameters('contosoLinuxStorageName')]",
             "type": "Microsoft.Storage/storageAccounts",
-            "location": "[variables('location')]",
+            "location": "[parameters('location')]",
             "apiVersion": "2015-05-01-preview",
             "dependsOn": [ ],
             "tags": {
-                "displayName": "[variables('contososusestorageName')]"
+                "displayName": "[parameters('contosoLinuxStorageName')]"
             },
             "properties": {
-                "accountType": "[variables('contososusestorageType')]"
+                "accountType": "[parameters('contosoLinuxStorageType')]"
             }
         },
         {
-            "name": "[variables('SUSESRVNicName')]",
+            "name": "[concat(parameters('suseSrvName'), 'NetworkInterface')]",
             "type": "Microsoft.Network/networkInterfaces",
-            "location": "[variables('location')]",
+            "location": "[parameters('location')]",
             "apiVersion": "2015-05-01-preview",
             "dependsOn": [
-                "[concat('Microsoft.Network/virtualNetworks/', 'ContosoNET')]",
-                "[concat('Microsoft.Network/publicIPAddresses/', variables('susesrvpubipName'))]"
+                "[concat('Microsoft.Network/virtualNetworks/', parameters('vNetName'))]",
+                "[concat('Microsoft.Network/publicIPAddresses/', parameters('susesrvpubipDnsName'))]"
             ],
             "tags": {
                 "displayName": "SUSESRVNic"
@@ -222,12 +334,12 @@
                         "name": "ipconfig1",
                         "properties": {
                             "privateIPAllocationMethod": "Static",
-                            "privateIPAddress": "[variables('SuseSrvNicIPAddress')]",
+                            "privateIPAddress": "[parameters('SuseSrvNicIPAddress')]",
                             "subnet": {
-                                "id": "[variables('SuseSubnetRef')]"
+                                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('vNetName')), '/subnets/', parameters('linuxSubnetName'))]"
                             },
                             "publicIPAddress": {
-                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('susesrvpubipName'))]"
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('susesrvpubipDnsName'))]"
                             }
                         }
                     }
@@ -235,13 +347,13 @@
             }
         },
         {
-            "name": "[variables('CHEFSRVNicName')]",
+            "name": "[concat(parameters('ubuntuSrvName'), 'NetworkInterface')]",
             "type": "Microsoft.Network/networkInterfaces",
-            "location": "[variables('location')]",
+            "location": "[parameters('location')]",
             "apiVersion": "2015-05-01-preview",
             "dependsOn": [
-                "[concat('Microsoft.Network/virtualNetworks/', 'ContosoNET')]",
-                "[concat('Microsoft.Network/publicIPAddresses/', variables('chefsrvpubipName'))]"
+                "[concat('Microsoft.Network/virtualNetworks/', parameters('vNetName'))]",
+                "[concat('Microsoft.Network/publicIPAddresses/', parameters('ubuntusrvpubipDnsName'))]"
             ],
             "tags": {
                 "displayName": "CHEFSRVNic"
@@ -252,12 +364,12 @@
                         "name": "ipconfig1",
                         "properties": {
                             "privateIPAllocationMethod": "Static",
-                            "privateIPAddress": "[variables('ChefSrvNicIPAddress')]",
+                            "privateIPAddress": "[parameters('ChefSrvNicIPAddress')]",
                             "subnet": {
-                                "id": "[variables('SuseSubnetRef')]"
+                                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('vNetName')), '/subnets/', parameters('linuxSubnetName'))]"
                             },
                             "publicIPAddress": {
-                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('chefsrvpubipName'))]"
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('ubuntusrvpubipDnsName'))]"
                             }
                         }
                     }
@@ -265,67 +377,67 @@
             }
         },
         {
-            "name": "[variables('susesrvpubipName')]",
+            "name": "[parameters('susesrvpubipDnsName')]",
             "type": "Microsoft.Network/publicIPAddresses",
-            "location": "[variables('location')]",
+            "location": "[parameters('location')]",
             "apiVersion": "2015-05-01-preview",
             "tags": {
-                "displayName": "[variables('susesrvpubipName')]"
+                "displayName": "[parameters('susesrvpubipDnsName')]"
             },
             "properties": {
                 "publicIPAllocationMethod": "Dynamic",
                 "dnsSettings": {
-                    "domainNameLabel": "[variables('susesrvpubipName')]"
+                    "domainNameLabel": "[parameters('susesrvpubipDnsName')]"
                 }
             }
         },
         {
-            "name": "[variables('chefsrvpubipName')]",
+            "name": "[parameters('ubuntusrvpubipDnsName')]",
             "type": "Microsoft.Network/publicIPAddresses",
-            "location": "[variables('location')]",
+            "location": "[parameters('location')]",
             "apiVersion": "2015-05-01-preview",
             "tags": {
-                "displayName": "[variables('chefsrvpubipName')]"
+                "displayName": "[parameters('ubuntusrvpubipDnsName')]"
             },
             "properties": {
                 "publicIPAllocationMethod": "Dynamic",
                 "dnsSettings": {
-                    "domainNameLabel": "[variables('chefsrvpubipName')]"
+                    "domainNameLabel": "[parameters('ubuntusrvpubipDnsName')]"
                 }
             }
         },
         {
-            "name": "[variables('SUSESRVName')]",
+            "name": "[parameters('suseSrvName')]",
             "type": "Microsoft.Compute/virtualMachines",
-            "location": "[variables('location')]",
+            "location": "[parameters('location')]",
             "apiVersion": "2015-05-01-preview",
             "tags": {
-                "displayName": "[variables('SUSESRVName')]"
+                "displayName": "[parameters('suseSrvName')]"
             },
             "dependsOn": [
-                "[concat('Microsoft.Storage/storageAccounts/', variables('contososusestorageName'))]",
-                "[concat('Microsoft.Network/networkInterfaces/', variables('SUSESRVNicName'))]"
+                "[concat('Microsoft.Storage/storageAccounts/', parameters('contosoLinuxStorageName'))]",
+                "[concat('Microsoft.Network/networkInterfaces/', parameters('suseSrvName'), 'NetworkInterface')]"
             ],
             "properties": {
                 "hardwareProfile": {
-                    "vmSize": "[variables('SUSESRVVmSize')]"
+                    "vmSize": "[parameters('SuseVMSize')]"
                 },
                 "osProfile": {
-                    "computername": "[variables('SUSESRVName')]",
-                    "adminUsername": "[variables('SUSESRVAdminUserName')]",
-                    "adminPassword": "[variables('SUSESRVAdminPassword')]"
+                    "computername": "[parameters('suseSrvName')]",
+                    "adminUsername": "[parameters('suseSrvAdminUsername')]",
+                    "adminPassword": "[parameters('suseSrvAdminPassword')]"
                 },
                 "storageProfile": {
                     "imageReference": {
-                        "publisher": "[variables('SUSESRVImagePublisher')]",
-                        "offer": "[variables('SUSESRVImageOffer')]",
-                        "sku": "[variables('SuseOSVersion')]",
+                        "publisher": "[parameters('suseImagePublisher')]",
+                        "offer": "[parameters('suseImageOffer')]",
+                        "sku": "[parameters('suseOSVersion')]",
                         "version": "latest"
                     },
                     "osDisk": {
-                        "name": "[variables('SUSESRVOSDiskName')]",
+                        "name": "[parameters('SuseOSDiskName')]",
                         "vhd": {
-                            "uri": "[concat('http://', variables('contososusestorageName'), '.blob.core.windows.net/', variables('SUSESRVStorageAccountContainerName'), '/', variables('SUSESRVOSDiskName'), '.vhd')]"
+                            "uri": "[concat('http://', parameters('contosoLinuxStorageName'), '.blob.core.windows.net/vhds', '/', parameters('SuseOSDiskName'), '.vhd')]"
                         },
                         "caching": "ReadWrite",
                         "createOption": "FromImage"
@@ -334,7 +446,7 @@
                 "networkProfile": {
                     "networkInterfaces": [
                         {
-                            "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('SUSESRVNicName'))]"
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('suseSrvName'), 'NetworkInterface'))]"
                         }
                     ]
                 }
@@ -342,12 +454,12 @@
             "resources": [
                 {
                     "type": "Microsoft.Compute/virtualMachines/extensions",
-                    "name": "[concat(variables('SUSESRVName'), '/' ,'InstallChefClientScript')]",
+                    "name": "[concat(parameters('suseSrvName'), '/' ,'InstallChefClientScript')]",
                     "apiVersion": "2015-05-01-preview",
-                    "location": "[variables('location')]",
+                    "location": "[parameters('location')]",
                     "dependsOn": [
-                        "[concat('Microsoft.Compute/virtualMachines/', variables('SUSESRVName'))]",
-                        "[concat('Microsoft.Compute/virtualMachines/', variables('CHEFSRVName'),'/extensions/InstallChefServerScript')]"
+                        "[concat('Microsoft.Compute/virtualMachines/', parameters('suseSrvName'))]",
+                        "[concat('Microsoft.Compute/virtualMachines/', parameters('ubuntuSrvName'),'/extensions/InstallChefServerScript')]"
                     ],
                     "properties": {
                         "publisher": "Microsoft.OSTCExtensions",
@@ -355,7 +467,7 @@
                         "typeHandlerVersion": "1.2",
                         "settings": {
                             "fileUris": [
-                                "[concat(variables('installChefClientScriptUri'))]"
+                                "[concat(parameters('installChefClientScriptUri'))]"
                             ],
                             "commandToExecute": "[concat('bash install_chef-client.sh')]"
                         }
@@ -364,37 +476,37 @@
             ]
         },
         {
-            "name": "[variables('CHEFSRVName')]",
+            "name": "[parameters('ubuntuSrvName')]",
             "type": "Microsoft.Compute/virtualMachines",
-            "location": "[variables('location')]",
+            "location": "[parameters('location')]",
             "apiVersion": "2015-05-01-preview",
             "tags": {
-                "displayName": "[variables('CHEFSRVName')]"
+                "displayName": "[parameters('ubuntuSrvName')]"
             },
             "dependsOn": [
-                "[concat('Microsoft.Storage/storageAccounts/', variables('contososusestorageName'))]",
-                "[concat('Microsoft.Network/networkInterfaces/', variables('CHEFSRVNicName'))]"
+                "[concat('Microsoft.Storage/storageAccounts/', parameters('contosoLinuxStorageName'))]",
+                "[concat('Microsoft.Network/networkInterfaces/', parameters('ubuntuSrvName'), 'NetworkInterface')]"
             ],
             "properties": {
                 "hardwareProfile": {
-                    "vmSize": "[variables('CHEFSRVVmSize')]"
+                    "vmSize": "[parameters('UbuntuVMSize')]"
                 },
                 "osProfile": {
-                    "computername": "[variables('CHEFSRVName')]",
-                    "adminUsername": "[variables('CHEFSRVAdminUserName')]",
-                    "adminPassword": "[variables('CHEFSRVAdminPassword')]"
+                    "computername": "[parameters('ubuntuSrvName')]",
+                    "adminUsername": "[parameters('ubuntuSrvAdminUsername')]",
+                    "adminPassword": "[parameters('ubuntuSrvAdminPassword')]"
                 },
                 "storageProfile": {
                     "imageReference": {
-                        "publisher": "[variables('CHEFSRVImagePublisher')]",
-                        "offer": "[variables('CHEFSRVImageOffer')]",
-                        "sku": "[variables('UbuntuOSVersion')]",
+                        "publisher": "[parameters('ubuntuImagePublisher')]",
+                        "offer": "[parameters('UbuntuImageOffer')]",
+                        "sku": "[parameters('ubuntuOSVersion')]",
                         "version": "14.04.201506100"
                     },
                     "osDisk": {
-                        "name": "[variables('CHEFSRVOSDiskName')]",
+                        "name": "[parameters('UbuntuOSDiskName')]",
                         "vhd": {
-                            "uri": "[concat('http://', variables('contososusestorageName'), '.blob.core.windows.net/', variables('CHEFSRVStorageAccountContainerName'), '/', variables('CHEFSRVOSDiskName'), '.vhd')]"
+                            "uri": "[concat('http://', parameters('contosoLinuxStorageName'), '.blob.core.windows.net/vhds', '/', parameters('UbuntuOSDiskName'), '.vhd')]"
                         },
                         "caching": "ReadWrite",
                         "createOption": "FromImage"
@@ -403,7 +515,7 @@
                 "networkProfile": {
                     "networkInterfaces": [
                         {
-                            "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('CHEFSRVNicName'))]"
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('ubuntuSrvName'), 'NetworkInterface'))]"
                         }
                     ]
                 }
@@ -411,11 +523,11 @@
             "resources": [
                 {
                     "type": "Microsoft.Compute/virtualMachines/extensions",
-                    "name": "[concat(variables('CHEFSRVName'), '/' ,'InstallChefServerScript')]",
+                    "name": "[concat(parameters('ubuntuSrvName'), '/' ,'InstallChefServerScript')]",
                     "apiVersion": "2015-05-01-preview",
-                    "location": "[variables('location')]",
+                    "location": "[parameters('location')]",
                     "dependsOn": [
-                        "[concat('Microsoft.Compute/virtualMachines/', variables('CHEFSRVName'))]"
+                        "[concat('Microsoft.Compute/virtualMachines/', parameters('ubuntuSrvName'))]"
                     ],
                     "properties": {
                         "publisher": "Microsoft.OSTCExtensions",
@@ -423,7 +535,7 @@
                         "typeHandlerVersion": "1.2",
                         "settings": {
                             "fileUris": [
-                                "[concat(variables('installChefServerScriptUri'))]"
+                                "[concat(parameters('installChefServerScriptUri'))]"
                             ],
                             "commandToExecute": "[concat('bash install_chef_server.sh')]"
                         }
