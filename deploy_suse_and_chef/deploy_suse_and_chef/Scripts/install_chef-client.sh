@@ -26,7 +26,7 @@ mkdir -p /etc/chef/trusted_certs
 knife ssl fetch https://chefsrv.westeurope.cloudapp.azure.com
 
 # Copying the Chef Server SSL to '/etc/chef/trusted_certs'
-cp /.chef/trusted_certs/chefsrv_westeurope_cloudapp_azure_com.crt /etc/chef/trusted_certs/
+cp /.chef/trusted_certs/* /etc/chef/trusted_certs/
 
 # Copying client.rb file to '/etc/chef' directory
 wget https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_suse_and_chef/deploy_suse_and_chef/Scripts/client.rb -P /etc/chef/
