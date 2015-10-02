@@ -1,32 +1,44 @@
 #!/bin/bash
-
-# Input Argument Variables
-CHEF_USERNAME="chefadmin"
-CHEF_PASSWORD="LearnChef!"
-
-
+#
+# install_chef_server.sh
+#
+# This Script is responsible for configuring an Ubuntu Server's Host File with an assigned IP Address and FQDN and then installs:
+# - Chef Server 12
+# - Chef Management Console
+# - Chef Reporting
+# - Creates the first Chef Admin User
+# - Creates the first Chef Organization on the Server
+#
+#
+# Syntax: ./install_chef_server.sh -u CHEF_USERNAME -p CHEF_PASSWORD
+#
 # Parse Script Parameters
-while getopts ":u:p:v:h" optname; do
-  log "Option $optname set with value ${OPTARG}"
-
-  case "$optname" in
-        u) # Admin user name
-                CHEF_USERNAME=${OPTARG}
-                ;;
-        p) # Admin user name
-                CHEf_PASSWORD=${OPTARG}
-                ;;
-        h)  # Helpful hints
-                help
-                exit 2
-                ;;
+while getopts ":u:p:" opt; do
+  case "${opt}" in
+        u) # Chef Admin Username
+             CHEF_USERNAME=${OPTARG}
+             ;;
+        p) # Chef Admin Password
+             CHEF_PASSWORD=${OPTARG}
+             ;;
         \?) # Unrecognised option - show help
-                echo -e \\n"Option -${BOLD}$OPTARG${NORM} not allowed."
-                help
+              echo -e \\n"Option -${BOLD}$OPTARG${NORM} not allowed. -u CHEF_USERNAME and -p CHEF_PASSWORD are the only options available."
                 exit 2
                 ;;
   esac
 done
+shift $((OPTIND-1))
+
+# Verifying the Script Parameters Values exist.
+if [ -z "${CHEF_USERNAME}" ]; then
+    echo "Chef Username must be set."
+    exit 2
+fi
+
+if [ -z "${CHEF_PASSWORD}" ]; then
+    echo "Chef Password must be set."
+    exit 2
+fi
 
 # Updating the Chef Server Hosts File
 sudo sed -i "2i10.0.1.4 chefsrv.westeurope.cloudapp.azure.com CHEFSRV" /etc/hosts

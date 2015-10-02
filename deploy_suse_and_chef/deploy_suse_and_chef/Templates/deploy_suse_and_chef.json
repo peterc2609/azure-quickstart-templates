@@ -105,17 +105,6 @@
                 "Description": "The password of the Ubuntu Server account with sudo rights."
             }
         },
-        "suseOSVersion": {
-            "type": "string",
-            "defaultValue": "12",
-            "allowedValues": [
-                "11",
-                "12"
-            ],
-            "metadata": {
-                "description": "The Suse version for the VM. This will pick a fully patched image of this given Suse version."
-            }
-        },
         "suseImagePublisher": {
             "type": "string",
             "defaultValue": "SUSE",
@@ -136,21 +125,18 @@
                 "description": "The Suse Image Offer of the Image being used for the VM."
             }
         },
-        "ubuntuOSVersion": {
+        "suseOSSku": {
             "type": "string",
-            "defaultValue": "14.04.2-LTS",
-            "allowedValues": [
-                "12.04.2-LTS",
-                "12.04.3-LTS",
-                "12.04.4-LTS",
-                "12.04.5-LTS",
-                "12.10",
-                "14.04.2-LTS",
-                "14.10",
-                "15.04"
-            ],
+            "defaultValue": "12",
             "metadata": {
-                "description": "The Ubuntu version for the VM. This will pick a fully patched image of this given Ubuntu version."
+                "description": "The Suse SKU number of the version being deployed."
+            }
+        },
+        "suseOSVersion": {
+            "type": "string",
+            "defaultValue": "latest",
+            "metadata": {
+                "description": "A fully patched image of the Suse OS version."
             }
         },
         "UbuntuImagePublisher": {
@@ -171,6 +157,20 @@
             ],
             "metadata": {
                 "description": "The Ubuntu Image Offer of the Image being used for the VM."
+            }
+        },
+        "ubuntuOSSku": {
+            "type": "string",
+            "defaultValue": "14.04.2-LTS",
+            "metadata": {
+                "description": "The Ubuntu SKU number of the version being deployed."
+            }
+        },
+        "ubuntuOSVersion": {
+            "type": "string",
+            "defaultValue": "14.04.201506100",
+            "metadata": {
+                "description": "A fully patched image of the Ubuntu OS version."
             }
         },
         "SuseOSDiskName": {
@@ -264,7 +264,7 @@
                 "description": "The location of the custom Chef Server Installation Script for the Ubuntu Server VM."
             }
         },
-        "installChefClientScriptName": {
+        "installChefServerScriptName": {
             "type": "string",
             "defaultValue": "install_chef_server.sh",
             "metadata": {
@@ -326,7 +326,7 @@
                 "[concat('Microsoft.Network/publicIPAddresses/', parameters('susesrvpubipDnsName'))]"
             ],
             "tags": {
-                "displayName": "SUSESRVNic"
+                "displayName": "[concat(parameters('suseSrvName'), 'Nic')]"
             },
             "properties": {
                 "ipConfigurations": [
@@ -356,7 +356,7 @@
                 "[concat('Microsoft.Network/publicIPAddresses/', parameters('ubuntusrvpubipDnsName'))]"
             ],
             "tags": {
-                "displayName": "CHEFSRVNic"
+                "displayName": "[concat(parameters('ubuntuSrvName'), 'Nic')]"
             },
             "properties": {
                 "ipConfigurations": [
@@ -431,8 +431,8 @@
                     "imageReference": {
                         "publisher": "[parameters('suseImagePublisher')]",
                         "offer": "[parameters('suseImageOffer')]",
-                        "sku": "[parameters('suseOSVersion')]",
-                        "version": "latest"
+                        "sku": "[parameters('suseOSSku')]",
+                        "version": "[parameters('suseOSVersion')]"
                     },
                     "osDisk": {
                         "name": "[parameters('SuseOSDiskName')]",
@@ -469,7 +469,7 @@
                             "fileUris": [
                                 "[concat(parameters('installChefClientScriptUri'))]"
                             ],
-                            "commandToExecute": "[concat('bash install_chef-client.sh')]"
+                            "commandToExecute": "[concat('bash ', parameters('installChefClientScriptName'))]"
                         }
                     }
                 }
@@ -500,8 +500,8 @@
                     "imageReference": {
                         "publisher": "[parameters('ubuntuImagePublisher')]",
                         "offer": "[parameters('UbuntuImageOffer')]",
-                        "sku": "[parameters('ubuntuOSVersion')]",
-                        "version": "14.04.201506100"
+                        "sku": "[parameters('ubuntuOSSku')]",
+                        "version": "[parameters('ubuntuOSVersion')]"
                     },
                     "osDisk": {
                         "name": "[parameters('UbuntuOSDiskName')]",
@@ -537,7 +537,7 @@
                             "fileUris": [
                                 "[concat(parameters('installChefServerScriptUri'))]"
                             ],
-                            "commandToExecute": "[concat('bash install_chef_server.sh')]"
+                            "commandToExecute": "[concat('bash ', parameters('installChefServerScriptName'))]"
                         }
                     }
                 }

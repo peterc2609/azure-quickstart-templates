@@ -264,7 +264,7 @@
                 "description": "The location of the custom Chef Server Installation Script for the Ubuntu Server VM."
             }
         },
-        "installChefClientScriptName": {
+        "installChefServerScriptName": {
             "type": "string",
             "defaultValue": "install_chef_server.sh",
             "metadata": {
@@ -326,7 +326,7 @@
                 "[concat('Microsoft.Network/publicIPAddresses/', parameters('susesrvpubipDnsName'))]"
             ],
             "tags": {
-                "displayName": "SUSESRVNic"
+                "displayName": "[concat(parameters('suseSrvName'), 'Nic')]"
             },
             "properties": {
                 "ipConfigurations": [
@@ -356,7 +356,7 @@
                 "[concat('Microsoft.Network/publicIPAddresses/', parameters('ubuntusrvpubipDnsName'))]"
             ],
             "tags": {
-                "displayName": "CHEFSRVNic"
+                "displayName": "[concat(parameters('ubuntuSrvName'), 'Nic')]"
             },
             "properties": {
                 "ipConfigurations": [
@@ -469,7 +469,7 @@
                             "fileUris": [
                                 "[concat(parameters('installChefClientScriptUri'))]"
                             ],
-                            "commandToExecute": "[concat('bash install_chef-client.sh')]"
+                            "commandToExecute": "[concat('bash ', parameters('installChefClientScriptName'))]"
                         }
                     }
                 }
@@ -537,7 +537,7 @@
                             "fileUris": [
                                 "[concat(parameters('installChefServerScriptUri'))]"
                             ],
-                            "commandToExecute": "[concat('bash install_chef_server.sh')]"
+                            "commandToExecute": "[concat('bash ', parameters('installChefServerScriptName'))]"
                         }
                     }
                 }
