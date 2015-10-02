@@ -6,7 +6,7 @@
 # - Install the Chef Client 12.4.3 (RPM)
 # - Install the ChefDK 0.8.0 (RPM)
 #
-# Syntax:  ./install_chef-client.sh -u SUSE_USERNAME -p SUSE_PASSWORD -i SUSE_IP -r SUSE_REGION -h SUSE_HOSTNAME -c CHEF_HOSTNAME
+# Syntax:  ./install_chef-client.sh -u CHEF_USERNAME -p CHEF_PASSWORD -i SUSE_IP -r SUSE_REGION -h SUSE_HOSTNAME -c CHEF_HOSTNAME
 # Example: ./install_chef-client.sh -u suseadmin -p P@ssw0rd! -i 10.0.1.44 -r westeurope -h susesrv001 -c chefsrv001
 #
 # The following scripts need to be parametrized and modified:
@@ -17,10 +17,10 @@
 while getopts ":u:p:i:r:h:c:" opt; do
   case "${opt}" in
         u) # Suse Admin Username
-             SUSE_USERNAME=${OPTARG}
+             CHEF_USERNAME=${OPTARG}
              ;;
         p) # Suse Admin Password
-             SUSE_PASSWORD=${OPTARG}
+             CHEF_PASSWORD=${OPTARG}
              ;;
         i) # Suse Server IP Address
              SUSE_IP=${OPTARG}
@@ -36,8 +36,8 @@ while getopts ":u:p:i:r:h:c:" opt; do
              ;;			 
         \?) # Unrecognised option - show help
             echo -e \\n"Option [-${BOLD}$OPTARG${NORM}] is not allowed. All Valid Options are listed below:"
-            echo -e "-u SUSE_USERNAME - Username of the Suse Server Administrator."
-            echo -e "-p SUSE_PASSWORD - Password of the Suse Server Administrator."
+            echo -e "-u CHEF_USERNAME - Username of the Suse Server Administrator."
+            echo -e "-p CHEF_PASSWORD - Password of the Suse Server Administrator."
             echo -e "-i SUSE_IP       - IP Address of the Suse Server."
             echo -e "-r SUSE_REGION   - Region where the Suse Server is being deployed in Azure."
             echo -e "-h SUSE_HOSTNAME - Hostname of the Suse Server."
@@ -51,12 +51,12 @@ done
 shift $((OPTIND-1))
 
 # Verifying the Script Parameters Values exist.
-if [ -z "${SUSE_USERNAME}" ]; then
+if [ -z "${CHEF_USERNAME}" ]; then
     echo "Suse Server Username must be provided."
     exit 2
 fi
 
-if [ -z "${SUSE_PASSWORD}" ]; then
+if [ -z "${CHEF_PASSWORD}" ]; then
     echo "Suse Server Password must be provided."
     exit 2
 fi
