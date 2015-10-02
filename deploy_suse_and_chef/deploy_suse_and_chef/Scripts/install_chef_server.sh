@@ -11,7 +11,7 @@
 #
 #
 # Syntax:  ./install_chef_server.sh -u CHEF_USERNAME -p CHEF_PASSWORD -i CHEF_IP -r CHEF_REGION -h CHEF_HOSTNAME
-# Example: ./install_chef_server.sh -u chefadmin -p P@ssw0rd! -i 10.0.1.44 -r 'West Europe' -h chefsrv001
+# Example: ./install_chef_server.sh -u chefadmin -p P@ssw0rd! -i 10.0.1.44 -r westeurope -h chefsrv001
 #
 # Parse Script Parameters
 while getopts ":u:p:i:r:h:" opt; do
@@ -36,10 +36,10 @@ while getopts ":u:p:i:r:h:" opt; do
             echo -e "-u CHEF_USERNAME - Username of the Chef Server Administrator."
             echo -e "-p CHEF_PASSWORD - Password of the Chef Server Administrator."
             echo -e "-i CHEF_IP       - IP Address of the Chef Server."
-            echo -e "-r CHEF_REGION   - Region where the Chef Server is being deployed in Azure, i.e. - East US, West US, West Europe, etc."
+            echo -e "-r CHEF_REGION   - Region where the Chef Server is being deployed in Azure."
             echo -e "-h CHEF_HOSTNAME - Hostname of the Chef Server."\\n
             echo -e "An Example of how to use this script is shown below:"
-            echo -e "./install_chef_server.sh -u chefadmin -p P@ssw0rd1! -i 10.0.1.44 -r 'West Europe' -h chefsrv001"\\n
+            echo -e "./install_chef_server.sh -u chefadmin -p P@ssw0rd1! -i 10.0.1.44 -r westeurope -h chefsrv001"\\n
             exit 2
             ;;
   esac
@@ -72,36 +72,8 @@ if [ -z "${CHEF_HOSTNAME}" ]; then
     exit 2
 fi
 
-# Parsing out the Chef Azure Region values and modifying the value accordingly.
-
-if [ "$CHEF_REGION" == "West Europe" ]; then
-    echo "changing 'West Europe' to 'westeurope'"
-    AZURE_REGION="westeurope"
-fi
-
-if [ "$CHEF_REGION" == "East US" ]; then
-    echo "changing 'East US' to 'eastus'"
-    AZURE_REGION="eastus"
-fi
-
-if [ "$CHEF_REGION" == "West US" ]; then
-    echo "changing 'West US' to 'westus'"
-    AZURE_REGION="westus"
-fi
-
-if [ "$CHEF_REGION" == "East Asia" ]; then
-    echo "changing 'East Asia' to 'eastasia'"
-    AZURE_REGION="eastasia"
-fi
-
-if [ "$CHEF_REGION" == "South East Asia" ]; then
-    echo "changing 'South East Asia' to 'seasia'"
-    AZURE_REGION="seasia"
-fi
-
 # Updating the Chef Server Hosts File
-sed -i "2i$CHEF_IP $CHEF_HOSTNAME\\.$AZURE_REGION\\.cloudapp.azure.com $CHEF_HOSTNAME" /etc/hosts
-#sudo sed -i "2i10.0.1.4 chefsrv.westeurope.cloudapp.azure.com CHEFSRV" /etc/hosts
+sed -i "2i$CHEF_IP $CHEF_HOSTNAME\\.$CHEF_REGION\\.cloudapp.azure.com $CHEF_HOSTNAME" /etc/hosts
 
 # Printing out the correct FQDN of the Server
 hostname -f
@@ -141,7 +113,7 @@ sudo opscode-reporting-ctl reconfigure
 sleep 15s
 
 # Copying the Chef Server Certificate to the chefadmin home directory for further use
-sudo cp /var/opt/opscode/nginx/ca/chefsrv.westeurope.cloudapp.azure.com.crt /home/chefadmin/
+sudo cp /var/opt/opscode/nginx/ca/$CHEF_HOSTNAME\.$CHEF_REGION\.cloudapp.azure.com.crt /home/chefadmin/
 
 # Creating First User on the Chef Server
 sudo chef-server-ctl user-create $CHEF_USERNAME Chef Admin chefadmin@devops.io $CHEF_PASSWORD --filename /home/chefadmin/chefadmin.pem

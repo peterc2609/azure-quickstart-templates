@@ -229,14 +229,14 @@
                 "description": "The is the FQDN for SSH Access into the Chef Server."
             }
         },
-        "SuseSrvNicIPAddress": {
+        "suseSrvNicIPAddress": {
             "type": "string",
             "defaultValue": "10.0.1.10",
             "metadata": {
                 "description": "The IP address of the new Chef Server VM."
             }
         },
-        "ChefSrvNicIPAddress": {
+        "ubuntuSrvNicIPAddress": {
             "type": "string",
             "defaultValue": "10.0.1.4",
             "metadata": {
@@ -334,7 +334,7 @@
                         "name": "ipconfig1",
                         "properties": {
                             "privateIPAllocationMethod": "Static",
-                            "privateIPAddress": "[parameters('SuseSrvNicIPAddress')]",
+                            "privateIPAddress": "[parameters('suseSrvNicIPAddress')]",
                             "subnet": {
                                 "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('vNetName')), '/subnets/', parameters('linuxSubnetName'))]"
                             },
@@ -364,7 +364,7 @@
                         "name": "ipconfig1",
                         "properties": {
                             "privateIPAllocationMethod": "Static",
-                            "privateIPAddress": "[parameters('ChefSrvNicIPAddress')]",
+                            "privateIPAddress": "[parameters('ubuntuSrvNicIPAddress')]",
                             "subnet": {
                                 "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('vNetName')), '/subnets/', parameters('linuxSubnetName'))]"
                             },
@@ -537,7 +537,7 @@
                             "fileUris": [
                                 "[concat(parameters('installChefServerScriptUri'))]"
                             ],
-                            "commandToExecute": "[concat('bash ', parameters('installChefServerScriptName'), ' -u ', parameters('ubuntuSrvAdminUsername'), ' -p ', parameters('ubuntuSrvAdminPassword'))]"
+                            "commandToExecute": "[concat('bash ', parameters('installChefServerScriptName'), ' -u ', parameters('ubuntuSrvAdminUsername'), ' -p ', parameters('ubuntuSrvAdminPassword'), ' -i ', parameters('ubuntuSrvNicIPAddress'), ' -r ', resourceGroup().location, ' -h ', parameters('ubuntuSrvName'))]"
                         }
                     }
                 }
