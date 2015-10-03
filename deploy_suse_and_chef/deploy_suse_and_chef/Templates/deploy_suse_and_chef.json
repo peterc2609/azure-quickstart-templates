@@ -469,7 +469,7 @@
                             "fileUris": [
                                 "[concat(parameters('installChefClientScriptUri'))]"
                             ],
-                            "commandToExecute": "[concat('bash ', parameters('installChefServerScriptName'), ' -u ', parameters('ubuntuSrvAdminUsername'), ' -p ', parameters('ubuntuSrvAdminPassword'), ' -i ', parameters('suseSrvNicIPAddress'), ' -r ', resourceGroup().location, ' -h ', parameters('suseSrvName'), ' -c ', parameters('ubuntuSrvName'))]"
+                            "commandToExecute": "[concat('bash ', parameters('installChefClientScriptName'), ' -u ', parameters('ubuntuSrvAdminUsername'), ' -p ', parameters('ubuntuSrvAdminPassword'), ' -i ', parameters('suseSrvNicIPAddress'), ' -r ', resourceGroup().location, ' -h ', parameters('suseSrvName'), ' -c ', parameters('ubuntuSrvName'))]"
                         }
                     }
                 }
