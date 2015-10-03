@@ -144,3 +144,7 @@ wget https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/mast
 # Running expect script to retrieve chefadmin user Certificate from the Chef Server
 cd /Downloads/
 /usr/bin/expect retrieve-chefadmin-user-cert.exp $CHEF_USERNAME $CHEF_PASSWORD $CHEF_HOSTNAME $AZURE_REGION 2>/dev/null
+
+# Retrieving the Chef Server Certificate
+cd /root/chef-repo/
+knife ssl fetch
