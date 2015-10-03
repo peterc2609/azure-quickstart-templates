@@ -6,7 +6,7 @@
 # - Install the Chef Client 12.4.3 (RPM)
 # - Install the ChefDK 0.8.0 (RPM)
 #
-# Syntax:  ./install_chef-client.sh -u CHEF_USERNAME -p CHEF_PASSWORD -i SUSE_IP -r SUSE_REGION -h SUSE_HOSTNAME -c CHEF_HOSTNAME
+# Syntax:  ./install_chef-client.sh -u CHEF_USERNAME -p CHEF_PASSWORD -i SUSE_IP -r AZURE_REGION -h SUSE_HOSTNAME -c CHEF_HOSTNAME
 # Example: ./install_chef-client.sh -u suseadmin -p P@ssw0rd! -i 10.0.1.44 -r westeurope -h susesrv001 -c chefsrv001
 #
 # The following scripts need to be parametrized and modified:
@@ -26,7 +26,7 @@ while getopts ":u:p:i:r:h:c:" opt; do
              SUSE_IP=${OPTARG}
              ;;
         r) # Suse Server Azure Region
-             SUSE_REGION=${OPTARG}
+             AZURE_REGION=${OPTARG}
              ;;
         h) # Suse Server Hostname
              SUSE_HOSTNAME=${OPTARG}
@@ -39,9 +39,9 @@ while getopts ":u:p:i:r:h:c:" opt; do
             echo -e "-u CHEF_USERNAME - Username of the Suse Server Administrator."
             echo -e "-p CHEF_PASSWORD - Password of the Suse Server Administrator."
             echo -e "-i SUSE_IP       - IP Address of the Suse Server."
-            echo -e "-r SUSE_REGION   - Region where the Suse Server is being deployed in Azure."
+            echo -e "-r AZURE_REGION  - Region where the Suse Server is being deployed in Azure."
             echo -e "-h SUSE_HOSTNAME - Hostname of the Suse Server."
-			echo -e "-h CHEF_HOSTNAME - Hostname of the Suse Server."\\n
+			echo -e "-h CHEF_HOSTNAME - Hostname of the Chef Server."\\n
             echo -e "An Example of how to use this script is shown below:"
             echo -e "./install_chef-client.sh -u suseadmin -p P@ssw0rd1! -i 10.0.1.44 -r westeurope -h susesrv001"\\n
             exit 2
@@ -66,7 +66,7 @@ if [ -z "${SUSE_IP}" ]; then
     exit 2
 fi
 
-if [ -z "${SUSE_REGION}" ]; then
+if [ -z "${AZURE_REGION}" ]; then
     echo "Suse Server Azure Region must be provided."
     exit 2
 fi
@@ -82,7 +82,7 @@ if [ -z "${CHEF_HOSTNAME}" ]; then
 fi
 
 # Updating the Chef Server Hosts File
-sudo sed -i "2i$SUSE_IP $SUSE_HOSTNAME\\.$SUSE_REGION\\.cloudapp.azure.com $SUSE_HOSTNAME" /etc/hosts
+sudo sed -i "2i$SUSE_IP $SUSE_HOSTNAME\\.$AZURE_REGION\\.cloudapp.azure.com $SUSE_HOSTNAME" /etc/hosts
 
 # Printing out the correct FQDN of the Server
 hostname -f
@@ -101,7 +101,7 @@ sudo rpm -Uvh chef-12.4.3-1.el6.x86_64.rpm
 mkdir -p /etc/chef/trusted_certs
 
 # Retrieving the Chef Server Certificate
-knife ssl fetch https://$CHEF_HOSTNAME\.$SUSE_REGION\.cloudapp.azure.com
+knife ssl fetch https://$CHEF_HOSTNAME\.$AZURE_REGION\.cloudapp.azure.com
 
 # Copying the Chef Server SSL to '/etc/chef/trusted_certs'
 cp /.chef/trusted_certs/* /etc/chef/trusted_certs/
@@ -114,7 +114,7 @@ wget https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/mast
 
 # Running expect script to retrieve Chef Client Validator Certificate from the Chef Server
 cd /Downloads/
-/usr/bin/expect retrieve-chef-client-validator-cert.exp
+/usr/bin/expect retrieve-chef-client-validator-cert.exp 2>/dev/null
 
 # Adding SLES Server to Chef Server
 /usr/bin/chef-client
@@ -130,9 +130,10 @@ sudo rpm -Uvh chefdk-0.8.0-1.el6.x86_64.rpm
 cd /root
 chef generate repo chef-repo
 
-# Creating the '.chef' directory in the chef-repo
+# Creating the '.chef' directory in the chef-repo and copying the Chef Server Certificate to '/root/chef-repo/.chef/trusted_certs/'
 mkdir /root/chef-repo/.chef
 cp /etc/chef/learn_chef_12_env-validator.pem /root/chef-repo/.chef/
+cp /.chef/trusted_certs/* /root/chef-repo/.chef/trusted_certs/
 
 # Copying knife.rb file to '/root/chef-repo/.chef' directory
 wget https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_suse_and_chef/deploy_suse_and_chef/Scripts/knife.rb -P /root/chef-repo/.chef/
@@ -142,4 +143,4 @@ wget https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/mast
 
 # Running expect script to retrieve chefadmin user Certificate from the Chef Server
 cd /Downloads/
-/usr/bin/expect retrieve-chefadmin-user-cert.exp
+/usr/bin/expect retrieve-chefadmin-user-cert.exp $CHEF_USERNAME $CHEF_PASSWORD $CHEF_HOSTNAME $AZURE_REGION 2>/dev/null
