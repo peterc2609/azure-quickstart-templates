@@ -18,7 +18,7 @@ All of the VMs deployed in this template are **Standard_D1**.
 
 The following Parameter Values **MUST** be **unique to your region** in Azure! If they exist in the **Azure Region** you are deploying to, the deployment will fail!
 
- - **CONTOSOSUSESTORAGENAME**
+ - **CONTOSOLINUXSTORAGENAME**
  - **SUSESRVPUBIPDNSNAME**
  - **UBUNTUSRVPUBIPDNSNAME**
 
