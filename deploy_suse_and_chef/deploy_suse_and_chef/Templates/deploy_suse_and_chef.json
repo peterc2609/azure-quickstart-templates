@@ -139,7 +139,7 @@
                 "description": "A fully patched image of the Suse OS version."
             }
         },
-        "UbuntuImagePublisher": {
+        "ubuntuImagePublisher": {
             "type": "string",
             "defaultValue": "Canonical",
             "allowedValues": [
@@ -149,7 +149,7 @@
                 "description": "The Ubuntu Image Publisher of the Image being used for the VM."
             }
         },
-        "UbuntuImageOffer": {
+        "ubuntuImageOffer": {
             "type": "string",
             "defaultValue": "UbuntuServer",
             "allowedValues": [
@@ -173,21 +173,21 @@
                 "description": "A fully patched image of the Ubuntu OS version."
             }
         },
-        "SuseOSDiskName": {
+        "suseOSDiskName": {
             "type": "string",
             "defaultValue": "SuseSrvOSDisk",
             "metadata": {
                 "description": "The Name of the Suse Server OS Disk."
             }
         },
-        "UbuntuOSDiskName": {
+        "ubuntuOSDiskName": {
             "type": "string",
             "defaultValue": "UbuntuSrvOSDisk",
             "metadata": {
                 "description": "The Name of the Ubuntu Server OS Disk."
             }
         },
-        "SuseVMSize": {
+        "suseVMSize": {
             "type": "string",
             "defaultValue": "Standard_D1",
             "allowedValues": [
@@ -201,7 +201,7 @@
                 "description": "The Size of the Suse Server VM being deployed in Azure."
             }
         },
-        "UbuntuVMSize": {
+        "ubuntuVMSize": {
             "type": "string",
             "defaultValue": "Standard_D1",
             "allowedValues": [
@@ -278,7 +278,7 @@
                 "description": "The Name of the Chef Organization being created."
             }
         },
-        "AssetLocation": {
+        "assetLocation": {
             "type": "string",
             "defaultValue": "https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_suse_and_chef",
             "metadata": {
@@ -427,7 +427,7 @@
             ],
             "properties": {
                 "hardwareProfile": {
-                    "vmSize": "[parameters('SuseVMSize')]"
+                    "vmSize": "[parameters('suseVMSize')]"
                 },
                 "osProfile": {
                     "computername": "[parameters('suseSrvName')]",
@@ -442,9 +442,9 @@
                         "version": "[parameters('suseOSVersion')]"
                     },
                     "osDisk": {
-                        "name": "[parameters('SuseOSDiskName')]",
+                        "name": "[parameters('suseOSDiskName')]",
                         "vhd": {
-                            "uri": "[concat('http://', parameters('contosoLinuxStorageName'), '.blob.core.windows.net/vhds', '/', parameters('SuseOSDiskName'), '.vhd')]"
+                            "uri": "[concat('http://', parameters('contosoLinuxStorageName'), '.blob.core.windows.net/vhds', '/', parameters('suseOSDiskName'), '.vhd')]"
                         },
                         "caching": "ReadWrite",
                         "createOption": "FromImage"
@@ -461,12 +461,12 @@
             "resources": [
                 {
                     "type": "Microsoft.Compute/virtualMachines/extensions",
-                    "name": "[concat(parameters('suseSrvName'), '/' ,'InstallChefClientScript')]",
+                    "name": "[concat(parameters('suseSrvName'), '/' ,'installChefClientScript')]",
                     "apiVersion": "2015-05-01-preview",
                     "location": "[parameters('location')]",
                     "dependsOn": [
                         "[concat('Microsoft.Compute/virtualMachines/', parameters('suseSrvName'))]",
-                        "[concat('Microsoft.Compute/virtualMachines/', parameters('ubuntuSrvName'),'/extensions/InstallChefServerScript')]"
+                        "[concat('Microsoft.Compute/virtualMachines/', parameters('ubuntuSrvName'),'/extensions/installChefServerScript')]"
                     ],
                     "properties": {
                         "publisher": "Microsoft.OSTCExtensions",
@@ -496,7 +496,7 @@
             ],
             "properties": {
                 "hardwareProfile": {
-                    "vmSize": "[parameters('UbuntuVMSize')]"
+                    "vmSize": "[parameters('ubuntuVMSize')]"
                 },
                 "osProfile": {
                     "computername": "[parameters('ubuntuSrvName')]",
@@ -506,14 +506,14 @@
                 "storageProfile": {
                     "imageReference": {
                         "publisher": "[parameters('ubuntuImagePublisher')]",
-                        "offer": "[parameters('UbuntuImageOffer')]",
+                        "offer": "[parameters('ubuntuImageOffer')]",
                         "sku": "[parameters('ubuntuOSSku')]",
                         "version": "[parameters('ubuntuOSVersion')]"
                     },
                     "osDisk": {
-                        "name": "[parameters('UbuntuOSDiskName')]",
+                        "name": "[parameters('ubuntuOSDiskName')]",
                         "vhd": {
-                            "uri": "[concat('http://', parameters('contosoLinuxStorageName'), '.blob.core.windows.net/vhds', '/', parameters('UbuntuOSDiskName'), '.vhd')]"
+                            "uri": "[concat('http://', parameters('contosoLinuxStorageName'), '.blob.core.windows.net/vhds', '/', parameters('ubuntuOSDiskName'), '.vhd')]"
                         },
                         "caching": "ReadWrite",
                         "createOption": "FromImage"
@@ -530,7 +530,7 @@
             "resources": [
                 {
                     "type": "Microsoft.Compute/virtualMachines/extensions",
-                    "name": "[concat(parameters('ubuntuSrvName'), '/' ,'InstallChefServerScript')]",
+                    "name": "[concat(parameters('ubuntuSrvName'), '/' ,'installChefServerScript')]",
                     "apiVersion": "2015-05-01-preview",
                     "location": "[parameters('location')]",
                     "dependsOn": [
