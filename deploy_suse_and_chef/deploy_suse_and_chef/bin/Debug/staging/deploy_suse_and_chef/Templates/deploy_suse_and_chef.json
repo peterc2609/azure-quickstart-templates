@@ -271,6 +271,13 @@
                 "description": "The Name of the Chef Server Installation Script."
             }
         },
+        "chefOrganization": {
+            "type": "string",
+            "defaultValue": "learn_chef_12_env",
+            "metadata": {
+                "description": "The Name of the Chef Organization being created."
+            }
+        },
         "AssetLocation": {
             "type": "string",
             "defaultValue": "https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_suse_and_chef",
@@ -469,7 +476,7 @@
                             "fileUris": [
                                 "[concat(parameters('installChefClientScriptUri'))]"
                             ],
-                            "commandToExecute": "[concat('bash ', parameters('installChefClientScriptName'), ' -u ', parameters('ubuntuSrvAdminUsername'), ' -p ', parameters('ubuntuSrvAdminPassword'), ' -i ', parameters('suseSrvNicIPAddress'), ' -r ', resourceGroup().location, ' -h ', parameters('suseSrvName'), ' -c ', parameters('ubuntuSrvName'))]"
+                            "commandToExecute": "[concat('bash ', parameters('installChefClientScriptName'), ' -u ', parameters('ubuntuSrvAdminUsername'), ' -p ', parameters('ubuntuSrvAdminPassword'), ' -i ', parameters('suseSrvNicIPAddress'), ' -r ', resourceGroup().location, ' -h ', parameters('suseSrvName'), ' -c ', parameters('ubuntuSrvName'), ' -o ', parameters('chefOrganization'))]"
                         }
                     }
                 }
@@ -537,7 +544,7 @@
                             "fileUris": [
                                 "[concat(parameters('installChefServerScriptUri'))]"
                             ],
-                            "commandToExecute": "[concat('bash ', parameters('installChefServerScriptName'), ' -u ', parameters('ubuntuSrvAdminUsername'), ' -p ', parameters('ubuntuSrvAdminPassword'), ' -i ', parameters('ubuntuSrvNicIPAddress'), ' -r ', resourceGroup().location, ' -h ', parameters('ubuntuSrvName'))]"
+                            "commandToExecute": "[concat('bash ', parameters('installChefServerScriptName'), ' -u ', parameters('ubuntuSrvAdminUsername'), ' -p ', parameters('ubuntuSrvAdminPassword'), ' -i ', parameters('ubuntuSrvNicIPAddress'), ' -r ', resourceGroup().location, ' -h ', parameters('ubuntuSrvName'), ' -o ', parameters('chefOrganization'))]"
                         }
                     }
                 }
