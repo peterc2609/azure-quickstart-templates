@@ -1,19 +1,47 @@
 #!/usr/bin/expect -f
 #
-# retrieve-chef-client-validator-cert.exp - Expect Script
+# retrieve-chef-client-validator-cert.exp
 #
-# USE AT YOUR OWN RISK!
+# This Script is responsible for retrieving the Chef Client Validator Certificate from the Chef Server.
+# Script will be required to be modified based upon the configuration of its parent script: install_chef-client.sh
+#
+# Syntax:  /usr/bin/expect retrieve-chef-client-validator-cert.exp CHEF_USERNAME CHEF_PASSWORD CHEF_HOSTNAME AZURE_REGION 2>/dev/null
+# Example: /usr/bin/expect retrieve-chef-client-validator-cert.exp chefadmin P@ssw0rd! chefsrv westeurope 2>/dev/null
+
 
 # Setting Variables
-set password "LearnChef!"
+set chefuser     [lindex $argv 0]
+set chefpass     [lindex $argv 1]
+set chefsrv      [lindex $argv 2]
+set azure_region [lindex $argv 3]
+
+if { $chefuser == "" } {
+   puts "Chef Server Admin username is required.\n"
+   exit 1
+   }
+
+if { $chefpass == "" } {
+   puts "Chef Server Admin password is required.\n"
+   exit 1
+   }
+
+if { $chefsrv == "" } {
+   puts "The Name of the Chef Server is required.\n"
+   exit 1
+   }
+
+if { $azure_region == "" } {
+   puts "The Azure Region where the Chef Server resides is required.\n"
+   exit 1
+   }
 
 # Connect to Chef Server via SCP
-spawn scp "chefadmin@chefsrv.westeurope.cloudapp.azure.com:/home/chefadmin/learn_chef_12_env-validator.pem" /etc/chef/learn_chef_12_env-validator.pem
+spawn scp "$chefuser@$chefsrv.$azure_region.cloudapp.azure.com:/home/$chefuser/learn_chef_12_env-validator.pem" /etc/chef/learn_chef_12_env-validator.pem
 
 # Expect Start
 expect {
   -re ".*word:*" {
-    exp_send "$password\r"
+    exp_send "$chefpass\r"
     exp_continue
   }
   -re ".*es.*o.*" {

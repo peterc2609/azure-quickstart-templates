@@ -114,7 +114,7 @@ wget https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/mast
 
 # Running expect script to retrieve Chef Client Validator Certificate from the Chef Server
 cd /Downloads/
-/usr/bin/expect retrieve-chef-client-validator-cert.exp 2>/dev/null
+/usr/bin/expect retrieve-chef-client-validator-cert.exp $CHEF_USERNAME $CHEF_PASSWORD $CHEF_HOSTNAME $AZURE_REGION 2>/dev/null
 
 # Adding SLES Server to Chef Server
 /usr/bin/chef-client

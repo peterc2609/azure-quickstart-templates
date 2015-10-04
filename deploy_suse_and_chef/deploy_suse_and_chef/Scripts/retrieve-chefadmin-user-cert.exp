@@ -6,8 +6,8 @@
 # Script will be required to be modified based upon the configuration of its parent script: install_chef-client.sh
 #
 # Syntax:  /usr/bin/expect retrieve-chefadmin-user-cert.exp CHEF_USERNAME CHEF_PASSWORD CHEF_HOSTNAME AZURE_REGION 2>/dev/null
-# Example: /usr/bin/expect retrieve-chefadmin-user-cert.exp chefadmin LearnChef! chefsrv westeurope 2>/dev/null
-#
+# Example: /usr/bin/expect retrieve-chefadmin-user-cert.exp chefadmin P@ssw0rd! chefsrv westeurope 2>/dev/null
+
 
 # Setting Variables
 set chefuser     [lindex $argv 0]
