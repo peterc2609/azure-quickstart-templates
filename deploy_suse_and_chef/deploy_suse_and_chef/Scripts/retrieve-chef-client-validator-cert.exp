@@ -8,7 +8,6 @@
 # Syntax:  /usr/bin/expect retrieve-chef-client-validator-cert.exp CHEF_USERNAME CHEF_PASSWORD CHEF_HOSTNAME AZURE_REGION 2>/dev/null
 # Example: /usr/bin/expect retrieve-chef-client-validator-cert.exp chefadmin P@ssw0rd! chefsrv westeurope 2>/dev/null
 
-
 # Setting Variables
 set chefuser     [lindex $argv 0]
 set chefpass     [lindex $argv 1]

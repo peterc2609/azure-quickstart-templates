@@ -6,26 +6,22 @@
 # - Install the Chef Client 12.4.3 (RPM)
 # - Install the ChefDK 0.8.0 (RPM)
 #
-# Syntax:  ./install_chef-client.sh -u CHEF_USERNAME -p CHEF_PASSWORD -i SUSE_IP -r AZURE_REGION -h SUSE_HOSTNAME -c CHEF_HOSTNAME
-# Example: ./install_chef-client.sh -u suseadmin -p P@ssw0rd! -i 10.0.1.44 -r westeurope -h susesrv001 -c chefsrv001
-#
-# The following scripts need to be parametrized and modified:
-# - retrieve-chef-client-validator-cert.exp
-# - retrieve-chefadmin-user-cert.exp
-#
+# Syntax:  ./install_chef-client.sh -u CHEF_USERNAME -p CHEF_PASSWORD -i SUSE_IP -r AZURE_REGION -h SUSE_HOSTNAME -c CHEF_HOSTNAME -o CHEF_ORG
+# Example: ./install_chef-client.sh -u chefadmin -p P@ssw0rd! -i 10.0.1.44 -r westeurope -h susesrv001 -c chefsrv001 -o learn_chef_12_env
+
 # Parse Script Parameters
-while getopts ":u:p:i:r:h:c:" opt; do
+while getopts ":u:p:i:r:h:c:o:" opt; do
   case "${opt}" in
-        u) # Suse Admin Username
+        u) # Chef Admin Username
              CHEF_USERNAME=${OPTARG}
              ;;
-        p) # Suse Admin Password
+        p) # Chef Admin Password
              CHEF_PASSWORD=${OPTARG}
              ;;
         i) # Suse Server IP Address
              SUSE_IP=${OPTARG}
              ;;
-        r) # Suse Server Azure Region
+        r) # Azure Region
              AZURE_REGION=${OPTARG}
              ;;
         h) # Suse Server Hostname
@@ -33,17 +29,21 @@ while getopts ":u:p:i:r:h:c:" opt; do
              ;;
         c) # Chef Server Hostname
              CHEF_HOSTNAME=${OPTARG}
+             ;;
+        o) # Chef Organization Name
+             CHEF_ORG=${OPTARG}
              ;;			 
         \?) # Unrecognised option - show help
             echo -e \\n"Option [-${BOLD}$OPTARG${NORM}] is not allowed. All Valid Options are listed below:"
-            echo -e "-u CHEF_USERNAME - Username of the Suse Server Administrator."
-            echo -e "-p CHEF_PASSWORD - Password of the Suse Server Administrator."
+            echo -e "-u CHEF_USERNAME - Username of the Chef Server Administrator."
+            echo -e "-p CHEF_PASSWORD - Password of the Chef Server Administrator."
             echo -e "-i SUSE_IP       - IP Address of the Suse Server."
-            echo -e "-r AZURE_REGION  - Region where the Suse Server is being deployed in Azure."
+            echo -e "-r AZURE_REGION  - Region in Azure being deployed to."
             echo -e "-h SUSE_HOSTNAME - Hostname of the Suse Server."
-			echo -e "-h CHEF_HOSTNAME - Hostname of the Chef Server."\\n
+			echo -e "-c CHEF_HOSTNAME - Hostname of the Chef Server."
+			echo -e "-o CHEF_ORG      - Chef Organization Name."\\n			
             echo -e "An Example of how to use this script is shown below:"
-            echo -e "./install_chef-client.sh -u suseadmin -p P@ssw0rd1! -i 10.0.1.44 -r westeurope -h susesrv001"\\n
+            echo -e "./install_chef-client.sh -u chefadmin -p P@ssw0rd1! -i 10.0.1.44 -r westeurope -h susesrv001 -o learn_chef_12_env"\\n
             exit 2
             ;;
   esac
@@ -52,12 +52,12 @@ shift $((OPTIND-1))
 
 # Verifying the Script Parameters Values exist.
 if [ -z "${CHEF_USERNAME}" ]; then
-    echo "Suse Server Username must be provided."
+    echo "Chef Server Username must be provided."
     exit 2
 fi
 
 if [ -z "${CHEF_PASSWORD}" ]; then
-    echo "Suse Server Password must be provided."
+    echo "Chef Server Password must be provided."
     exit 2
 fi
 
@@ -67,7 +67,7 @@ if [ -z "${SUSE_IP}" ]; then
 fi
 
 if [ -z "${AZURE_REGION}" ]; then
-    echo "Suse Server Azure Region must be provided."
+    echo "Azure Region must be provided."
     exit 2
 fi
 
@@ -78,6 +78,11 @@ fi
 
 if [ -z "${CHEF_HOSTNAME}" ]; then
     echo "Chef Server Hostname must be provided."
+    exit 2
+fi
+
+if [ -z "${CHEF_ORG}" ]; then
+    echo "Chef Organization Name must be provided."
     exit 2
 fi
 
@@ -109,6 +114,11 @@ cp /.chef/trusted_certs/* /etc/chef/trusted_certs/
 # Copying client.rb file to '/etc/chef' directory
 wget https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_suse_and_chef/deploy_suse_and_chef/Scripts/client.rb -P /etc/chef/
 
+# Modifying the 'client.rb' file from GitHub to work with the Deployed Chef Server
+sed -i "3s/.*/chef_server_url\t\t'https:\/\/$CHEF_HOSTNAME\.$AZURE_REGION\.cloudapp.azure.com\/organizations\/$CHEF_ORG'/g" /etc/chef/client.rb
+sed -i "4s/.*/validation_client_name\t'$CHEF_ORG-validator'/g" /etc/chef/client.rb
+sed -i "5s/.*/validation_key\t\t'\/etc\/chef\/$CHEF_ORG-validator.pem'/g" /etc/chef/client.rb
+
 # Copying retrieve-chef-client-validator-cert.exp expect script from GitHub 
 wget https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_suse_and_chef/deploy_suse_and_chef/Scripts/retrieve-chef-client-validator-cert.exp -P /Downloads
 
@@ -137,6 +147,13 @@ cp /.chef/trusted_certs/* /root/chef-repo/.chef/trusted_certs/
 
 # Copying knife.rb file to '/root/chef-repo/.chef' directory
 wget https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_suse_and_chef/deploy_suse_and_chef/Scripts/knife.rb -P /root/chef-repo/.chef/
+
+# Modifying the 'knife.rb' file from GitHub to work with the Deployed Chef Server
+sed -i "3s/.*/node_name\t\t'$CHEF_USERNAME'/g" /root/chef-repo/.chef/knife.rb
+sed -i "4s/.*/client_key\t\t'\/root\/chef-repo\/.chef\/$CHEF_USERNAME.pem'/g" /root/chef-repo/.chef/knife.rb
+sed -i "5s/.*/validation_client_name\t'$CHEF_ORG-validator'/g" /root/chef-repo/.chef/knife.rb
+sed -i "6s/.*/validation_key\t\t'\/root\/chef-repo\/.chef\/$CHEF_ORG-validator.pem'/g" /root/chef-repo/.chef/knife.rb
+sed -i "7s/.*/chef_server_url\t\t'https:\/\/$CHEF_HOSTNAME\.$AZURE_REGION\.cloudapp.azure.com\/organizations\/$CHEF_ORG'/g" /root/chef-repo/.chef/knife.rb
 
 # Copying retrieve-chefadmin-user-cert.exp expect script from GitHub 
 wget https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_suse_and_chef/deploy_suse_and_chef/Scripts/retrieve-chefadmin-user-cert.exp -P /Downloads
