@@ -14,36 +14,50 @@ This template provisions an environment in Azure for learning Chef.
    - Chef Client 12.4.3
    - Chef DK 0.8.0
 
- 
 All of the VMs deployed in this template are **Standard_D1**.
 
-The following Parameter Values **MUST** be **unique to your region** in Azure! If they currently exist in the region you are deploying this template into the deployment will fail!
+The following Parameter Values **MUST** be **unique to your region** in Azure! If they exist in the **Azure Region** you are deploying to, the deployment will fail!
 
  - **CONTOSOSUSESTORAGENAME**
  - **SUSESRVPUBIPDNSNAME**
- - **CHEFSRVPUBIPDNSNAME**
+ - **UBUNTUSRVPUBIPDNSNAME**
 
- 
-This template requires the following parameters which are preconfigured:
+There are zero Variables in this Template and all Parameter Values are preconfigured.
 
-
-| Name             | Description                     |
+| Name             | Description                      |
 |:-----------------| :--------------------------------|
 | LOCATION | Location name where the corresponding Azure artifacts will be created |
+| VNETNAME | Name of the Virtual Network where all of the Resources are being deployed |
 | ADDRESSPREFIX | Default Address Prefix for the entire Environment |
-| SUSESUBNETPREFIX | Address Prefix for both Hosts |
-| CONTOSOSUSESTORAGENAME | The Name of the Storage Container being deployed |
-| CONTOSOSUSESTORAGETYPE | The type of Storage being deployed |
-| SUSESRVNAME | Name of the SLES Server |
-| CHEFSRVNAME | Name of the Chef Server |
-| SUSESRVADMINUSERNAME | Admin Username of the SLES Server |
-| CHEFSRVADMINUSERNAME | Admin Username of the Chef Server |
-| SUSESRVADMINPASSWORD | Admin Password of the SLES Server |
-| CHEFSRVADMINPASSWORD | Admin Password of the Chef Server |
-| SUSEOSVERSION | Suse OS Version that the SLES Server is running |
-| UBUNTUOSVERSION | Ubuntu OS Version that the Chef Server is running |
-| SUSESRVPUBIPDNSNAME | Publicly accessible FQDN associated with the SLES Server|
-| CHEFSRVPUBIPDNSNAME | Publicly accessible FQDN associated with the Chef Server |
-| SUSESRVNICIPADDRESS | Static IP Address of the SLES Server NIC Card |
-| CHEFSRVNICIPADDRESS | Static IP Address of the Chef Server NIC Card |
+| LINUXSUBNETPREFIX | Linux Subnet Prefix |
+| LINUXSUBNETNAME | Linux Subnet Name |
+| CONTOSOLINUXSTORAGENAME | Name of the Storage Account where the Resources are being deployed |
+| CONTOSOLINUXSTORAGETYPE | The type of Storage being deployed |
+| SUSESRVNAME | The Name of the Suse Server|
+| UBUNTUSRVNAME | The Name of the Ubuntu Server |
+| SUSESRVADMINUSERNAME | Admin Username of the Suse Server |
+| UBUNTUSRVADMINUSERNAME | Admin Username of the Ubuntu Server |
+| SUSESRVADMINPASSWORD | Admin Password of the Suse Server |
+| UBUNTUSRVADMINPASSWORD | Admin Password of the Ubuntu Server |
+| SUSEIMAGEPUBLISHER | The Suse Image Publisher of the Image being used for the VM |
+| SUSEIMAGEOFFER | The Suse Image Offer of the Image being used for the VM |
+| SUSEOSSKU | The Suse SKU number of the version being deployed |
+| SUSEOSVERSION | A fully patched image of the Suse OS version |
+| UBUNTUIMAGEPUBLISHER | The Ubuntu Image Publisher of the Image being used for the VM |
+| UBUNTUIMAGEOFFER | The Ubuntu Image Offer of the Image being used for the VM |
+| UBUNTUOSSKU | The Ubuntu SKU number of the version being deployed |
+| UBUNTUOSVERSION | A fully patched image of the Ubuntu OS version |
+| SUSEOSDISKNAME | The Name of the Suse Server OS Disk |
+| UBUNTUOSDISKNAME | The Name of the Suse Server OS Disk |
+| SUSEVMSIZE | The Size of the Suse Server VM being deployed in Azure |
+| UBUNTUVMSIZE | The Size of the Ubuntu Server VM being deployed in Azure |
+| SUSESRVPUBIPDNSNAME | Publicly accessible FQDN associated with the Suse Server|
+| UBUNTUSRVPUBIPDNSNAME | Publicly accessible FQDN associated with the Ubuntu Server |
+| SUSESRVNICIPADDRESS | Static IP Address of the Suse Server NIC Card |
+| UBUNTUSRVNICIPADDRESS | Static IP Address of the UBuntu Server NIC Card |
+| INSTALLCHEFCLIENTSCRIPTURI | The location of the custom Chef Client Installation Script for the Suse Server VM |
+| INSTALLCHEFCLIENTSCRIPTNAME | The Name of the Chef Client Installation Script |
+| INSTALLCHEFSERVERSCRIPTURI | The location of the custom Chef Server Installation Script for the Ubuntu Server VM |
+| INSTALLCHEFSERVERSCRIPTNAME | The Name of the Chef Server Installation Script |
+| CHEFORGANIZATION | The Name of the Chef Organization being created |
 | ASSETLOCATION | Default Location of all Resources required to Deploy this Azure Template |
