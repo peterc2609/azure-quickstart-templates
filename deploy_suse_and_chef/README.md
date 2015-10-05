@@ -15,7 +15,8 @@ This template provisions an environment in Azure for learning Chef.
    - Chef DK 0.8.0
 
 All of the VMs deployed in this template are **Standard_D1**. 
-**Note: Deploying multiple VMs larger than **Standard_D1** using an **Azure Trial Subscription** will breach the core limit associated with the subscription type causing the deployment to **fail**!
+
+**Note:** Deploying multiple VMs larger than Standard_D1 using an **Azure Trial Subscription** will breach the core limit associated with the subscription type causing the deployment to **fail**!
 
 The following Parameter Values **MUST** be **unique to your region** in Azure! If they exist in the **Azure Region** you are deploying to, the deployment will fail!
 
