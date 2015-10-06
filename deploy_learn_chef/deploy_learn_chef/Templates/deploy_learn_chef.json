@@ -208,12 +208,12 @@
             },
             "defaultValue": "10.0.2.6"
         },
-        "AssetLocation": {
+        "assetLocation": {
             "type": "string",
             "metadata": {
                 "description": "The location of resources such as templates and DSC modules that the script is dependent"
             },
-            "defaultValue": "https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_learn_chef"
+            "defaultValue": "https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_learn_chef/deploy_learn_chef/Scripts"
         }
     },
     "variables": {
@@ -244,7 +244,7 @@
         "ChefSrvNicIPAddress": "[parameters('ChefSrvNicIPAddress')]",
         "ChefWinWksNicIPAddress": "[parameters('ChefWinWksNicIPAddress')]",
         "ChefWinSandNicIPAddress": "[parameters('ChefWinSandNicIPAddress')]",
-        "AssetLocation": "[parameters('AssetLocation')]",
+        "assetLocation": "[parameters('assetLocation')]",
         "ADDCDataDisk": "ADDCDataDisk",
         "ADDCDataDiskSize": 100,
         "CHEFWINWKSDataDisk": "CHEFWINWKSDataDisk",
@@ -278,17 +278,17 @@
         "CHEFSRVNicName": "[concat(variables('CHEFSRVName'), 'NetworkInterface')]",
         "CHEFWINWKSNicName": "[concat(variables('CHEFWINWKSName'), 'NetworkInterface')]",
         "CHEFWINSANDNicName": "[concat(variables('CHEFWINSANDName'), 'NetworkInterface')]",
-        "adModulesURL": "[concat(variables('AssetLocation'),'/CreateADPDC.ps1.zip')]",
+        "adModulesURL": "[concat(variables('assetLocation'),'/CreateADPDC.ps1.zip')]",
         "adConfigurationFunction": "CreateADPDC.ps1\\CreateADPDC",
         "adpubipName": "[parameters('adpubipDnsName')]",
         "chefsrvpubipName": "[parameters('chefsrvpubipDnsName')]",
         "chefwinwkspubipName": "[parameters('chefwinwkspubipDnsName')]",
         "chefwinsandpubipName": "[parameters('chefwinsandpubipDnsName')]",
-        "vnetwithDNSTemplateUri": "[concat(variables('AssetLocation'),'/vnet-with-dns-server.json')]",
-        "installADToolsScriptUri": "https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_learn_chef/ADDC-Custom-Configs.ps1",
-        "CHEFWINWKSCustomConfigsScriptUri": "https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_learn_chef/CHEFWINWKS-Custom-Configs.ps1",
-        "CHEFWINSANDCustomConfigsScriptUri": "https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_learn_chef/CHEFWINSAND-Custom-Configs.ps1",
-        "installChefServerScriptUri": "https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_learn_chef/install_chef_server.sh",
+        "vnetwithDNSTemplateUri": "https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_learn_chef/deploy_learn_chef/Templates/vnet-with-dns-server.json",
+        "installADToolsScriptUri": "https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_learn_chef/deploy_learn_chef/Scripts/ADDC-Custom-Configs.ps1",
+        "CHEFWINWKSCustomConfigsScriptUri": "https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_learn_chef/deploy_learn_chef/Scripts/CHEFWINWKS-Custom-Configs.ps1",
+        "CHEFWINSANDCustomConfigsScriptUri": "https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_learn_chef/deploy_learn_chef/Scripts/CHEFWINSAND-Custom-Configs.ps1",
+        "installChefServerScriptUri": "https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_learn_chef/deploy_learn_chef/Scripts/install_chef_server.sh",
         "installADToolsScriptName": "ADDC-Custom-Configs.ps1",
         "CHEFWINWKSCustomConfigsScriptName": "CHEFWINWKS-Custom-Configs.ps1",
         "CHEFWINSANDCustomConfigsScriptName": "CHEFWINSAND-Custom-Configs.ps1",
