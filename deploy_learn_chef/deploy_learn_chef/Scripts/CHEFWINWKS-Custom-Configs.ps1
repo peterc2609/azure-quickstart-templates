@@ -12,18 +12,30 @@
 - Downloads GitHub for Windows.
 - File(s) are created in 'C:\Windows\Temp' stating whether the actions listed above were successful or not.
 #>
+param (
+	[Parameter(Mandatory=$true, Position=0, HelpMessage="The Hostname of the Chef Server is required.")]
+	[String]$ChefServer,
 
+	[Parameter(Mandatory=$true, Position=1, HelpMessage="The Chef Server Administrator Username is required.")]
+	[String]$ChefUsername,
+
+	[Parameter(Mandatory=$true, Position=2, HelpMessage="The Name of the first Organization on the Chef Server is required.")]
+	[String]$ChefOrg,
+	
+	[Parameter(Mandatory=$true, Position=3, HelpMessage="The Domain Name, i.e. - contoso.corp, is required.")]
+	[String]$ADDomain
+)
 
 # Installing Active Directory Management Tools
 Install-WindowsFeature -Name RSAT-AD-Tools,RSAT-AD-PowerShell,RSAT-ADDS,RSAT-DNS-Server
 
 If ($?)
 	{
-		[System.IO.File]::Create("C:\Windows\Temp\_AD_Tools_Install_Complete.txt").Close()
+		[System.IO.File]::Create("C:\Windows\Temp\_AD_Tools_Install_Completed_Successfully.txt").Close()
 	}
 If (!$?)
 	{
-		[System.IO.File]::Create("C:\Windows\Temp\_AD_Tools_Install_Complete.txt").Close()
+		[System.IO.File]::Create("C:\Windows\Temp\_AD_Tools_Install_Failed.txt").Close()
 	}
 
 # Disabling IE ESC for Administrators on Target Host. UserKey = "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A8-37EF-4b3f-8CFC-4F3A74704073}"
@@ -150,6 +162,24 @@ If ($?)
 If (!$?)
 	{
 		[System.IO.File]::Create("C:\Windows\Temp\_knife.rb_Download_Failed.txt").Close()
+	}
+
+# Modifying the 'knife.rb' for this Environment
+$KnifeConfig = (Get-Content $ChefKnifeConfig_File)
+$KnifeConfig = $KnifeConfig -replace "node_name.+","node_name                 '$ChefUsername'"
+$KnifeConfig = $KnifeConfig -replace "client_key.+","client_key               'C:/Chef/.chef/$ChefUsername.pem'"
+$KnifeConfig = $KnifeConfig -replace "validation_client_name.+","validation_client_name   '$ChefOrg-validator'"
+$KnifeConfig = $KnifeConfig -replace "validation_key.+","validation_key           'C:/Chef/.chef/$ChefOrg-validator.pem'"
+$KnifeConfig = $KnifeConfig -replace "chef_server_url.+","chef_server_url          'https://$ChefServer.$ADDomain/organizations/$ChefOrg'"
+$KnifeConfig | Out-File $ChefKnifeConfig_File -Force
+
+If ($?)
+	{
+		[System.IO.File]::Create("C:\Windows\Temp\_knife.rb_Modified_Successfully.txt").Close()
+	}
+If (!$?)
+	{
+		[System.IO.File]::Create("C:\Windows\Temp\_knife.rb_Modified_Failed.txt").Close()
 	}
 
 # Download Notepad++
