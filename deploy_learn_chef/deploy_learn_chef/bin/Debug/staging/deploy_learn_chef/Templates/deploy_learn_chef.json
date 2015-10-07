@@ -44,28 +44,28 @@
                 "Description": "Address prefix"
             }
         },
-        "DCsubnetPrefix": {
+        "dcSubnetPrefix": {
             "type": "string",
             "defaultValue": "10.0.1.0/24",
             "metadata": {
                 "Description": "DC Subnet Prefix"
             }
         },
-        "ChefsubnetPrefix": {
+        "chefSubnetPrefix": {
             "type": "string",
             "defaultValue": "10.0.2.0/24",
             "metadata": {
                 "Description": "Chef Subnet Prefix"
             }
         },
-        "contosochefstorageName": {
+        "contosoChefStorageName": {
             "type": "string",
             "defaultValue": "contosochefstorage",
             "metadata": {
                 "Description": "Name of the Storage Account where the Resources are being deployed."
             }
         },
-        "contosochefstorageType": {
+        "contosoChefStorageType": {
             "type": "string",
             "defaultValue": "Standard_LRS",
             "allowedValues": [
@@ -77,84 +77,84 @@
                 "Description": "The Type of Storage used for the Resources being deployed."
             }
         },
-        "ADDCName": {
+        "addcName": {
             "type": "string",
             "defaultValue": "ADDC",
             "metadata": {
                 "Description": "The Name of the Active Directory Server."
             }
         },
-        "CHEFSRVName": {
+        "chefsrvName": {
             "type": "string",
             "defaultValue": "CHEFSRV",
             "metadata": {
                 "Description": "The Name of the Ubuntu Server running Chef Server 12."
             }
         },
-        "CHEFWINWKSName": {
+        "chefwinwksName": {
             "type": "string",
             "defaultValue": "CHEFWINWKS",
             "metadata": {
                 "Description": "The Name of the Chef Windows Workstation."
             }
         },
-        "CHEFWINSANDName": {
+        "chefwinsandName": {
             "type": "string",
             "defaultValue": "CHEFWINSAND",
             "metadata": {
                 "Description": "The Name of the Chef Windows Sandbox."
             }
         },
-        "ADDCAdminUserName": {
+        "addcAdminUsername": {
             "type": "string",
             "defaultValue": "adadmin",
             "metadata": {
                 "Description": "The name of the Windows Server account with local admin rights and admin rights in Active Directory."
             }
         },
-        "CHEFSRVAdminUserName": {
+        "chefsrvAdminUsername": {
             "type": "string",
             "defaultValue": "chefadmin",
             "metadata": {
                 "Description": "The name of the Ubuntu Server account with sudo rights."
             }
         },
-        "CHEFWINWKSAdminUserName": {
+        "chefwinwksAdminUsername": {
             "type": "string",
             "defaultValue": "chefadmin",
             "metadata": {
                 "Description": "The name of the Windows Server account with local admin rights."
             }
         },
-        "CHEFWINSANDAdminUserName": {
+        "chefwinsandAdminUsername": {
             "type": "string",
             "defaultValue": "chefadmin",
             "metadata": {
                 "Description": "The name of the Windows Server account with local admin rights."
             }
         },
-        "ADDCAdminPassword": {
+        "addcAdminPassword": {
             "type": "securestring",
             "defaultValue": "LearnChef!",
             "metadata": {
                 "Description": "The password of the Windows Server account with local admin rights and admin rights in Actve Directory."
             }
         },
-        "CHEFSRVAdminPassword": {
+        "chefsrvAdminPassword": {
             "type": "securestring",
             "defaultValue": "LearnChef!",
             "metadata": {
                 "Description": "The password of the Ubuntu Server account with sudo rights."
             }
         },
-        "CHEFWINWKSAdminPassword": {
+        "chefwinwksAdminPassword": {
             "type": "securestring",
             "defaultValue": "LearnChef!",
             "metadata": {
                 "Description": "The password of the Windows Server account with local admin rights."
             }
         },
-        "CHEFWINSANDAdminPassword": {
+        "chefwinsandAdminPassword": {
             "type": "securestring",
             "defaultValue": "LearnChef!",
             "metadata": {
@@ -491,7 +491,7 @@
                 "description": "This is the FQDN for RDP Access into the Chef Windows Sandbox VM."
             }
         },
-        "ADdomainNameFQDN": {
+        "adDomainNameFQDN": {
             "type": "string",
             "defaultValue": "contoso.corp",
             "metadata": {
@@ -505,21 +505,21 @@
             },
             "defaultValue": "10.0.1.4"
         },
-        "ChefSrvNicIPAddress": {
+        "chefsrvNicIPAddress": {
             "type": "string",
             "metadata": {
                 "description": "The IP address of the new Chef Server VM."
             },
             "defaultValue": "10.0.2.4"
         },
-        "ChefWinWksNicIPAddress": {
+        "chefwinwksNicIPAddress": {
             "type": "string",
             "metadata": {
                 "description": "The IP address of the new Chef Windows Workstation VM."
             },
             "defaultValue": "10.0.2.5"
         },
-        "ChefWinSandNicIPAddress": {
+        "chefwinsandNicIPAddress": {
             "type": "string",
             "metadata": {
                 "description": "The IP address of the new Chef Windows Sandbox VM."
@@ -554,28 +554,28 @@
                 "description": "The Name of the Active Directory Tools Custom Script."
             }
         },
-        "CHEFWINWKSCustomConfigsScriptUri": {
+        "chefwinwksCustomConfigsScriptUri": {
             "type": "string",
             "defaultValue": "https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_learn_chef/deploy_learn_chef/Scripts/CHEFWINWKS-Custom-Configs.ps1",
             "metadata": {
                 "description": "The location of the custom Active Directory Tools Installation Script for the Active Directory Domain Controller VM."
             }
         },
-        "CHEFWINWKSCustomConfigsScriptName": {
+        "chefwinwksCustomConfigsScriptName": {
             "type": "string",
             "defaultValue": "CHEFWINWKS-Custom-Configs.ps1",
             "metadata": {
                 "description": "The Name of the Chef Windows Workstation Custom Script."
             }
         },
-        "CHEFWINSANDCustomConfigsScriptUri": {
+        "chefwinsandCustomConfigsScriptUri": {
             "type": "string",
             "defaultValue": "https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_learn_chef/deploy_learn_chef/Scripts/CHEFWINSAND-Custom-Configs.ps1",
             "metadata": {
                 "description": "The location of the custom Active Directory Tools Installation Script for the Active Directory Domain Controller VM."
             }
         },
-        "CHEFWINSANDCustomConfigsScriptName": {
+        "chefwinsandCustomConfigsScriptName": {
             "type": "string",
             "defaultValue": "CHEFWINSAND-Custom-Configs.ps1",
             "metadata": {
@@ -613,35 +613,35 @@
                 },
                 "subnets": [
                     {
-                        "name": "DCSubnet",
+                        "name": "[parameters('dcSubnetName')]",
                         "properties": {
-                            "addressPrefix": "[parameters('DCsubnetPrefix')]"
+                            "addressPrefix": "[parameters('dcSubnetPrefix')]"
                         }
                     },
                     {
-                        "name": "ChefSubnet",
+                        "name": "[parameters('chefSubnetName')]",
                         "properties": {
-                            "addressPrefix": "[parameters('ChefsubnetPrefix')]"
+                            "addressPrefix": "[parameters('chefSubnetPrefix')]"
                         }
                     }
                 ]
             }
         },
         {
-            "name": "[parameters('contosochefstorageName')]",
+            "name": "[parameters('contosoChefStorageName')]",
             "type": "Microsoft.Storage/storageAccounts",
             "location": "[parameters('location')]",
             "apiVersion": "2015-05-01-preview",
             "dependsOn": [ ],
             "tags": {
-                "displayName": "[parameters('contosochefstorageName')]"
+                "displayName": "[parameters('contosoChefStorageName')]"
             },
             "properties": {
-                "accountType": "[parameters('contosochefstorageType')]"
+                "accountType": "[parameters('contosoChefStorageType')]"
             }
         },
         {
-            "name": "[concat(parameters('ADDCName'), 'NetworkInterface')]",
+            "name": "[concat(parameters('addcName'), 'NetworkInterface')]",
             "type": "Microsoft.Network/networkInterfaces",
             "location": "[parameters('location')]",
             "apiVersion": "2015-05-01-preview",
@@ -650,7 +650,7 @@
                 "[concat('Microsoft.Network/publicIPAddresses/', parameters('adpubipDnsName'))]"
             ],
             "tags": {
-                "displayName": "[concat(parameters('ADDCName'), 'Nic')]"
+                "displayName": "[concat(parameters('addcName'), 'Nic')]"
             },
             "properties": {
                 "ipConfigurations": [
@@ -671,7 +671,7 @@
             }
         },
         {
-            "name": "[concat(parameters('CHEFSRVName'), 'NetworkInterface')]",
+            "name": "[concat(parameters('chefsrvName'), 'NetworkInterface')]",
             "type": "Microsoft.Network/networkInterfaces",
             "location": "[parameters('location')]",
             "apiVersion": "2015-05-01-preview",
@@ -680,14 +680,15 @@
                 "[concat('Microsoft.Network/publicIPAddresses/', parameters('chefsrvpubipDnsName'))]"
             ],
             "tags": {
-                "displayName": "[concat(parameters('CHEFSRVName'), 'Nic')]"
+                "displayName": "[concat(parameters('chefsrvName'), 'Nic')]"
             },
             "properties": {
                 "ipConfigurations": [
                     {
                         "name": "ipconfig1",
                         "properties": {
-                            "privateIPAllocationMethod": "Dynamic",
+                            "privateIPAllocationMethod": "Static",
+                            "privateIPAddress": "[parameters('chefsrvNicIPAddress')]",
                             "subnet": {
                                 "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('vNetName')), '/subnets/', parameters('chefSubnetName'))]"
                             },
@@ -700,7 +701,7 @@
             }
         },
         {
-            "name": "[concat(parameters('CHEFWINWKSName'), 'NetworkInterface')]",
+            "name": "[concat(parameters('chefwinwksName'), 'NetworkInterface')]",
             "type": "Microsoft.Network/networkInterfaces",
             "location": "[parameters('location')]",
             "apiVersion": "2015-05-01-preview",
@@ -709,7 +710,7 @@
                 "[concat('Microsoft.Network/publicIPAddresses/', parameters('chefwinwkspubipDnsName'))]"
             ],
             "tags": {
-                "displayName": "[concat(parameters('CHEFWINWKSName'), 'Nic')]"
+                "displayName": "[concat(parameters('chefwinwksName'), 'Nic')]"
             },
             "properties": {
                 "ipConfigurations": [
@@ -717,7 +718,7 @@
                         "name": "ipconfig1",
                         "properties": {
                             "privateIPAllocationMethod": "Static",
-                            "privateIPAddress": "[parameters('ChefWinWksNicIPAddress')]",
+                            "privateIPAddress": "[parameters('chefwinwksNicIPAddress')]",
                             "subnet": {
                                 "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('vNetName')), '/subnets/', parameters('chefSubnetName'))]"
                             },
@@ -728,13 +729,13 @@
                     }
                 ],
                 "dnsSettings": {
-                    "domainNameLabel": "[parameters('ADdomainNameFQDN')]",
+                    "domainNameLabel": "[parameters('adDomainNameFQDN')]",
                     "dnsServers": [ "[parameters('adNicIPAddress')]" ]
                 }
             }
         },
         {
-            "name": "[concat(parameters('CHEFWINSANDName'), 'NetworkInterface')]",
+            "name": "[concat(parameters('chefwinsandName'), 'NetworkInterface')]",
             "type": "Microsoft.Network/networkInterfaces",
             "location": "[parameters('location')]",
             "apiVersion": "2015-05-01-preview",
@@ -743,7 +744,7 @@
                 "[concat('Microsoft.Network/publicIPAddresses/', parameters('chefwinsandpubipDnsName'))]"
             ],
             "tags": {
-                "displayName": "[concat(parameters('CHEFWINSANDName'), 'Nic')]"
+                "displayName": "[concat(parameters('chefwinsandName'), 'Nic')]"
             },
             "properties": {
                 "ipConfigurations": [
@@ -751,7 +752,7 @@
                         "name": "ipconfig1",
                         "properties": {
                             "privateIPAllocationMethod": "Static",
-                            "privateIPAddress": "[parameters('ChefWinSandNicIPAddress')]",
+                            "privateIPAddress": "[parameters('chefwinsandNicIPAddress')]",
                             "subnet": {
                                 "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('vNetName')), '/subnets/', parameters('chefSubnetName'))]"
                             },
@@ -762,7 +763,7 @@
                     }
                 ],
                 "dnsSettings": {
-                    "domainNameLabel": "[parameters('ADdomainNameFQDN')]",
+                    "domainNameLabel": "[parameters('adDomainNameFQDN')]",
                     "dnsServers": [ "[parameters('adNicIPAddress')]" ]
                 }
             }
@@ -774,7 +775,7 @@
             "apiVersion": "2015-05-01-preview",
             "dependsOn": [ ],
             "tags": {
-                "displayName": "adpubip"
+                "displayName": "[parameters('adpubipDnsName')]"
             },
             "properties": {
                 "publicIPAllocationMethod": "Dynamic",
@@ -789,7 +790,7 @@
             "location": "[parameters('location')]",
             "apiVersion": "2015-05-01-preview",
             "tags": {
-                "displayName": "chefsrvpubip"
+                "displayName": "[parameters('chefsrvpubipDnsName')]"
             },
             "properties": {
                 "publicIPAllocationMethod": "Dynamic",
@@ -804,7 +805,7 @@
             "location": "[parameters('location')]",
             "apiVersion": "2015-05-01-preview",
             "tags": {
-                "displayName": "chefwinwkspubip"
+                "displayName": "[parameters('chefwinwkspubipDnsName')]"
             },
             "properties": {
                 "publicIPAllocationMethod": "Dynamic",
@@ -819,7 +820,7 @@
             "location": "[parameters('location')]",
             "apiVersion": "2015-05-01-preview",
             "tags": {
-                "displayName": "chefwinsandpubip"
+                "displayName": "[parameters('chefwinsandpubipDnsName')]"
             },
             "properties": {
                 "publicIPAllocationMethod": "Dynamic",
@@ -829,25 +830,25 @@
             }
         },
         {
-            "name": "[parameters('ADDCName')]",
+            "name": "[parameters('addcName')]",
             "type": "Microsoft.Compute/virtualMachines",
             "location": "[parameters('location')]",
             "apiVersion": "2015-05-01-preview",
             "dependsOn": [
-                "[concat('Microsoft.Storage/storageAccounts/', parameters('contosochefstorageName'))]",
-                "[concat('Microsoft.Network/networkInterfaces/', parameters('ADDCName'), 'NetworkInterface')]"
+                "[concat('Microsoft.Storage/storageAccounts/', parameters('contosoChefStorageName'))]",
+                "[concat('Microsoft.Network/networkInterfaces/', parameters('addcName'), 'NetworkInterface')]"
             ],
             "tags": {
-                "displayName": "ADDC"
+                "displayName": "[parameters('addcName')]"
             },
             "properties": {
                 "hardwareProfile": {
                     "vmSize": "[parameters('addcVMSize')]"
                 },
                 "osProfile": {
-                    "computername": "[parameters('ADDCName')]",
-                    "adminUsername": "[parameters('ADDCAdminUserName')]",
-                    "adminPassword": "[parameters('ADDCAdminPassword')]"
+                    "computername": "[parameters('addcName')]",
+                    "adminUsername": "[parameters('addcAdminUsername')]",
+                    "adminPassword": "[parameters('addcAdminPassword')]"
                 },
                 "storageProfile": {
                     "imageReference": {
@@ -859,7 +860,7 @@
                     "osDisk": {
                         "name": "[parameters('addcOSDiskName')]",
                         "vhd": {
-                            "uri": "[concat('http://', parameters('contosochefstorageName'), '.blob.core.windows.net/vhds', '/', parameters('addcOSDiskName'), '.vhd')]"
+                            "uri": "[concat('http://', parameters('contosoChefStorageName'), '.blob.core.windows.net/vhds', '/', parameters('addcOSDiskName'), '.vhd')]"
                         },
                         "caching": "ReadWrite",
                         "createOption": "FromImage"
@@ -867,9 +868,9 @@
                     "dataDisks": [
                         {
                             "vhd": {
-                                "uri": "[concat('http://', parameters('contosochefstorageName'), '.blob.core.windows.net/vhds', '/', parameters('addcDataDiskName'),'-1.vhd')]"
+                                "uri": "[concat('http://', parameters('contosoChefStorageName'), '.blob.core.windows.net/vhds', '/', parameters('addcDataDiskName'),'-1.vhd')]"
                             },
-                            "name": "[concat(parameters('ADDCName'),'-data-disk1')]",
+                            "name": "[concat(parameters('addcName'),'-data-disk1')]",
                             "caching": "None",
                             "createOption": "empty",
                             "diskSizeGB": "[parameters('addcDataDiskSize')]",
@@ -880,7 +881,7 @@
                 "networkProfile": {
                     "networkInterfaces": [
                         {
-                            "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('ADDCName'), 'NetworkInterface'))]"
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('addcName'), 'NetworkInterface'))]"
                         }
                     ]
                 }
@@ -888,11 +889,11 @@
             "resources": [
                 {
                     "type": "Microsoft.Compute/virtualMachines/extensions",
-                    "name": "[concat(parameters('ADDCName'),'/CreateADForest')]",
+                    "name": "[concat(parameters('addcName'),'/CreateADForest')]",
                     "apiVersion": "2015-05-01-preview",
                     "location": "[parameters('location')]",
                     "dependsOn": [
-                        "[resourceId('Microsoft.Compute/virtualMachines', parameters('ADDCName'))]"
+                        "[resourceId('Microsoft.Compute/virtualMachines', parameters('addcName'))]"
                     ],
                     "properties": {
                         "publisher": "Microsoft.Powershell",
@@ -902,27 +903,27 @@
                             "ModulesUrl": "[concat(parameters('assetLocation'),'/CreateADPDC.ps1.zip')]",
                             "ConfigurationFunction": "CreateADPDC.ps1\\CreateADPDC",
                             "Properties": {
-                                "DomainName": "[parameters('ADdomainNameFQDN')]",
+                                "DomainName": "[parameters('adDomainNameFQDN')]",
                                 "AdminCreds": {
-                                    "UserName": "[parameters('ADDCAdminUserName')]",
+                                    "UserName": "[parameters('addcAdminUsername')]",
                                     "Password": "PrivateSettingsRef:AdminPassword"
                                 }
                             }
                         },
                         "protectedSettings": {
                             "Items": {
-                                "AdminPassword": "[parameters('ADDCAdminPassword')]"
+                                "AdminPassword": "[parameters('addcAdminPassword')]"
                             }
                         }
                     },
                     "resources": [
                         {
                             "type": "Microsoft.Compute/virtualMachines/extensions",
-                            "name": "[concat(parameters('ADDCName'), '/' ,'ADDCCustomConfigsScript')]",
+                            "name": "[concat(parameters('addcName'), '/' ,'ADDCCustomConfigsScript')]",
                             "apiVersion": "2015-05-01-preview",
                             "location": "[parameters('location')]",
                             "dependsOn": [
-                                "[concat('Microsoft.Compute/virtualMachines/', parameters('ADDCName'),'/extensions/CreateADForest')]"
+                                "[concat('Microsoft.Compute/virtualMachines/', parameters('addcName'),'/extensions/CreateADForest')]"
                             ],
                             "properties": {
                                 "publisher": "Microsoft.Compute",
@@ -939,25 +940,25 @@
             ]
         },
         {
-            "name": "[parameters('CHEFSRVName')]",
+            "name": "[parameters('chefsrvName')]",
             "type": "Microsoft.Compute/virtualMachines",
             "location": "[parameters('location')]",
             "apiVersion": "2015-05-01-preview",
             "tags": {
-                "displayName": "CHEFSRV"
+                "displayName": "[parameters('chefsrvName')]"
             },
             "dependsOn": [
-                "[concat('Microsoft.Storage/storageAccounts/', parameters('contosochefstorageName'))]",
-                "[concat('Microsoft.Network/networkInterfaces/', parameters('CHEFSRVName'), 'NetworkInterface')]"
+                "[concat('Microsoft.Storage/storageAccounts/', parameters('contosoChefStorageName'))]",
+                "[concat('Microsoft.Network/networkInterfaces/', parameters('chefsrvName'), 'NetworkInterface')]"
             ],
             "properties": {
                 "hardwareProfile": {
                     "vmSize": "[parameters('chefsrvVMSize')]"
                 },
                 "osProfile": {
-                    "computername": "[parameters('CHEFSRVName')]",
-                    "adminUsername": "[parameters('CHEFSRVAdminUserName')]",
-                    "adminPassword": "[parameters('CHEFSRVAdminPassword')]"
+                    "computername": "[parameters('chefsrvName')]",
+                    "adminUsername": "[parameters('chefsrvAdminUsername')]",
+                    "adminPassword": "[parameters('chefsrvAdminPassword')]"
                 },
                 "storageProfile": {
                     "imageReference": {
@@ -969,7 +970,7 @@
                     "osDisk": {
                         "name": "[parameters('chefsrvOSDiskName')]",
                         "vhd": {
-                            "uri": "[concat('http://', parameters('contosochefstorageName'), '.blob.core.windows.net/vhds', '/', parameters('chefsrvOSDiskName'), '.vhd')]"
+                            "uri": "[concat('http://', parameters('contosoChefStorageName'), '.blob.core.windows.net/vhds', '/', parameters('chefsrvOSDiskName'), '.vhd')]"
                         },
                         "caching": "ReadWrite",
                         "createOption": "FromImage"
@@ -978,7 +979,7 @@
                 "networkProfile": {
                     "networkInterfaces": [
                         {
-                            "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('CHEFSRVName'), 'NetworkInterface'))]"
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('chefsrvName'), 'NetworkInterface'))]"
                         }
                     ]
                 }
@@ -986,11 +987,11 @@
             "resources": [
                 {
                     "type": "Microsoft.Compute/virtualMachines/extensions",
-                    "name": "[concat(parameters('CHEFSRVName'), '/' ,'installchefserverscript')]",
+                    "name": "[concat(parameters('chefsrvName'), '/' ,'installchefserverscript')]",
                     "apiVersion": "2015-05-01-preview",
                     "location": "[parameters('location')]",
                     "dependsOn": [
-                        "[concat('Microsoft.Compute/virtualMachines/', parameters('CHEFSRVName'))]"
+                        "[concat('Microsoft.Compute/virtualMachines/', parameters('chefsrvName'))]"
                     ],
                     "properties": {
                         "publisher": "Microsoft.OSTCExtensions",
@@ -1007,24 +1008,24 @@
             ]
         },
         {
-            "name": "[parameters('CHEFWINWKSName')]",
+            "name": "[parameters('chefwinwksName')]",
             "type": "Microsoft.Compute/virtualMachines",
             "location": "[parameters('location')]",
             "apiVersion": "2015-05-01-preview",
             "dependsOn": [
-                "[concat('Microsoft.Storage/storageAccounts/', parameters('contosochefstorageName'))]",
-                "[concat('Microsoft.Network/networkInterfaces/', parameters('CHEFWINWKSName'), 'NetworkInterface')]"
+                "[concat('Microsoft.Storage/storageAccounts/', parameters('contosoChefStorageName'))]",
+                "[concat('Microsoft.Network/networkInterfaces/', parameters('chefwinwksName'), 'NetworkInterface')]"
             ],
             "tags": {
-                "displayName": "CHEFWINWKS"
+                "displayName": "[parameters('chefwinwksName')]"
             },
             "properties": {
                 "hardwareProfile": {
                     "vmSize": "[parameters('chefwinwksVMSize')]"
                 },
                 "osProfile": {
-                    "computername": "[parameters('CHEFWINWKSName')]",
-                    "adminUsername": "[parameters('CHEFWINWKSAdminUserName')]",
+                    "computername": "[parameters('chefwinwksName')]",
+                    "adminUsername": "[parameters('chefwinwksAdminUsername')]",
                     "adminPassword": "[parameters('CHEFWINWKSAdminPassword')]"
                 },
                 "storageProfile": {
@@ -1037,7 +1038,7 @@
                     "osDisk": {
                         "name": "[parameters('chefwinwksOSDiskName')]",
                         "vhd": {
-                            "uri": "[concat('http://', parameters('contosochefstorageName'), '.blob.core.windows.net/vhds', '/', parameters('chefwinwksOSDiskName'), '.vhd')]"
+                            "uri": "[concat('http://', parameters('contosoChefStorageName'), '.blob.core.windows.net/vhds', '/', parameters('chefwinwksOSDiskName'), '.vhd')]"
                         },
                         "caching": "ReadWrite",
                         "createOption": "FromImage"
@@ -1045,9 +1046,9 @@
                     "dataDisks": [
                         {
                             "vhd": {
-                                "uri": "[concat('http://', parameters('contosochefstorageName'), '.blob.core.windows.net/vhds', '/', parameters('chefwinwksDataDiskName'),'-1.vhd')]"
+                                "uri": "[concat('http://', parameters('contosoChefStorageName'), '.blob.core.windows.net/vhds', '/', parameters('chefwinwksDataDiskName'),'-1.vhd')]"
                             },
-                            "name": "[concat(parameters('CHEFWINWKSName'),'-data-disk1')]",
+                            "name": "[concat(parameters('chefwinwksName'),'-data-disk1')]",
                             "caching": "None",
                             "createOption": "empty",
                             "diskSizeGB": "[parameters('chefwinwksDataDiskSize')]",
@@ -1058,7 +1059,7 @@
                 "networkProfile": {
                     "networkInterfaces": [
                         {
-                            "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('CHEFWINWKSName'), 'NetworkInterface'))]"
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('chefwinwksName'), 'NetworkInterface'))]"
                         }
                     ]
                 }
@@ -1066,12 +1067,12 @@
             "resources": [
                 {
                     "type": "Microsoft.Compute/virtualMachines/extensions",
-                    "name": "[concat(parameters('CHEFWINWKSName'), '/' ,'CHEFWINWKSCustomConfigsScript')]",
+                    "name": "[concat(parameters('chefwinwksName'), '/' ,'CHEFWINWKSCustomConfigsScript')]",
                     "apiVersion": "2015-05-01-preview",
                     "location": "[parameters('location')]",
                     "dependsOn": [
-                        "[resourceId('Microsoft.Compute/virtualMachines', parameters('CHEFWINWKSName'))]",
-                        "[concat('Microsoft.Compute/virtualMachines/', parameters('ADDCName'),'/extensions/CreateADForest')]",
+                        "[resourceId('Microsoft.Compute/virtualMachines', parameters('chefwinwksName'))]",
+                        "[concat('Microsoft.Compute/virtualMachines/', parameters('addcName'),'/extensions/CreateADForest')]",
                         "Microsoft.Resources/deployments/UpdateDCVNetDNS"
                     ],
                     "properties": {
@@ -1079,8 +1080,8 @@
                         "type": "CustomScriptExtension",
                         "typeHandlerVersion": "1.4",
                         "settings": {
-                            "fileUris": [ "[parameters('CHEFWINWKSCustomConfigsScriptUri')]" ],
-                            "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -file ',parameters('CHEFWINWKSCustomConfigsScriptName'))]"
+                            "fileUris": [ "[parameters('chefwinwksCustomConfigsScriptUri')]" ],
+                            "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -file ',parameters('chefwinwksCustomConfigsScriptName'))]"
                         }
                     }
                 },
@@ -1090,10 +1091,10 @@
                     "apiVersion": "2015-05-01-preview",
                     "location": "[resourceGroup().location]",
                     "dependsOn": [
-                        "[resourceId('Microsoft.Compute/virtualMachines', parameters('CHEFWINWKSName'))]",
-                        "[concat('Microsoft.Compute/virtualMachines/', parameters('ADDCName'),'/extensions/CreateADForest')]",
+                        "[resourceId('Microsoft.Compute/virtualMachines', parameters('chefwinwksName'))]",
+                        "[concat('Microsoft.Compute/virtualMachines/', parameters('addcName'),'/extensions/CreateADForest')]",
                         "Microsoft.Resources/deployments/UpdateDCVNetDNS",
-                        "[concat('Microsoft.Compute/virtualMachines/', parameters('CHEFWINWKSName'),'/extensions/CHEFWINWKSCustomConfigsScript')]"
+                        "[concat('Microsoft.Compute/virtualMachines/', parameters('chefwinwksName'),'/extensions/CHEFWINWKSCustomConfigsScript')]"
                     ],
                     "properties": {
                         "publisher": "Microsoft.Powershell",
@@ -1105,7 +1106,7 @@
                             "Properties": {
                                 "DomainName": "[parameters('AdDomainNameFQDN')]",
                                 "AdminCreds": {
-                                    "UserName": "[parameters('ADDCAdminUserName')]",
+                                    "UserName": "[parameters('addcAdminUsername')]",
                                     "Password": "PrivateSettingsRef:adminPassword"
                                 }
                             }
@@ -1120,25 +1121,25 @@
             ]
         },
         {
-            "name": "[parameters('CHEFWINSANDName')]",
+            "name": "[parameters('chefwinsandName')]",
             "type": "Microsoft.Compute/virtualMachines",
             "location": "[parameters('location')]",
             "apiVersion": "2015-05-01-preview",
             "dependsOn": [
-                "[concat('Microsoft.Storage/storageAccounts/', parameters('contosochefstorageName'))]",
-                "[concat('Microsoft.Network/networkInterfaces/', parameters('CHEFWINSANDName'), 'NetworkInterface')]"
+                "[concat('Microsoft.Storage/storageAccounts/', parameters('contosoChefStorageName'))]",
+                "[concat('Microsoft.Network/networkInterfaces/', parameters('chefwinsandName'), 'NetworkInterface')]"
             ],
             "tags": {
-                "displayName": "CHEFWINSAND"
+                "displayName": "[parameters('chefwinsandName')]"
             },
             "properties": {
                 "hardwareProfile": {
                     "vmSize": "[parameters('chefwinsandVMSize')]"
                 },
                 "osProfile": {
-                    "computername": "[parameters('CHEFWINSANDName')]",
-                    "adminUsername": "[parameters('CHEFWINSANDAdminUserName')]",
-                    "adminPassword": "[parameters('CHEFWINSANDAdminPassword')]"
+                    "computername": "[parameters('chefwinsandName')]",
+                    "adminUsername": "[parameters('chefwinsandAdminUsername')]",
+                    "adminPassword": "[parameters('chefwinsandAdminPassword')]"
                 },
                 "storageProfile": {
                     "imageReference": {
@@ -1150,7 +1151,7 @@
                     "osDisk": {
                         "name": "[parameters('chefwinsandOSDiskName')]",
                         "vhd": {
-                            "uri": "[concat('http://', parameters('contosochefstorageName'), '.blob.core.windows.net/vhds', '/', parameters('chefwinsandOSDiskName'), '.vhd')]"
+                            "uri": "[concat('http://', parameters('contosoChefStorageName'), '.blob.core.windows.net/vhds', '/', parameters('chefwinsandOSDiskName'), '.vhd')]"
                         },
                         "caching": "ReadWrite",
                         "createOption": "FromImage"
@@ -1158,9 +1159,9 @@
                     "dataDisks": [
                         {
                             "vhd": {
-                                "uri": "[concat('http://', parameters('contosochefstorageName'), '.blob.core.windows.net/vhds', '/', parameters('chefwinsandDataDiskName'),'-1.vhd')]"
+                                "uri": "[concat('http://', parameters('contosoChefStorageName'), '.blob.core.windows.net/vhds', '/', parameters('chefwinsandDataDiskName'),'-1.vhd')]"
                             },
-                            "name": "[concat(parameters('CHEFWINSANDName'),'-data-disk1')]",
+                            "name": "[concat(parameters('chefwinsandName'),'-data-disk1')]",
                             "caching": "None",
                             "createOption": "empty",
                             "diskSizeGB": "[parameters('chefwinsandDataDiskSize')]",
@@ -1171,7 +1172,7 @@
                 "networkProfile": {
                     "networkInterfaces": [
                         {
-                            "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('CHEFWINSANDName'), 'NetworkInterface'))]"
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('chefwinsandName'), 'NetworkInterface'))]"
                         }
                     ]
                 }
@@ -1179,12 +1180,12 @@
             "resources": [
                 {
                     "type": "Microsoft.Compute/virtualMachines/extensions",
-                    "name": "[concat(parameters('CHEFWINSANDName'), '/' ,'CHEFWINSANDCustomConfigsScript')]",
+                    "name": "[concat(parameters('chefwinsandName'), '/' ,'CHEFWINSANDCustomConfigsScript')]",
                     "apiVersion": "2015-05-01-preview",
                     "location": "[parameters('location')]",
                     "dependsOn": [
-                        "[resourceId('Microsoft.Compute/virtualMachines', parameters('CHEFWINSANDName'))]",
-                        "[concat('Microsoft.Compute/virtualMachines/', parameters('ADDCName'),'/extensions/CreateADForest')]",
+                        "[resourceId('Microsoft.Compute/virtualMachines', parameters('chefwinsandName'))]",
+                        "[concat('Microsoft.Compute/virtualMachines/', parameters('addcName'),'/extensions/CreateADForest')]",
                         "Microsoft.Resources/deployments/UpdateDCVNetDNS"
                     ],
                     "properties": {
@@ -1192,8 +1193,8 @@
                         "type": "CustomScriptExtension",
                         "typeHandlerVersion": "1.4",
                         "settings": {
-                            "fileUris": [ "[parameters('CHEFWINSANDCustomConfigsScriptUri')]" ],
-                            "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -file ',parameters('CHEFWINSANDCustomConfigsScriptName'))]"
+                            "fileUris": [ "[parameters('chefwinsandCustomConfigsScriptUri')]" ],
+                            "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -file ',parameters('chefwinsandCustomConfigsScriptName'))]"
                         }
                     }
                 },
@@ -1203,10 +1204,10 @@
                     "apiVersion": "2015-05-01-preview",
                     "location": "[resourceGroup().location]",
                     "dependsOn": [
-                        "[resourceId('Microsoft.Compute/virtualMachines', parameters('CHEFWINSANDName'))]",
-                        "[concat('Microsoft.Compute/virtualMachines/', parameters('ADDCName'),'/extensions/CreateADForest')]",
+                        "[resourceId('Microsoft.Compute/virtualMachines', parameters('chefwinsandName'))]",
+                        "[concat('Microsoft.Compute/virtualMachines/', parameters('addcName'),'/extensions/CreateADForest')]",
                         "Microsoft.Resources/deployments/UpdateDCVNetDNS",
-                        "[concat('Microsoft.Compute/virtualMachines/', parameters('CHEFWINSANDName'),'/extensions/CHEFWINSANDCustomConfigsScript')]"
+                        "[concat('Microsoft.Compute/virtualMachines/', parameters('chefwinsandName'),'/extensions/CHEFWINSANDCustomConfigsScript')]"
                     ],
                     "properties": {
                         "publisher": "Microsoft.Powershell",
@@ -1218,14 +1219,14 @@
                             "Properties": {
                                 "DomainName": "[parameters('AdDomainNameFQDN')]",
                                 "AdminCreds": {
-                                    "UserName": "[parameters('ADDCAdminUserName')]",
+                                    "UserName": "[parameters('addcAdminUsername')]",
                                     "Password": "PrivateSettingsRef:adminPassword"
                                 }
                             }
                         },
                         "protectedSettings": {
                             "Items": {
-                                "adminPassword": "[parameters('CHEFWINSANDAdminPassword')]"
+                                "adminPassword": "[parameters('chefwinsandAdminPassword')]"
                             }
                         }
                     }
@@ -1237,7 +1238,7 @@
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2015-01-01",
             "dependsOn": [
-                "[concat('Microsoft.Compute/virtualMachines/', parameters('ADDCName'),'/extensions/CreateADForest')]"
+                "[concat('Microsoft.Compute/virtualMachines/', parameters('addcName'),'/extensions/CreateADForest')]"
             ],
             "properties": {
                 "mode": "Incremental",
@@ -1259,7 +1260,7 @@
                         "value": "DCSubnet"
                     },
                     "subnetRange": {
-                        "value": "[parameters('DCsubnetPrefix')]"
+                        "value": "[parameters('dcSubnetPrefix')]"
                     },
                     "DNSServerAddress": {
                         "value": [
