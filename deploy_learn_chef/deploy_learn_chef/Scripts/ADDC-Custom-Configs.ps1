@@ -88,8 +88,17 @@ If (!$?)
 		[System.IO.File]::Create("C:\Windows\Temp\_IIS_Enabled_Failed.txt").Close()
 	}
 
+# Parsing the Domain Name into a LDAP String to create the SQL Administrator Domain Account
+$LDAPString = "CN=Users"
+$DomainName = $ADDomain.Split('.')
+
+ForEach ($Section in $DomainName)
+	{
+		$LDAPString += ",DC=$($Section)"
+	}
+
 # Creating SQL Administrator Domain Account  for the Install_SQL_Server_2014_SP1 Chef Cookbook.
-New-ADUser -Name $SQLUsername -AccountPassword (ConvertTo-SecureString -AsPlainText $SQLPassword -Force) -Path "CN=Users,DC=contoso,DC=corp" -PasswordNeverExpires $true -ChangePasswordAtLogon $false -Enabled $true
+New-ADUser -Name $SQLUsername -AccountPassword (ConvertTo-SecureString -AsPlainText $SQLPassword -Force) -Path $LDAPString -PasswordNeverExpires $true -ChangePasswordAtLogon $false -Enabled $true
 
 If ($?)
 	{
