@@ -10,7 +10,22 @@
 - Creates 'C:\Chef\trusted_certs' directory for the Chef Client.
 - File(s) are created in 'C:\Windows\Temp' stating whether the actions listed above were successful or not.
 #>
+param (
+	[Parameter(Mandatory=$true, Position=0, HelpMessage="The Hostname of the Chef Server is required.")]
+	[String]$ChefSrv,
+	
+	[Parameter(Mandatory=$true, Position=1, HelpMessage="The Domain Name, i.e. - contoso.corp, is required.")]
+	[String]$ADDomain,
 
+	[Parameter(Mandatory=$true, Position=2, HelpMessage="The IP Address of the Chef Server is required.")]
+	[String]$ChefSrvIP,
+
+	[Parameter(Mandatory=$true, Position=3, HelpMessage="The name of the SQL User to be created in Active Directory is required.")]
+	[String]$SQLUsername,
+	
+	[Parameter(Mandatory=$true, Position=4, HelpMessage="The password of the SQL User to be created in Active Directory is required.")]
+	[String]$SQLPassword
+)	
 
 # Installing Active Directory Management Tools
 Install-WindowsFeature -Name RSAT-AD-Tools,RSAT-AD-PowerShell,RSAT-ADDS,RSAT-DNS-Server
@@ -38,7 +53,7 @@ if ($Disable_IE_ESC_Admins.IsInstalled -ne 0)
 	}
 
 # Adding DNS Record for Chef Server
-Add-DnsServerResourceRecordA -Name "CHEFSRV" -ZoneName "contoso.corp" -AllowUpdateAny -IPv4Address "10.0.2.4"
+Add-DnsServerResourceRecordA -Name $ChefSrv -ZoneName $ADDomain -AllowUpdateAny -IPv4Address $ChefSrvIP
 
 If ($?)
 	{
@@ -74,7 +89,7 @@ If (!$?)
 	}
 
 # Creating SQL Administrator Domain Account  for the Install_SQL_Server_2014_SP1 Chef Cookbook.
-New-ADUser -Name "sqladmin" -AccountPassword (ConvertTo-SecureString -AsPlainText "P@ssw0rd1!" -Force) -Path "CN=Users,DC=contoso,DC=corp" -PasswordNeverExpires $true -ChangePasswordAtLogon $false -Enabled $true
+New-ADUser -Name $SQLUsername -AccountPassword (ConvertTo-SecureString -AsPlainText $SQLPassword -Force) -Path "CN=Users,DC=contoso,DC=corp" -PasswordNeverExpires $true -ChangePasswordAtLogon $false -Enabled $true
 
 If ($?)
 	{

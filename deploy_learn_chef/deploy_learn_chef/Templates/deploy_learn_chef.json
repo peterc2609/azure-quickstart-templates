@@ -140,6 +140,13 @@
                 "Description": "The password of the Windows Server account with local admin rights and admin rights in Actve Directory."
             }
         },
+        "sqladminUsername": {
+            "type": "string",
+            "defaultValue": "sqladmin",
+            "metadata": {
+                "Description": "The usename of the SQL Domain account being created for use later after deployment."
+            }
+        },
         "chefsrvAdminPassword": {
             "type": "securestring",
             "defaultValue": "LearnChef!",
@@ -159,6 +166,13 @@
             "defaultValue": "LearnChef!",
             "metadata": {
                 "Description": "The password of the Windows Server account with local admin rights."
+            }
+        },
+        "sqladminPassword": {
+            "type": "string",
+            "defaultValue": "LearnChef!",
+            "metadata": {
+                "Description": "The password of the SQL Domain account being created for use later after deployment."
             }
         },
         "addcImagePublisher": {
@@ -526,6 +540,13 @@
             },
             "defaultValue": "10.0.2.6"
         },
+        "chefOrganization": {
+            "type": "string",
+            "defaultValue": "learn_chef_12_env",
+            "metadata": {
+                "description": "The Name of the Chef Organization being created."
+            }
+        },
         "installChefServerScriptUri": {
             "type": "string",
             "defaultValue": "https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_learn_chef/deploy_learn_chef/Scripts/install_chef_server.sh",
@@ -889,7 +910,7 @@
             "resources": [
                 {
                     "type": "Microsoft.Compute/virtualMachines/extensions",
-                    "name": "[concat(parameters('addcName'),'/CreateADForest')]",
+                    "name": "[concat(parameters('addcName'),'/createADForest')]",
                     "apiVersion": "2015-05-01-preview",
                     "location": "[parameters('location')]",
                     "dependsOn": [
@@ -919,11 +940,11 @@
                     "resources": [
                         {
                             "type": "Microsoft.Compute/virtualMachines/extensions",
-                            "name": "[concat(parameters('addcName'), '/' ,'ADDCCustomConfigsScript')]",
+                            "name": "[concat(parameters('addcName'), '/' ,'addcCustomConfigsScript')]",
                             "apiVersion": "2015-05-01-preview",
                             "location": "[parameters('location')]",
                             "dependsOn": [
-                                "[concat('Microsoft.Compute/virtualMachines/', parameters('addcName'),'/extensions/CreateADForest')]"
+                                "[concat('Microsoft.Compute/virtualMachines/', parameters('addcName'),'/extensions/createADForest')]"
                             ],
                             "properties": {
                                 "publisher": "Microsoft.Compute",
@@ -931,7 +952,7 @@
                                 "typeHandlerVersion": "1.4",
                                 "settings": {
                                     "fileUris": [ "[parameters('installADToolsScriptUri')]" ],
-                                    "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -file ', parameters('installADToolsScriptName'))]"
+                                    "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', parameters('installADToolsScriptName'), ' -ChefSrv ', parameters('chefsrvName'),' -ADDomain ', parameters('adDomainNameFQDN'), ' -ChefSrvIP ',parameters('chefsrvNicIPAddress'), ' -SQLUsername ',parameters('sqladminUsername'), ' -SQLPassword ', parameters('sqladminPassword'))]"
                                 }
                             }
                         }
@@ -987,7 +1008,7 @@
             "resources": [
                 {
                     "type": "Microsoft.Compute/virtualMachines/extensions",
-                    "name": "[concat(parameters('chefsrvName'), '/' ,'installchefserverscript')]",
+                    "name": "[concat(parameters('chefsrvName'), '/' ,'installChefServerScript')]",
                     "apiVersion": "2015-05-01-preview",
                     "location": "[parameters('location')]",
                     "dependsOn": [
@@ -1001,7 +1022,7 @@
                             "fileUris": [
                                 "[concat(parameters('installChefServerScriptUri'))]"
                             ],
-                            "commandToExecute": "[concat('bash ', parameters('installChefServerScriptName'))]"
+                            "commandToExecute": "[concat('bash ', parameters('installChefServerScriptName'), ' -u ', parameters('chefsrvAdminUsername'), ' -p ', parameters('chefsrvAdminPassword'), ' -i ', parameters('chefsrvNicIPAddress'), ' -r ', resourceGroup().location, ' -h ', parameters('chefsrvName'), ' -o ', parameters('chefOrganization'))]"
                         }
                     }
                 }
@@ -1067,13 +1088,13 @@
             "resources": [
                 {
                     "type": "Microsoft.Compute/virtualMachines/extensions",
-                    "name": "[concat(parameters('chefwinwksName'), '/' ,'CHEFWINWKSCustomConfigsScript')]",
+                    "name": "[concat(parameters('chefwinwksName'), '/' ,'chefwinwksCustomConfigsScript')]",
                     "apiVersion": "2015-05-01-preview",
                     "location": "[parameters('location')]",
                     "dependsOn": [
                         "[resourceId('Microsoft.Compute/virtualMachines', parameters('chefwinwksName'))]",
-                        "[concat('Microsoft.Compute/virtualMachines/', parameters('addcName'),'/extensions/CreateADForest')]",
-                        "Microsoft.Resources/deployments/UpdateDCVNetDNS"
+                        "[concat('Microsoft.Compute/virtualMachines/', parameters('addcName'),'/extensions/createADForest')]",
+                        "Microsoft.Resources/deployments/updateDCVNetDNS"
                     ],
                     "properties": {
                         "publisher": "Microsoft.Compute",
@@ -1087,14 +1108,14 @@
                 },
                 {
                     "type": "Microsoft.Compute/virtualMachines/extensions",
-                    "name": "CHEFWINWKS/domainjoin",
+                    "name": "[concat(parameters('chefwinwksName'), '/' ,'domainJoin')]",
                     "apiVersion": "2015-05-01-preview",
                     "location": "[resourceGroup().location]",
                     "dependsOn": [
                         "[resourceId('Microsoft.Compute/virtualMachines', parameters('chefwinwksName'))]",
-                        "[concat('Microsoft.Compute/virtualMachines/', parameters('addcName'),'/extensions/CreateADForest')]",
-                        "Microsoft.Resources/deployments/UpdateDCVNetDNS",
-                        "[concat('Microsoft.Compute/virtualMachines/', parameters('chefwinwksName'),'/extensions/CHEFWINWKSCustomConfigsScript')]"
+                        "[concat('Microsoft.Compute/virtualMachines/', parameters('addcName'),'/extensions/createADForest')]",
+                        "Microsoft.Resources/deployments/updateDCVNetDNS",
+                        "[concat('Microsoft.Compute/virtualMachines/', parameters('chefwinwksName'),'/extensions/chefwinwksCustomConfigsScript')]"
                     ],
                     "properties": {
                         "publisher": "Microsoft.Powershell",
@@ -1180,13 +1201,13 @@
             "resources": [
                 {
                     "type": "Microsoft.Compute/virtualMachines/extensions",
-                    "name": "[concat(parameters('chefwinsandName'), '/' ,'CHEFWINSANDCustomConfigsScript')]",
+                    "name": "[concat(parameters('chefwinsandName'), '/' ,'chefwinsandCustomConfigsScript')]",
                     "apiVersion": "2015-05-01-preview",
                     "location": "[parameters('location')]",
                     "dependsOn": [
                         "[resourceId('Microsoft.Compute/virtualMachines', parameters('chefwinsandName'))]",
-                        "[concat('Microsoft.Compute/virtualMachines/', parameters('addcName'),'/extensions/CreateADForest')]",
-                        "Microsoft.Resources/deployments/UpdateDCVNetDNS"
+                        "[concat('Microsoft.Compute/virtualMachines/', parameters('addcName'),'/extensions/createADForest')]",
+                        "Microsoft.Resources/deployments/updateDCVNetDNS"
                     ],
                     "properties": {
                         "publisher": "Microsoft.Compute",
@@ -1200,14 +1221,14 @@
                 },
                 {
                     "type": "Microsoft.Compute/virtualMachines/extensions",
-                    "name": "CHEFWINSAND/domainjoin",
+                    "name": "[concat(parameters('chefwinsandName'), '/' ,'domainJoin')]",
                     "apiVersion": "2015-05-01-preview",
                     "location": "[resourceGroup().location]",
                     "dependsOn": [
                         "[resourceId('Microsoft.Compute/virtualMachines', parameters('chefwinsandName'))]",
-                        "[concat('Microsoft.Compute/virtualMachines/', parameters('addcName'),'/extensions/CreateADForest')]",
-                        "Microsoft.Resources/deployments/UpdateDCVNetDNS",
-                        "[concat('Microsoft.Compute/virtualMachines/', parameters('chefwinsandName'),'/extensions/CHEFWINSANDCustomConfigsScript')]"
+                        "[concat('Microsoft.Compute/virtualMachines/', parameters('addcName'),'/extensions/createADForest')]",
+                        "Microsoft.Resources/deployments/updateDCVNetDNS",
+                        "[concat('Microsoft.Compute/virtualMachines/', parameters('chefwinsandName'),'/extensions/chefwinsandCustomConfigsScript')]"
                     ],
                     "properties": {
                         "publisher": "Microsoft.Powershell",
@@ -1234,11 +1255,11 @@
             ]
         },
         {
-            "name": "UpdateDCVNetDNS",
+            "name": "updateDCVNetDNS",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2015-01-01",
             "dependsOn": [
-                "[concat('Microsoft.Compute/virtualMachines/', parameters('addcName'),'/extensions/CreateADForest')]"
+                "[concat('Microsoft.Compute/virtualMachines/', parameters('addcName'),'/extensions/createADForest')]"
             ],
             "properties": {
                 "mode": "Incremental",
@@ -1251,13 +1272,13 @@
                         "value": "[parameters('location')]"
                     },
                     "virtualNetworkName": {
-                        "value": "ContosoNET"
+                        "value": "[parameters('vNetName')]"
                     },
                     "virtualNetworkAddressRange": {
                         "value": "[parameters('addressPrefix')]"
                     },
                     "subnetName": {
-                        "value": "DCSubnet"
+                        "value": "[parameters('dcSubnetName')]"
                     },
                     "subnetRange": {
                         "value": "[parameters('dcSubnetPrefix')]"
