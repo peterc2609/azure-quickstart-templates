@@ -1102,7 +1102,7 @@
                         "typeHandlerVersion": "1.4",
                         "settings": {
                             "fileUris": [ "[parameters('chefwinwksCustomConfigsScriptUri')]" ],
-                            "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -file ',parameters('chefwinwksCustomConfigsScriptName'))]"
+                            "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', parameters('chefwinwksCustomConfigsScriptName'), ' -ChefServer ', parameters('chefsrvName'), ' -ChefUsername ', parameters('chefsrvAdminUsername') , ' -ChefOrg ', parameters('chefOrganization') ,' -ADDomain ', parameters('adDomainNameFQDN'))]"
                         }
                     }
                 },

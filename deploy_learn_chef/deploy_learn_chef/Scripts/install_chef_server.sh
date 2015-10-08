@@ -10,11 +10,11 @@
 # - Creates the first Chef Organization on the Chef Server
 #
 #
-# Syntax:  ./install_chef_server.sh -u CHEF_USERNAME -p CHEF_PASSWORD -i CHEF_IP -r AZURE_REGION -h CHEF_HOSTNAME -o CHEF_ORG
-# Example: ./install_chef_server.sh -u chefadmin -p P@ssw0rd! -i 10.0.1.44 -r westeurope -h chefsrv001 -o learn_chef_12_env
+# Syntax:  ./install_chef_server.sh -u CHEF_USERNAME -p CHEF_PASSWORD -i CHEF_IP -d AD_DOMAIN -h CHEF_HOSTNAME -o CHEF_ORG
+# Example: ./install_chef_server.sh -u chefadmin -p P@ssw0rd! -i 10.0.1.44 -d contoso.corp -h chefsrv -o learn_chef_12_env
 
 # Parse Script Parameters
-while getopts ":u:p:i:r:h:o:" opt; do
+while getopts ":u:p:i:d:h:o:" opt; do
   case "${opt}" in
         u) # Chef Admin Username
              CHEF_USERNAME=${OPTARG}
@@ -25,8 +25,8 @@ while getopts ":u:p:i:r:h:o:" opt; do
         i) # Chef Server IP Address
              CHEF_IP=${OPTARG}
              ;;
-        r) # Chef Server Azure Region
-             AZURE_REGION=${OPTARG}
+        d) # Active Directory Domain Name
+             AD_DOMAIN=${OPTARG}
              ;;
         h) # Chef Server Hostname
              CHEF_HOSTNAME=${OPTARG}
@@ -39,11 +39,11 @@ while getopts ":u:p:i:r:h:o:" opt; do
             echo -e "-u CHEF_USERNAME - Username of the Chef Server Administrator."
             echo -e "-p CHEF_PASSWORD - Password of the Chef Server Administrator."
             echo -e "-i CHEF_IP       - IP Address of the Chef Server."
-            echo -e "-r AZURE_REGION   - Region where the Chef Server is being deployed in Azure."
+            echo -e "-d AD_DOMAIN     - The Active Directory Domain the Chef Server is a part of."
             echo -e "-h CHEF_HOSTNAME - Hostname of the Chef Server."
 			echo -e "-o CHEF_ORG      - Chef Organization Name."\\n			
             echo -e "An Example of how to use this script is shown below:"
-            echo -e "./install_chef_server.sh -u chefadmin -p P@ssw0rd1! -i 10.0.1.44 -r westeurope -h chefsrv001 -o learn_chef_12_env"\\n
+            echo -e "./install_chef_server.sh -u chefadmin -p P@ssw0rd1! -i 10.0.1.44 -d contoso.corp -h chefsrv -o learn_chef_12_env"\\n
             exit 2
             ;;
   esac
@@ -66,8 +66,8 @@ if [ -z "${CHEF_IP}" ]; then
     exit 2
 fi
 
-if [ -z "${AZURE_REGION}" ]; then
-    echo "Chef Server Azure Region must be provided."
+if [ -z "${AD_DOMAIN}" ]; then
+    echo "The Active Directory Domain the Chef Server is a part of must be provided."
     exit 2
 fi
 
@@ -82,7 +82,7 @@ if [ -z "${CHEF_ORG}" ]; then
 fi
 
 # Updating the Chef Server Hosts File
-sed -i "2i$CHEF_IP $CHEF_HOSTNAME\\.$AZURE_REGION\\.cloudapp.azure.com $CHEF_HOSTNAME" /etc/hosts
+sed -i "2i$CHEF_IP $CHEF_HOSTNAME\\.$AD_DOMAIN $CHEF_HOSTNAME" /etc/hosts
 
 # Printing out the correct FQDN of the Server
 hostname -f
@@ -122,7 +122,7 @@ sudo opscode-reporting-ctl reconfigure
 sleep 15s
 
 # Copying the Chef Server Certificate to the chefadmin home directory for further use
-sudo cp /var/opt/opscode/nginx/ca/$CHEF_HOSTNAME\.$AZURE_REGION\.cloudapp.azure.com.crt /home/$CHEF_USERNAME/
+sudo cp /var/opt/opscode/nginx/ca/$CHEF_HOSTNAME\.$AD_DOMAIN\.crt /home/$CHEF_USERNAME/
 
 # Creating First User on the Chef Server
 sudo chef-server-ctl user-create $CHEF_USERNAME Chef Admin $CHEF_USERNAME@devops.io $CHEF_PASSWORD --filename /home/$CHEF_USERNAME/$CHEF_USERNAME.pem
