@@ -128,6 +128,6 @@ sudo cp /var/opt/opscode/nginx/ca/$CHEF_HOSTNAME\.$AD_DOMAIN\.crt /home/$CHEF_US
 sudo chef-server-ctl user-create $CHEF_USERNAME Chef Admin $CHEF_USERNAME@devops.io $CHEF_PASSWORD --filename /home/$CHEF_USERNAME/$CHEF_USERNAME.pem
 
 # Creating the First Organization on the Chef Server
-sudo chef-server-ctl org-create $CHEF_ORG Learn Chef 12 Environment --association_user $CHEF_USERNAME --filename /home/$CHEF_USERNAME/$CHEF_ORG-validator.pem
+sudo chef-server-ctl org-create $CHEF_ORG Learn Chef 12 Environment --association_user $CHEF_USERNAME --filename /home/$CHEF_USERNAME/$CHEF_ORG.pem
 
 echo "Chef Server 12 Installation is Complete!"
