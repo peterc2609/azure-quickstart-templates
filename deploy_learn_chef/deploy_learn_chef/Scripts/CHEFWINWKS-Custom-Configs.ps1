@@ -164,14 +164,12 @@ If (!$?)
 		[System.IO.File]::Create("C:\Windows\Temp\_knife.rb_Download_Failed.txt").Close()
 	}
 
-# Modifying the 'knife.rb' for this Environment
-$KnifeConfig = (Get-Content $ChefKnifeConfig_File)
-$KnifeConfig = $KnifeConfig -replace "node_name.+","node_name                 '$ChefUsername'"
-$KnifeConfig = $KnifeConfig -replace "client_key.+","client_key               'C:/Chef/.chef/$ChefUsername.pem'"
-$KnifeConfig = $KnifeConfig -replace "validation_client_name.+","validation_client_name   '$ChefOrg-validator'"
-$KnifeConfig = $KnifeConfig -replace "validation_key.+","validation_key           'C:/Chef/.chef/$ChefOrg-validator.pem'"
-$KnifeConfig = $KnifeConfig -replace "chef_server_url.+","chef_server_url          'https://$ChefServer.$ADDomain/organizations/$ChefOrg'"
-$KnifeConfig | Out-File $ChefKnifeConfig_File -Force
+# Modifying the 'knife.rb' for this Environment (the knife.rb file must be encoded as ASCII!)
+(Get-Content $ChefKnifeConfig_File) -replace "chefadmin","$ChefUsername" | Out-File -Encoding ASCII $ChefKnifePath
+(Get-Content $ChefKnifeConfig_File) -replace "chefadmin.pem","$ChefUsername.pem" | Out-File -Encoding ASCII $ChefKnifePath
+(Get-Content $ChefKnifeConfig_File) -replace "learn_chef_12_env-validator","$ChefOrg-validator" | Out-File -Encoding ASCII $ChefKnifePath
+(Get-Content $ChefKnifeConfig_File) -replace "learn_chef_12_env-validator.pem","$ChefOrg-validator.pem" | Out-File -Encoding ASCII $ChefKnifePath
+(Get-Content $ChefKnifeConfig_File) -replace "https://chefsrv.contoso.corp/organizations/learn_chef_12_env","https://$ChefServer.$ADDomain/organizations/$ChefOrg" | Out-File -Encoding ASCII $ChefKnifePath
 
 If ($?)
 	{
