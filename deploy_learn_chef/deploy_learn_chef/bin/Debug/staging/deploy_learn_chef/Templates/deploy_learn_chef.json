@@ -952,7 +952,7 @@
                                 "typeHandlerVersion": "1.4",
                                 "settings": {
                                     "fileUris": [ "[parameters('installADToolsScriptUri')]" ],
-                                    "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', parameters('installADToolsScriptName'), ' -ChefSrv ', parameters('chefsrvName'),' -ADDomain ', parameters('adDomainNameFQDN'), ' -ChefSrvIP ',parameters('chefsrvNicIPAddress'), ' -SQLUsername ',parameters('sqladminUsername'), ' -SQLPassword ', parameters('sqladminPassword'))]"
+                                    "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', parameters('installADToolsScriptName'), ' -ChefServer ', parameters('chefsrvName'),' -ADDomain ', parameters('adDomainNameFQDN'), ' -ChefServerIP ',parameters('chefsrvNicIPAddress'), ' -SQLUsername ',parameters('sqladminUsername'), ' -SQLPassword ', parameters('sqladminPassword'))]"
                                 }
                             }
                         }
