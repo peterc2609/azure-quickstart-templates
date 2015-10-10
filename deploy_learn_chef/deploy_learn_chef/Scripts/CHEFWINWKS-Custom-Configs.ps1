@@ -166,11 +166,11 @@ If (!$?)
 	}
 
 # Modifying the 'knife.rb' for the Chef Environment Deployed and saving the file in ASCII Format.
-(Get-Content $ChefKnifeConfig_File) -replace "chefadmin","$ChefUsername" | Out-File -Encoding ASCII $ChefKnifePath
-(Get-Content $ChefKnifeConfig_File) -replace "chefadmin.pem","$ChefUsername.pem" | Out-File -Encoding ASCII $ChefKnifePath
-(Get-Content $ChefKnifeConfig_File) -replace "learn_chef_12_env-validator","$ChefOrg-validator" | Out-File -Encoding ASCII $ChefKnifePath
-(Get-Content $ChefKnifeConfig_File) -replace "learn_chef_12_env-validator.pem","$ChefOrg-validator.pem" | Out-File -Encoding ASCII $ChefKnifePath
-(Get-Content $ChefKnifeConfig_File) -replace "https://chefsrv.contoso.corp/organizations/learn_chef_12_env","https://$ChefServer.$ADDomain/organizations/$ChefOrg" | Out-File -Encoding ASCII $ChefKnifePath
+(Get-Content $ChefKnifeConfig_File) -replace "chefadmin","$ChefUsername" | Out-File $ChefKnifePath -Encoding ASCII
+(Get-Content $ChefKnifeConfig_File) -replace "chefadmin.pem","$ChefUsername.pem" | Out-File $ChefKnifePath -Encoding ASCII
+(Get-Content $ChefKnifeConfig_File) -replace "learn_chef_12_env-validator","$ChefOrg-validator" | Out-File $ChefKnifePath -Encoding ASCII
+(Get-Content $ChefKnifeConfig_File) -replace "learn_chef_12_env-validator.pem","$ChefOrg-validator.pem" | Out-File $ChefKnifePath -Encoding ASCII
+(Get-Content $ChefKnifeConfig_File) -replace "https://chefsrv.contoso.corp/organizations/learn_chef_12_env","https://$ChefServer.$ADDomain/organizations/$ChefOrg" | Out-File $ChefKnifePath -Encoding ASCII
 
 If ($?)
 	{
