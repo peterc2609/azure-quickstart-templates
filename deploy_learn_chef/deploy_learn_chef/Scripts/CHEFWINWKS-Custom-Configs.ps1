@@ -6,7 +6,7 @@
 - Creates 'chef-repo' and 'cookbooks' Directory for ChefDK.
 - Creates '.chef' and 'trusted_certs' Directories for ChefDK.
 - Creates the 'C:\GitHub' Directory where the downloaded 'learn_chef' repo will reside.
-- Downloads and Installs ChefDK.
+- Downloads and Installs ChefDK 0.8.1.
 - Download the 'knife.rb' for this Environment from GitHub.
 - Modifies the 'knife.rb' for the Chef Environment Deployed and saves the file in ASCII Format.
 - Downloads and Installs Notepad++.
@@ -125,8 +125,8 @@ If (!$?)
 
 # Download Chef DK Kit.
 $ChefDK_WebClient = New-Object System.Net.WebClient
-$ChefDK_URI       = "https://opscode-omnibus-packages.s3.amazonaws.com/windows/2008r2/x86_64/chefdk-0.7.0-1.msi"
-$ChefDK_File      = "C:\Windows\Temp\chefdk-0.7.0-1.msi"
+$ChefDK_URI       = "https://opscode-omnibus-packages.s3.amazonaws.com/windows/2008r2/i386/chefdk-0.8.1-1-x86.msi"
+$ChefDK_File      = "C:\Windows\Temp\chefdk-0.8.1-1-x86.msi"
 $ChefDK_WebClient.DownloadFile($ChefDK_URI,$ChefDK_File)
 
 If ($?)
@@ -139,7 +139,7 @@ If (!$?)
 	}
 
 # Install the Chef DK Kit.
-msiexec.exe /i C:\Windows\Temp\chefdk-0.7.0-1.msi /quiet /norestart
+msiexec.exe /i C:\Windows\Temp\chefdk-0.8.1-1-x86.msi /quiet /norestart
 
 If ($?)
 	{
