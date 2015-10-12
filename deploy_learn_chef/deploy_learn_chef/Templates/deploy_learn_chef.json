@@ -169,7 +169,7 @@
             }
         },
         "sqladminPassword": {
-            "type": "string",
+            "type": "securestring",
             "defaultValue": "LearnChef!",
             "metadata": {
                 "Description": "The password of the SQL Domain account being created for use later after deployment."
