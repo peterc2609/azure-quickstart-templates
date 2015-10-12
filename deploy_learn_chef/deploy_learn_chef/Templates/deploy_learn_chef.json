@@ -550,7 +550,7 @@
         "installChefServerScriptUri": {
             "type": "string",
             "defaultValue": "https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_learn_chef/deploy_learn_chef/Scripts/install_chef_server.sh",
-            "metadata": {    
+            "metadata": {
                 "description": "The location of the custom Chef Server Installation Script for the Ubuntu Server VM."
             }
         },
@@ -953,6 +953,9 @@
                                 "settings": {
                                     "fileUris": [ "[parameters('installADToolsScriptUri')]" ],
                                     "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', parameters('installADToolsScriptName'), ' -ChefServer ', parameters('chefsrvName'),' -ADDomain ', parameters('adDomainNameFQDN'), ' -ChefServerIP ',parameters('chefsrvNicIPAddress'), ' -SQLUsername ',parameters('sqladminUsername'), ' -SQLPassword ', parameters('sqladminPassword'))]"
+                                },
+                                "protectedSettings": { 
+                                    "sqladminPassword": "[parameters('sqladminPassword')]"
                                 }
                             }
                         }
@@ -1103,6 +1106,9 @@
                         "settings": {
                             "fileUris": [ "[parameters('chefwinwksCustomConfigsScriptUri')]" ],
                             "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', parameters('chefwinwksCustomConfigsScriptName'), ' -ChefServer ', parameters('chefsrvName'), ' -ChefUsername ', parameters('chefsrvAdminUsername'), ' -ChefOrg ', parameters('chefOrganization'), ' -ADUsername ', parameters('addcAdminUsername'), ' -ADPassword ', parameters('addcAdminPassword'),' -ADDomain ', parameters('adDomainNameFQDN'))]"
+                        },
+                        "protectedSettings": { 
+                            "addcAdminPassword": "[parameters('addcAdminPassword')]"
                         }
                     }
                 }
@@ -1183,6 +1189,9 @@
                         "settings": {
                             "fileUris": [ "[parameters('chefwinsandCustomConfigsScriptUri')]" ],
                             "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', parameters('chefwinsandCustomConfigsScriptName'), ' -ADUsername ', parameters('addcAdminUsername'), ' -ADPassword ', parameters('addcAdminPassword'), ' -ADDomain ', parameters('adDomainNameFQDN'))]"
+                        },
+                        "protectedSettings": { 
+                            "addcAdminPassword": "[parameters('addcAdminPassword')]"
                         }
                     }
                 }
