@@ -1106,9 +1106,6 @@
                         "settings": {
                             "fileUris": [ "[parameters('chefwinwksCustomConfigsScriptUri')]" ],
                             "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', parameters('chefwinwksCustomConfigsScriptName'), ' -ChefServer ', parameters('chefsrvName'), ' -ChefUsername ', parameters('chefsrvAdminUsername'), ' -ChefOrg ', parameters('chefOrganization'), ' -ADUsername ', parameters('addcAdminUsername'), ' -ADPassword ', parameters('addcAdminPassword'),' -ADDomain ', parameters('adDomainNameFQDN'))]"
-                        },
-                        "protectedSettings": { 
-                            "addcAdminPassword": "[parameters('addcAdminPassword')]"
                         }
                     }
                 }
