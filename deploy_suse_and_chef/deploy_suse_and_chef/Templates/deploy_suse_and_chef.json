@@ -46,7 +46,7 @@
         },
         "contosoLinuxStorageName": {
             "type": "string",
-            "defaultValue": "contosolinuxtorage",
+            "defaultValue": "contosolinuxstorage",
             "metadata": {
                 "Description": "Name of the Storage Account where the Resources are being deployed."
             }
