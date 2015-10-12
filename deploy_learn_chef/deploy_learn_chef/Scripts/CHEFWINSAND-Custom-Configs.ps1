@@ -96,8 +96,7 @@ If (!$?)
 	}
 
 # Adding the Host to the Domain
-$Username = $ADUsername
-$Password = $ADPassword | ConvertTo-SecureString -asPlainText -Force
-$Domain   = $ADDomain
-$Creds    = New-Object System.Management.Automation.PSCredential($Username,$Password)
-Add-Computer -DomainName $Domain -Credential $Creds -Force -Restart -PassThru
+$DomainUsername = $ADDomain + "\" + $ADUsername
+$DomainPassword = $ADPassword | ConvertTo-SecureString -asPlainText -Force
+$Creds    = New-Object System.Management.Automation.PSCredential($DomainUsername,$DomainPassword)
+Add-Computer -DomainName $ADDomain -Credential $Creds -Force -Restart -PassThru
