@@ -11,6 +11,7 @@
 - Modifies the 'knife.rb' for the Chef Environment Deployed and saves the file in ASCII Format.
 - Downloads and Installs Notepad++.
 - Downloads GitHub for Windows.
+- Join Host to Domain.
 - File(s) are created in 'C:\Windows\Temp' stating whether the actions listed above were successful or not.
 #>
 param (
@@ -22,8 +23,14 @@ param (
 
 	[Parameter(Mandatory=$true, Position=2, HelpMessage="The Name of the first Organization on the Chef Server is required.")]
 	[String]$ChefOrg,
+
+	[Parameter(Mandatory=$true, Position=3, HelpMessage="Active Directory Domain Admin Username.")]
+	[String]$ADUsername,
+
+	[Parameter(Mandatory=$true, Position=4, HelpMessage="Active Directory Domain Admin Password.")]
+	[String]$ADPassword,
 	
-	[Parameter(Mandatory=$true, Position=3, HelpMessage="The Domain Name, i.e. - contoso.corp, is required.")]
+	[Parameter(Mandatory=$true, Position=5, HelpMessage="The Domain Name, i.e. - contoso.corp, is required.")]
 	[String]$ADDomain
 )
 
@@ -222,3 +229,9 @@ If (!$?)
 	{
 		[System.IO.File]::Create("C:\Windows\Temp\_GitHub_for_Windows_Download_Failed.txt").Close()
 	}
+
+# Adding the Host to the Domain
+$DomainUsername = $ADDomain + "\" + $ADUsername
+$DomainPassword = $ADPassword | ConvertTo-SecureString -asPlainText -Force
+$Creds          = New-Object System.Management.Automation.PSCredential($DomainUsername,$DomainPassword)
+Add-Computer -DomainName $ADDomain -Credential $Creds -Force -Restart -PassThru

@@ -9,7 +9,7 @@
 #>
 
 param (
-[Parameter(Mandatory=$true, Position=0, HelpMessage="Active Directory Domain Admin Username.")]
+	[Parameter(Mandatory=$true, Position=0, HelpMessage="Active Directory Domain Admin Username.")]
 	[String]$ADUsername,
 
 	[Parameter(Mandatory=$true, Position=1, HelpMessage="Active Directory Domain Admin Password.")]
@@ -98,5 +98,5 @@ If (!$?)
 # Adding the Host to the Domain
 $DomainUsername = $ADDomain + "\" + $ADUsername
 $DomainPassword = $ADPassword | ConvertTo-SecureString -asPlainText -Force
-$Creds    = New-Object System.Management.Automation.PSCredential($DomainUsername,$DomainPassword)
+$Creds          = New-Object System.Management.Automation.PSCredential($DomainUsername,$DomainPassword)
 Add-Computer -DomainName $ADDomain -Credential $Creds -Force -Restart -PassThru
