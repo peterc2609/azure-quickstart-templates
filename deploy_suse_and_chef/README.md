@@ -24,6 +24,9 @@ The following Parameter Values **MUST** be **unique to your region** in Azure! I
  - **SUSESRVPUBIPDNSNAME**
  - **UBUNTUSRVPUBIPDNSNAME**
 
+ Additionally, the **UBUNTUSRVNAME** and the **UBUNTUSRVPUBIPDNSNAME** **must be the same value** in order for the Chef-Client Script on the SLES Server to function correctly! This is because
+ the public FQDN of the Ubuntu Server is used for all communication to the Chef Server.
+ 
 There are zero Variables in this Template and all Parameter Values are preconfigured.
 
 | Name             | Description                      |
