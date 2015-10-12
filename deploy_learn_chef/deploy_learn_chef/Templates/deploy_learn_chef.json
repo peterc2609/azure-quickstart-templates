@@ -1215,40 +1215,7 @@
                         "typeHandlerVersion": "1.4",
                         "settings": {
                             "fileUris": [ "[parameters('chefwinsandCustomConfigsScriptUri')]" ],
-                            "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -file ',parameters('chefwinsandCustomConfigsScriptName'))]"
-                        }
-                    }
-                },
-                {
-                    "type": "Microsoft.Compute/virtualMachines/extensions",
-                    "name": "[concat(parameters('chefwinsandName'), '/' ,'domainJoin')]",
-                    "apiVersion": "2015-05-01-preview",
-                    "location": "[resourceGroup().location]",
-                    "dependsOn": [
-                        "[resourceId('Microsoft.Compute/virtualMachines', parameters('chefwinsandName'))]",
-                        "[concat('Microsoft.Compute/virtualMachines/', parameters('addcName'),'/extensions/createADForest')]",
-                        "Microsoft.Resources/deployments/updateDCVNetDNS",
-                        "[concat('Microsoft.Compute/virtualMachines/', parameters('chefwinsandName'),'/extensions/chefwinsandCustomConfigsScript')]"
-                    ],
-                    "properties": {
-                        "publisher": "Microsoft.Powershell",
-                        "type": "DSC",
-                        "typeHandlerVersion": "1.9",
-                        "settings": {
-                            "ModulesUrl": "[concat(parameters('assetLocation'),'/Configuration.zip')]",
-                            "ConfigurationFunction": "Configuration.ps1\\DomainJoin",
-                            "Properties": {
-                                "DomainName": "[parameters('AdDomainNameFQDN')]",
-                                "AdminCreds": {
-                                    "UserName": "[parameters('addcAdminUsername')]",
-                                    "Password": "PrivateSettingsRef:adminPassword"
-                                }
-                            }
-                        },
-                        "protectedSettings": {
-                            "Items": {
-                                "adminPassword": "[parameters('chefwinsandAdminPassword')]"
-                            }
+                            "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', parameters('chefwinsandCustomConfigsScriptName'), ' -ADUsername ', parameters('addcAdminUsername'), ' -ADPassword ', parameters('addcAdminPassword'), ' -ADDomain ', parameters('adDomainNameFQDN'))]"
                         }
                     }
                 }

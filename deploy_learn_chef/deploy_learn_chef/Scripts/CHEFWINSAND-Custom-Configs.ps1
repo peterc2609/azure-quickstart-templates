@@ -4,8 +4,20 @@
 - Enables .NET Framework 3.5 for SQL Install.
 - Creates 'C:\Chef\trusted_certs' directory for the Chef Client.
 - Downloads and Installs Notepad++.
+- Join Host to Domain.
 - File(s) are created in 'C:\Windows\Temp' stating whether the actions listed above were successful or not.
 #>
+
+param (
+[Parameter(Mandatory=$true, Position=0, HelpMessage="Active Directory Domain Admin Username.")]
+	[String]$ADUsername,
+
+	[Parameter(Mandatory=$true, Position=1, HelpMessage="Active Directory Domain Admin Password.")]
+	[String]$ADPassword,
+	
+	[Parameter(Mandatory=$true, Position=2, HelpMessage="The Domain Name, i.e. - contoso.corp, is required.")]
+	[String]$ADDomain
+)
 
 # Disabling IE ESC for Administrators on Target Host. UserKey = "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A8-37EF-4b3f-8CFC-4F3A74704073}".
 $Disable_IE_ESC_Admins = New-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A7-37EF-4b3f-8CFC-4F3A74704073}" -Name IsInstalled -Value 0 -Force
@@ -82,3 +94,10 @@ If (!$?)
 	{
 		[System.IO.File]::Create("C:\Windows\Temp\_NotepadPlusPlus_Install_Failed.txt").Close()
 	}
+
+# Adding the Host to the Domain
+$Username = $ADUsername
+$Password = $ADPassword | ConvertTo-SecureString -asPlainText -Force
+$Domain   = $ADDomain
+$Creds    = New-Object System.Management.Automation.PSCredential($Username,$Password)
+Add-Computer -DomainName $Domain -Credential $Creds -Force -Restart -PassThru
