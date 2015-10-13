@@ -953,9 +953,6 @@
                                 "settings": {
                                     "fileUris": [ "[parameters('installADToolsScriptUri')]" ],
                                     "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', parameters('installADToolsScriptName'), ' -ChefServer ', parameters('chefsrvName'),' -ADDomain ', parameters('adDomainNameFQDN'), ' -ChefServerIP ',parameters('chefsrvNicIPAddress'), ' -SQLUsername ',parameters('sqladminUsername'), ' -SQLPassword ', parameters('sqladminPassword'))]"
-                                },
-                                "protectedSettings": { 
-                                    "sqladminPassword": "[parameters('sqladminPassword')]"
                                 }
                             }
                         }
@@ -1186,9 +1183,6 @@
                         "settings": {
                             "fileUris": [ "[parameters('chefwinsandCustomConfigsScriptUri')]" ],
                             "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', parameters('chefwinsandCustomConfigsScriptName'), ' -ADUsername ', parameters('addcAdminUsername'), ' -ADPassword ', parameters('addcAdminPassword'), ' -ADDomain ', parameters('adDomainNameFQDN'))]"
-                        },
-                        "protectedSettings": { 
-                            "addcAdminPassword": "[parameters('addcAdminPassword')]"
                         }
                     }
                 }
