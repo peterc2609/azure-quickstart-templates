@@ -67,7 +67,7 @@
             "type": "string",
             "defaultValue": "WINSANDBOX",
             "metadata": {
-                "Description": "The Name of the Chef Windows Sandbox."
+                "Description": "The Name of the  Windows Sandbox."
             }
         },
         "winSandboxAdminUsername": {
@@ -84,6 +84,27 @@
                 "Description": "The password of the Windows Server account with local admin rights."
             }
         },
+        "addcAdminUsername": {
+            "type": "string",
+            "defaultValue": "adadmin",
+            "metadata": {
+                "Description": "The name of the Windows Server account with local admin rights and admin rights in Active Directory."
+            }
+        },
+        "addcAdminPassword": {
+            "type": "securestring",
+            "defaultValue": "Sandbox!",
+            "metadata": {
+                "Description": "The password of the Windows Server account with local admin rights and admin rights in Actve Directory."
+            }
+        },
+        "adDomainNameFQDN": {
+            "type": "string",
+            "defaultValue": "contoso.corp",
+            "metadata": {
+                "description": "The FQDN of the AD Domain created."
+            }
+        },
         "winSandboxImagePublisher": {
             "type": "string",
             "defaultValue": "MicrosoftWindowsServer",
@@ -91,7 +112,7 @@
                 "MicrosoftWindowsServer"
             ],
             "metadata": {
-                "description": "The Microsoft Image Publisher of the Image being used for the Chef Windows Sandbox VM."
+                "description": "The Microsoft Image Publisher of the Image being used for the Windows Sandbox VM."
             }
         },
         "winSandboxImageOffer": {
@@ -101,7 +122,7 @@
                 "WindowsServer"
             ],
             "metadata": {
-                "description": "The Microsoft Image Offer of the Image being used for the Chef Windows Sandbox VM."
+                "description": "The Microsoft Image Offer of the Image being used for the Windows Sandbox VM."
             }
         },
         "winSandboxImageSku": {
@@ -114,7 +135,7 @@
                 "Windows-Server-Technical-Preview"
             ],
             "metadata": {
-                "description": "The Microsoft Image SKU of the Image being used for the Chef Windows Sandbox VM."
+                "description": "The Microsoft Image SKU of the Image being used for the Windows Sandbox VM."
             }
         },
         "winSandboxImageVersion": {
@@ -178,7 +199,7 @@
         },
         "winSandboxCustomConfigsScriptUri": {
             "type": "string",
-            "defaultValue": "https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_learn_chef/deploy_learn_chef/Scripts/CHEFWINSAND-Custom-Configs.ps1",
+            "defaultValue": "https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_sandbox/deploy_sandbox/Scripts/WINSANDBOX-Custom-Configs.ps1",
             "metadata": {
                 "description": "The location of the Windows Sandbox Custom Script."
             }
@@ -248,7 +269,7 @@
                             "privateIPAllocationMethod": "Static",
                             "privateIPAddress": "[parameters('winSandboxNicIPAddress')]",
                             "subnet": {
-                                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('vNetName')), '/subnets/', parameters('chefSubnetName'))]"
+                                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('vNetName')), '/subnets/', parameters('sandboxSubnetName'))]"
                             },
                             "publicIPAddress": {
                                 "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('winSandboxpubipDnsName'))]"
@@ -291,12 +312,12 @@
                 },
                 "osProfile": {
                     "computername": "[parameters('winSandboxName')]",
-                    "adminUsername": "[parameters('chefwinsandAdminUsername')]",
-                    "adminPassword": "[parameters('chefwinsandAdminPassword')]"
+                    "adminUsername": "[parameters('winSandboxAdminUsername')]",
+                    "adminPassword": "[parameters('winSandboxAdminPassword')]"
                 },
                 "storageProfile": {
                     "imageReference": {
-                        "publisher": "[parameters('chefwinsandImagePublisher')]",
+                        "publisher": "[parameters('winSandboxImagePublisher')]",
                         "offer": "[parameters('winSandboxImageOffer')]",
                         "sku": "[parameters('winSandboxImageSku')]",
                         "version": "[parameters('winSandboxImageVersion')]"
