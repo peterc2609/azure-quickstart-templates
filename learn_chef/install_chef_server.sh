@@ -1,35 +1,88 @@
 #!/bin/bash
-
-# Input Argument Variables
-CHEF_USERNAME="chefadmin"
-CHEF_PASSWORD="LearnChef!"
-
+#
+# install_chef_server.sh
+#
+# This Script is responsible for configuring an Ubuntu Server's Host File with an assigned IP Address and FQDN and then installs:
+# - Chef Server 12
+# - Chef Management Console
+# - Chef Reporting
+# - Creates the first Chef Admin User
+# - Creates the first Chef Organization on the Chef Server
+#
+#
+# Syntax:  ./install_chef_server.sh -u CHEF_USERNAME -p CHEF_PASSWORD -i CHEF_IP -d AD_DOMAIN -h CHEF_HOSTNAME -o CHEF_ORG
+# Example: ./install_chef_server.sh -u chefadmin -p P@ssw0rd! -i 10.0.1.44 -d contoso.corp -h chefsrv -o learn_chef_12_env
 
 # Parse Script Parameters
-while getopts ":u:p:v:h" optname; do
-  log "Option $optname set with value ${OPTARG}"
-
-  case "$optname" in
-        u) # Admin user name
-                CHEF_USERNAME=${OPTARG}
-                ;;
-        p) # Admin user name
-                CHEf_PASSWORD=${OPTARG}
-                ;;
-        h)  # Helpful hints
-                help
-                exit 2
-                ;;
+while getopts ":u:p:i:d:h:o:" opt; do
+  case "${opt}" in
+        u) # Chef Admin Username
+             CHEF_USERNAME=${OPTARG}
+             ;;
+        p) # Chef Admin Password
+             CHEF_PASSWORD=${OPTARG}
+             ;;
+        i) # Chef Server IP Address
+             CHEF_IP=${OPTARG}
+             ;;
+        d) # Active Directory Domain Name
+             AD_DOMAIN=${OPTARG}
+             ;;
+        h) # Chef Server Hostname
+             CHEF_HOSTNAME=${OPTARG}
+             ;;
+        o) # Chef Organization Name
+             CHEF_ORG=${OPTARG}
+             ;;				 
         \?) # Unrecognised option - show help
-                echo -e \\n"Option -${BOLD}$OPTARG${NORM} not allowed."
-                help
-                exit 2
-                ;;
+            echo -e \\n"Option [-${BOLD}$OPTARG${NORM}] is not allowed. All Valid Options are listed below:"
+            echo -e "-u CHEF_USERNAME - Username of the Chef Server Administrator."
+            echo -e "-p CHEF_PASSWORD - Password of the Chef Server Administrator."
+            echo -e "-i CHEF_IP       - IP Address of the Chef Server."
+            echo -e "-d AD_DOMAIN     - The Active Directory Domain the Chef Server is a part of."
+            echo -e "-h CHEF_HOSTNAME - Hostname of the Chef Server."
+			echo -e "-o CHEF_ORG      - Chef Organization Name."\\n			
+            echo -e "An Example of how to use this script is shown below:"
+            echo -e "./install_chef_server.sh -u chefadmin -p P@ssw0rd1! -i 10.0.1.44 -d contoso.corp -h chefsrv -o learn_chef_12_env"\\n
+            exit 2
+            ;;
   esac
 done
+shift $((OPTIND-1))
+
+# Verifying the Script Parameters Values exist.
+if [ -z "${CHEF_USERNAME}" ]; then
+    echo "Chef Server Username must be provided."
+    exit 2
+fi
+
+if [ -z "${CHEF_PASSWORD}" ]; then
+    echo "Chef Server Password must be provided."
+    exit 2
+fi
+
+if [ -z "${CHEF_IP}" ]; then
+    echo "Chef Server IP Address must be provided."
+    exit 2
+fi
+
+if [ -z "${AD_DOMAIN}" ]; then
+    echo "The Active Directory Domain the Chef Server is a part of must be provided."
+    exit 2
+fi
+
+if [ -z "${CHEF_HOSTNAME}" ]; then
+    echo "Chef Server Hostname must be provided."
+    exit 2
+fi
+
+if [ -z "${CHEF_ORG}" ]; then
+    echo "Chef Organization Name must be provided."
+    exit 2
+fi
 
 # Updating the Chef Server Hosts File
-sudo sed -i "2i10.0.2.4 CHEFSRV.contoso.corp CHEFSRV" /etc/hosts
+sed -i "2i$CHEF_IP $CHEF_HOSTNAME\\.$AD_DOMAIN $CHEF_HOSTNAME" /etc/hosts
 
 # Printing out the correct FQDN of the Server
 hostname -f
@@ -42,39 +95,39 @@ sudo dpkg -i chef-server-core_12.1.0-1_amd64.deb
 
 # Running the Chef Server Initial Configuration
 sudo chef-server-ctl reconfigure
-sleep 1m
+sleep 15s
 
 # Installing the the Chef Management Web UI
 sudo chef-server-ctl install opscode-manage
 
 # Running the Web UI Initial Configuration and then Running the Chef Server Configuration
 sudo chef-server-ctl reconfigure
-sleep 1m
+sleep 15s
 sudo opscode-manage-ctl reconfigure
-sleep 1m
+sleep 15s
 
 # Installing the Chef Push Jobs Feature
 sudo chef-server-ctl install opscode-push-jobs-server
 
 # Running the Chef Server Configuration
 sudo chef-server-ctl reconfigure
-sleep 1m
+sleep 15s
 # Installing the Chef Server Reporting Feature
 sudo chef-server-ctl install opscode-reporting
 
 # Running the Reporting Initial Configuration and then Running the Chef Server Configuration
 sudo chef-server-ctl reconfigure
-sleep 1m
+sleep 15s
 sudo opscode-reporting-ctl reconfigure
-sleep 1m
+sleep 15s
 
 # Copying the Chef Server Certificate to the chefadmin home directory for further use
-sudo cp /var/opt/opscode/nginx/ca/CHEFSRV.contoso.corp.crt /home/chefadmin/
+sudo cp /var/opt/opscode/nginx/ca/$CHEF_HOSTNAME\.$AD_DOMAIN\.crt /home/$CHEF_USERNAME/
 
 # Creating First User on the Chef Server
-sudo chef-server-ctl user-create $CHEF_USERNAME Chef Admin chefadmin@devops.io $CHEF_PASSWORD --filename /home/chefadmin/chefadmin.pem
+sudo chef-server-ctl user-create $CHEF_USERNAME Chef Admin $CHEF_USERNAME@devops.io $CHEF_PASSWORD --filename /home/$CHEF_USERNAME/$CHEF_USERNAME.pem
 
 # Creating the First Organization on the Chef Server
-sudo chef-server-ctl org-create learn_chef_12_env Learn Chef 12 Environment --association_user $CHEF_USERNAME --filename /home/chefadmin/learn_chef_12_env.pem
+sudo chef-server-ctl org-create $CHEF_ORG Learn Chef 12 Environment --association_user $CHEF_USERNAME --filename /home/$CHEF_USERNAME/$CHEF_ORG.pem
 
 echo "Chef Server 12 Installation is Complete!"

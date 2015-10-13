@@ -579,7 +579,7 @@
             "type": "string",
             "defaultValue": "https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_learn_chef/deploy_learn_chef/Scripts/CHEFWINWKS-Custom-Configs.ps1",
             "metadata": {
-                "description": "The location of the custom Configuration Script for the Chef Windows Workstation VM."
+                "description": "The location of the custom Active Directory Tools Installation Script for the Active Directory Domain Controller VM."
             }
         },
         "chefwinwksCustomConfigsScriptName": {
@@ -593,7 +593,7 @@
             "type": "string",
             "defaultValue": "https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_learn_chef/deploy_learn_chef/Scripts/CHEFWINSAND-Custom-Configs.ps1",
             "metadata": {
-                "description": "The location of the custom Configuration Script for the Chef Windows Sandbox VM."
+                "description": "The location of the custom Active Directory Tools Installation Script for the Active Directory Domain Controller VM."
             }
         },
         "chefwinsandCustomConfigsScriptName": {
@@ -612,10 +612,10 @@
         },
         "assetLocation": {
             "type": "string",
-            "defaultValue": "https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_learn_chef/deploy_learn_chef/Scripts",
             "metadata": {
                 "description": "The location of resources such as templates and DSC modules that the script is dependent"
-            }
+            },
+            "defaultValue": "https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_learn_chef/deploy_learn_chef/Scripts"
         }
     },
     "variables": {
