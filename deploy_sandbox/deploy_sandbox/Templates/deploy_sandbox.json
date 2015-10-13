@@ -366,7 +366,7 @@
                         "typeHandlerVersion": "1.4",
                         "settings": {
                             "fileUris": [ "[parameters('winSandboxCustomConfigsScriptUri')]" ],
-                            "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', parameters('winSandboxCustomConfigsScriptName'), ' -ADUsername ', parameters('addcAdminUsername'), ' -ADPassword ', 'PrivateSettingsRef:addcAdminPassword', ' -ADDomain ', parameters('adDomainNameFQDN'))]"
+                            "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', parameters('winSandboxCustomConfigsScriptName'), ' -ADUsername ', parameters('addcAdminUsername'), ' -ADPassword ', parameters('addcAdminPassword'), ' -ADDomain ', parameters('adDomainNameFQDN'))]"
                         },
                         "protectedSettings": { 
                             "addcAdminPassword": "parameters('addcAdminPassword')"
