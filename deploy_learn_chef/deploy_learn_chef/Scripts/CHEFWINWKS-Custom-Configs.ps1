@@ -146,8 +146,7 @@ If (!$?)
 	}
 
 # Install the Chef DK Kit.
-msiexec.exe /i C:\Windows\Temp\chefdk-0.8.1-1-x86.msi /quiet /norestart
-
+(Start-Process -FilePath "msiexec.exe" -ArgumentList "/i C:\Windows\Temp\chefdk-0.8.1-1-x86.msi /quiet /norestart" -Wait -PassThru).ExitCode
 If ($?)
 	{
 		[System.IO.File]::Create("C:\Windows\Temp\_ChefDK_Installed_Successfully.txt").Close()
