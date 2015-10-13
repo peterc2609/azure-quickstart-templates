@@ -549,7 +549,7 @@
         },
         "installChefServerScriptUri": {
             "type": "string",
-            "defaultValue": "https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_learn_chef/deploy_learn_chef/Scripts/install_chef_server.sh",
+            "defaultValue": "https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/learn_chef/install_chef_server.sh",
             "metadata": {
                 "description": "The location of the custom Chef Server Installation Script for the Ubuntu Server VM."
             }
@@ -563,7 +563,7 @@
         },
         "installADToolsScriptUri": {
             "type": "string",
-            "defaultValue": "https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_learn_chef/deploy_learn_chef/Scripts/ADDC-Custom-Configs.ps1",
+            "defaultValue": "https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/learn_chef/ADDC-Custom-Configs.ps1",
             "metadata": {
                 "description": "The location of the custom Active Directory Tools Installation Script for the Active Directory Domain Controller VM."
             }
@@ -577,7 +577,7 @@
         },
         "chefwinwksCustomConfigsScriptUri": {
             "type": "string",
-            "defaultValue": "https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_learn_chef/deploy_learn_chef/Scripts/CHEFWINWKS-Custom-Configs.ps1",
+            "defaultValue": "https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/learn_chef/CHEFWINWKS-Custom-Configs.ps1",
             "metadata": {
                 "description": "The location of the custom Configuration Script for the Chef Windows Workstation VM."
             }
@@ -591,7 +591,7 @@
         },
         "chefwinsandCustomConfigsScriptUri": {
             "type": "string",
-            "defaultValue": "https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_learn_chef/deploy_learn_chef/Scripts/CHEFWINSAND-Custom-Configs.ps1",
+            "defaultValue": "https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/learn_chef/CHEFWINSAND-Custom-Configs.ps1",
             "metadata": {
                 "description": "The location of the custom Configuration Script for the Chef Windows Sandbox VM."
             }
@@ -605,14 +605,14 @@
         },
         "vnetDNSTemplateUri": {
             "type": "string",
-            "defaultValue": "https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_learn_chef/deploy_learn_chef/Templates/vnet-with-dns-server.json",
+            "defaultValue": "https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/learn_chef/vnet-with-dns-server.json",
             "metadata": {
                 "description": "The location of the custom vNET DNS Template that is applied to the DC Subnet."
             }
         },
         "assetLocation": {
             "type": "string",
-            "defaultValue": "https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_learn_chef/deploy_learn_chef/Scripts",
+            "defaultValue": "https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/learn_chef",
             "metadata": {
                 "description": "The location of resources such as templates and DSC modules that the script is dependent"
             }
