@@ -133,18 +133,18 @@
                 "Description": "The name of the Windows Server account with local admin rights."
             }
         },
-        "addcAdminPassword": {
-            "type": "securestring",
-            "defaultValue": "LearnChef!",
-            "metadata": {
-                "Description": "The password of the Windows Server account with local admin rights and admin rights in Actve Directory."
-            }
-        },
         "sqladminUsername": {
             "type": "string",
             "defaultValue": "sqladmin",
             "metadata": {
                 "Description": "The usename of the SQL Domain account being created for use later after deployment."
+            }
+        },
+        "addcAdminPassword": {
+            "type": "securestring",
+            "defaultValue": "LearnChef!",
+            "metadata": {
+                "Description": "The password of the Windows Server account with local admin rights and admin rights in Actve Directory."
             }
         },
         "chefsrvAdminPassword": {
