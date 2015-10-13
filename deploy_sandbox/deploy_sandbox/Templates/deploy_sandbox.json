@@ -1,0 +1,355 @@
+﻿{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": "West Europe",
+            "allowedValues": [
+                "East US",
+                "West US",
+                "West Europe",
+                "East Asia",
+                "South East Asia"
+            ],
+            "metadata": {
+                "Description": "Deployment location"
+            }
+        },
+        "vNetName": {
+            "type": "string",
+            "defaultValue": "SandboxNET",
+            "metadata": {
+                "Description": "Name of the Virtual Network where all of the Resources are being deployed."
+            }
+        },
+        "sandboxSubnetName": {
+            "type": "string",
+            "defaultValue": "sandboxSubnet",
+            "metadata": {
+                "Description": "Sandbox Subnet Name."
+            }
+        },
+        "addressPrefix": {
+            "type": "string",
+            "defaultValue": "10.0.0.0/16",
+            "metadata": {
+                "Description": "Address prefix"
+            }
+        },
+        "sandboxSubnetPrefix": {
+            "type": "string",
+            "defaultValue": "10.0.1.0/24",
+            "metadata": {
+                "Description": "Sandbox Subnet Prefix"
+            }
+        },
+        "sandboxStorageName": {
+            "type": "string",
+            "defaultValue": "sandboxstorage",
+            "metadata": {
+                "Description": "Name of the Storage Account where the Resources are being deployed."
+            }
+        },
+        "sandboxStorageType": {
+            "type": "string",
+            "defaultValue": "Standard_LRS",
+            "allowedValues": [
+                "Standard_LRS",
+                "Standard_GRS",
+                "Standard_ZRS"
+            ],
+            "metadata": {
+                "Description": "The Type of Storage used for the Resources being deployed."
+            }
+        },
+        "winSandboxName": {
+            "type": "string",
+            "defaultValue": "WINSANDBOX",
+            "metadata": {
+                "Description": "The Name of the Chef Windows Sandbox."
+            }
+        },
+        "winSandboxAdminUsername": {
+            "type": "string",
+            "defaultValue": "sandboxadmin",
+            "metadata": {
+                "Description": "The name of the Windows Server account with local admin rights."
+            }
+        },
+        "winSandboxAdminPassword": {
+            "type": "securestring",
+            "defaultValue": "Sandbox!",
+            "metadata": {
+                "Description": "The password of the Windows Server account with local admin rights."
+            }
+        },
+        "winSandboxImagePublisher": {
+            "type": "string",
+            "defaultValue": "MicrosoftWindowsServer",
+            "allowedValues": [
+                "MicrosoftWindowsServer"
+            ],
+            "metadata": {
+                "description": "The Microsoft Image Publisher of the Image being used for the Chef Windows Sandbox VM."
+            }
+        },
+        "winSandboxImageOffer": {
+            "type": "string",
+            "defaultValue": "WindowsServer",
+            "allowedValues": [
+                "WindowsServer"
+            ],
+            "metadata": {
+                "description": "The Microsoft Image Offer of the Image being used for the Chef Windows Sandbox VM."
+            }
+        },
+        "winSandboxImageSku": {
+            "type": "string",
+            "defaultValue": "2012-R2-Datacenter",
+            "allowedValues": [
+                "2008-R2-SP1",
+                "2012-Datacenter",
+                "2012-R2-Datacenter",
+                "Windows-Server-Technical-Preview"
+            ],
+            "metadata": {
+                "description": "The Microsoft Image SKU of the Image being used for the Chef Windows Sandbox VM."
+            }
+        },
+        "winSandboxImageVersion": {
+            "type": "string",
+            "defaultValue": "4.0.201506",
+            "allowedValues": [
+                "4.0.201506"
+            ],
+            "metadata": {
+                "description": "The Version Number of the fully patched Windows Image being deployed."
+            }
+        },
+        "winSandboxOSDiskName": {
+            "type": "string",
+            "defaultValue": "winSandboxOSDisk",
+            "metadata": {
+                "description": "The Name of the Windows Sandbox OS Disk."
+            }
+        },
+        "winSandboxDataDiskName": {
+            "type": "string",
+            "defaultValue": "winSandboxDataDisk",
+            "metadata": {
+                "description": "The Name of the Windows Sandbox Data Disk."
+            }
+        },
+        "winSandboxDataDiskSize": {
+            "type": "int",
+            "defaultValue": 100,
+            "metadata": {
+                "description": "The Size of the Windows Sandbox Data Disk in GB."
+            }
+        },
+        "winSandboxVMSize": {
+            "type": "string",
+            "defaultValue": "Standard_D1",
+            "allowedValues": [
+                "Standard_D1",
+                "Standard_A1",
+                "Standard_A2",
+                "Standard_A3",
+                "Standard_A4"
+            ],
+            "metadata": {
+                "description": "The Size of the Windows Sandbox VM being deployed in Azure."
+            }
+        },
+        "winSandboxpubipDnsName": {
+            "type": "string",
+            "defaultValue": "winsandbox",
+            "metadata": {
+                "description": "This is the FQDN for RDP Access into the Windows Sandbox VM."
+            }
+        },
+        "winSandboxNicIPAddress": {
+            "type": "string",
+            "metadata": {
+                "description": "The IP address of the new Windows Sandbox VM."
+            },
+            "defaultValue": "10.0.1.5"
+        },
+        "winSandboxCustomConfigsScriptUri": {
+            "type": "string",
+            "defaultValue": "https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/deploy_learn_chef/deploy_learn_chef/Scripts/CHEFWINSAND-Custom-Configs.ps1",
+            "metadata": {
+                "description": "The location of the Windows Sandbox Custom Script."
+            }
+        },
+        "winSandboxCustomConfigsScriptName": {
+            "type": "string",
+            "defaultValue": "WINSANDBOX-Custom-Configs.ps1",
+            "metadata": {
+                "description": "The Name of the Windows Sandbox Custom Script."
+            }
+        }
+    },
+    "variables": {
+    },
+    "resources": [
+        {
+            "apiVersion": "2015-05-01-preview",
+            "type": "Microsoft.Network/virtualNetworks",
+            "name": "[parameters('vNetName')]",
+            "location": "[parameters('location')]",
+            "properties": {
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "[parameters('addressPrefix')]"
+                    ]
+                },
+                "subnets": [
+                    {
+                        "name": "[parameters('sandboxSubnetName')]",
+                        "properties": {
+                            "addressPrefix": "[parameters('sandboxSubnetPrefix')]"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "name": "[parameters('sandboxStorageName')]",
+            "type": "Microsoft.Storage/storageAccounts",
+            "location": "[parameters('location')]",
+            "apiVersion": "2015-05-01-preview",
+            "dependsOn": [ ],
+            "tags": {
+                "displayName": "[parameters('sandboxStorageName')]"
+            },
+            "properties": {
+                "accountType": "[parameters('sandboxStorageType')]"
+            }
+        },
+        {
+            "name": "[concat(parameters('winSandboxName'), 'NetworkInterface')]",
+            "type": "Microsoft.Network/networkInterfaces",
+            "location": "[parameters('location')]",
+            "apiVersion": "2015-05-01-preview",
+            "dependsOn": [
+                "[concat('Microsoft.Network/virtualNetworks/', parameters('vNetName'))]",
+                "[concat('Microsoft.Network/publicIPAddresses/', parameters('winSandboxpubipDnsName'))]"
+            ],
+            "tags": {
+                "displayName": "[concat(parameters('winSandboxName'), 'Nic')]"
+            },
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig1",
+                        "properties": {
+                            "privateIPAllocationMethod": "Static",
+                            "privateIPAddress": "[parameters('winSandboxNicIPAddress')]",
+                            "subnet": {
+                                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('vNetName')), '/subnets/', parameters('chefSubnetName'))]"
+                            },
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('winSandboxpubipDnsName'))]"
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "name": "[parameters('winSandboxpubipDnsName')]",
+            "type": "Microsoft.Network/publicIPAddresses",
+            "location": "[parameters('location')]",
+            "apiVersion": "2015-05-01-preview",
+            "tags": {
+                "displayName": "[parameters('winSandboxpubipDnsName')]"
+            },
+            "properties": {
+                "publicIPAllocationMethod": "Dynamic",
+                "dnsSettings": {
+                    "domainNameLabel": "[parameters('winSandboxpubipDnsName')]"
+                }
+            }
+        },
+        {
+            "name": "[parameters('winSandboxName')]",
+            "type": "Microsoft.Compute/virtualMachines",
+            "location": "[parameters('location')]",
+            "apiVersion": "2015-05-01-preview",
+            "dependsOn": [
+                "[concat('Microsoft.Storage/storageAccounts/', parameters('sandboxStorageName'))]",
+                "[concat('Microsoft.Network/networkInterfaces/', parameters('winSandboxName'), 'NetworkInterface')]"
+            ],
+            "tags": {
+                "displayName": "[parameters('winSandboxName')]"
+            },
+            "properties": {
+                "hardwareProfile": {
+                    "vmSize": "[parameters('winSandboxVMSize')]"
+                },
+                "osProfile": {
+                    "computername": "[parameters('winSandboxName')]",
+                    "adminUsername": "[parameters('chefwinsandAdminUsername')]",
+                    "adminPassword": "[parameters('chefwinsandAdminPassword')]"
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "[parameters('chefwinsandImagePublisher')]",
+                        "offer": "[parameters('winSandboxImageOffer')]",
+                        "sku": "[parameters('winSandboxImageSku')]",
+                        "version": "[parameters('winSandboxImageVersion')]"
+                    },
+                    "osDisk": {
+                        "name": "[parameters('winSandboxOSDiskName')]",
+                        "vhd": {
+                            "uri": "[concat('http://', parameters('sandboxStorageName'), '.blob.core.windows.net/vhds', '/', parameters('winSandboxOSDiskName'), '.vhd')]"
+                        },
+                        "caching": "ReadWrite",
+                        "createOption": "FromImage"
+                    },
+                    "dataDisks": [
+                        {
+                            "vhd": {
+                                "uri": "[concat('http://', parameters('sandboxStorageName'), '.blob.core.windows.net/vhds', '/', parameters('winSandboxDataDiskName'),'-1.vhd')]"
+                            },
+                            "name": "[concat(parameters('winSandboxName'),'-data-disk1')]",
+                            "caching": "None",
+                            "createOption": "empty",
+                            "diskSizeGB": "[parameters('winSandboxDataDiskSize')]",
+                            "lun": 0
+                        }
+                    ]
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('winSandboxName'), 'NetworkInterface'))]"
+                        }
+                    ]
+                }
+            },
+            "resources": [
+                {
+                    "type": "Microsoft.Compute/virtualMachines/extensions",
+                    "name": "[concat(parameters('winSandboxName'), '/' ,'winSandboxCustomConfigsScript')]",
+                    "apiVersion": "2015-05-01-preview",
+                    "location": "[parameters('location')]",
+                    "dependsOn": [
+                        "[resourceId('Microsoft.Compute/virtualMachines', parameters('winSandboxName'))]"
+                    ],
+                    "properties": {
+                        "publisher": "Microsoft.Compute",
+                        "type": "CustomScriptExtension",
+                        "typeHandlerVersion": "1.5",
+                        "settings": {
+                            "fileUris": [ "[parameters('winSandboxCustomConfigsScriptUri')]" ],
+                            "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', parameters('winSandboxCustomConfigsScriptName'), ' -ADUsername ', parameters('addcAdminUsername'), ' -ADPassword ', parameters('addcAdminPassword'), ' -ADDomain ', parameters('adDomainNameFQDN'))]"
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}
