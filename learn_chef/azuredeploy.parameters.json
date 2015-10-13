@@ -2,26 +2,5 @@
     "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "location": {
-            "value": "West Europe"
-        },
-        "ADDCName": {
-            "value": "ADDC"
-        },
-        "ADDCAdminUserName": {
-            "value": "adadmin"
-        },
-        "contososysctrappName": {
-            "value": "contososysctrapp"
-        },
-        "ciresonadpubipDnsName": {
-            "value": "ciresonadsrv"
-        },
-        "contososysctrappType": {
-            "value": "Standard_LRS"
-        },
-        "contososysctrappLocation": {
-            "value": "West Europe"
-        }
     }
 }
