@@ -133,18 +133,18 @@
                 "Description": "The name of the Windows Server account with local admin rights."
             }
         },
-        "addcAdminPassword": {
-            "type": "securestring",
-            "defaultValue": "LearnChef!",
-            "metadata": {
-                "Description": "The password of the Windows Server account with local admin rights and admin rights in Actve Directory."
-            }
-        },
         "sqladminUsername": {
             "type": "string",
             "defaultValue": "sqladmin",
             "metadata": {
                 "Description": "The usename of the SQL Domain account being created for use later after deployment."
+            }
+        },
+        "addcAdminPassword": {
+            "type": "securestring",
+            "defaultValue": "LearnChef!",
+            "metadata": {
+                "Description": "The password of the Windows Server account with local admin rights and admin rights in Actve Directory."
             }
         },
         "chefsrvAdminPassword": {
@@ -561,18 +561,18 @@
                 "description": "The Name of the Chef Server Installation Script."
             }
         },
-        "installADToolsScriptUri": {
+        "addcCustomConfigsScriptUri": {
             "type": "string",
             "defaultValue": "https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/learn_chef/ADDC-Custom-Configs.ps1",
             "metadata": {
-                "description": "The location of the custom Active Directory Tools Installation Script for the Active Directory Domain Controller VM."
+                "description": "The location of the custom Configuration Script for the Active Directory Domain Controller VM."
             }
         },
-        "installADToolsScriptName": {
+        "addcCustomConfigsScriptName": {
             "type": "string",
             "defaultValue": "ADDC-Custom-Configs.ps1",
             "metadata": {
-                "description": "The Name of the Active Directory Tools Custom Script."
+                "description": "The Name of the Active Directory Domain Controller Custom Script."
             }
         },
         "chefwinwksCustomConfigsScriptUri": {
@@ -600,7 +600,7 @@
             "type": "string",
             "defaultValue": "CHEFWINSAND-Custom-Configs.ps1",
             "metadata": {
-                "description": "The Name of the Chef Windows Workstation Custom Script."
+                "description": "The Name of the Chef Windows Sandbox Custom Script."
             }
         },
         "vnetDNSTemplateUri": {
@@ -951,8 +951,8 @@
                                 "type": "CustomScriptExtension",
                                 "typeHandlerVersion": "1.4",
                                 "settings": {
-                                    "fileUris": [ "[parameters('installADToolsScriptUri')]" ],
-                                    "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', parameters('installADToolsScriptName'), ' -ChefServer ', parameters('chefsrvName'),' -ADDomain ', parameters('adDomainNameFQDN'), ' -ChefServerIP ',parameters('chefsrvNicIPAddress'), ' -SQLUsername ',parameters('sqladminUsername'), ' -SQLPassword ', parameters('sqladminPassword'))]"
+                                    "fileUris": [ "[parameters('addcCustomConfigsScriptUri')]" ],
+                                    "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', parameters('addcCustomConfigsScriptName'), ' -ChefServer ', parameters('chefsrvName'),' -ADDomain ', parameters('adDomainNameFQDN'), ' -ChefServerIP ',parameters('chefsrvNicIPAddress'), ' -SQLUsername ',parameters('sqladminUsername'), ' -SQLPassword ', parameters('sqladminPassword'))]"
                                 }
                             }
                         }
