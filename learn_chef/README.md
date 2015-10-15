@@ -8,6 +8,11 @@ This template provisions an environment in Azure for learning Chef.
  
  The following VMs are deployed with their own publicly accessible FQDN's for RDP and SSH Access respectively.
  - Ubuntu Server 14.04 running Chef Server 12
+   - Chef Server 12.1 installed
+   - Chef Management Console
+   - Chef Reporting
+   - First Chef Admin User created
+   - First Chef Organization created
  - Windows Server 2012 R2 running as a Domain Controller
    - Active Directory Tools installed
    - IIS Installed with Directory Browsing enabled
