@@ -210,9 +210,9 @@
         },
         "addcImageVersion": {
             "type": "string",
-            "defaultValue": "4.0.201506",
+            "defaultValue": "latest",
             "allowedValues": [
-                "4.0.201506"
+                "latest"
             ],
             "metadata": {
                 "description": "The Version Number of the fully patched Windows Image being deployed."
@@ -257,9 +257,9 @@
         },
         "chefsrvImageVersion": {
             "type": "string",
-            "defaultValue": "14.04.201506100",
+            "defaultValue": "latest",
             "allowedValues": [
-                "14.04.201506100"
+                "latest"
             ],
             "metadata": {
                 "description": "The Version Number of the fully patched Ubuntu Image being deployed."
@@ -300,9 +300,9 @@
         },
         "chefwinwksImageVersion": {
             "type": "string",
-            "defaultValue": "4.0.201506",
+            "defaultValue": "latest",
             "allowedValues": [
-                "4.0.201506"
+                "latest"
             ],
             "metadata": {
                 "description": "The Version Number of the fully patched Windows Image being deployed."
@@ -343,9 +343,9 @@
         },
         "chefwinsandImageVersion": {
             "type": "string",
-            "defaultValue": "4.0.201506",
+            "defaultValue": "latest",
             "allowedValues": [
-                "4.0.201506"
+                "latest"
             ],
             "metadata": {
                 "description": "The Version Number of the fully patched Windows Image being deployed."
