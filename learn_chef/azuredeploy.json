@@ -1156,7 +1156,7 @@
             },
             "dependsOn": [
                 "[concat('Microsoft.Storage/storageAccounts/', parameters('contosoChefStorageName'))]",
-                "[concat('Microsoft.Network/networkInterfaces/', parameters('chefubusanName'), 'NetworkInterface')]"
+                "[concat('Microsoft.Network/networkInterfaces/', parameters('chefubusandName'), 'NetworkInterface')]"
             ],
             "properties": {
                 "hardwareProfile": {
