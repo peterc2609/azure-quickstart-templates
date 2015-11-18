@@ -158,7 +158,7 @@ If (!$?)
 
 # Download the 'knife.rb' for this Environment from GitHub.
 $ChefKnifeConfig_WebClient = New-Object System.Net.WebClient
-$ChefKnifeConfig_URI       = "https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/learn_chef/knife.rb"
+$ChefKnifeConfig_URI       = "https://raw.githubusercontent.com/peterc2609/azure-quickstart-templates/master/learn_chef/knife.rb"
 $ChefKnifeConfig_File      = "C:\chef\.chef\knife.rb"
 $ChefKnifeConfig_WebClient.DownloadFile($ChefKnifeConfig_URI,$ChefKnifeConfig_File)
 

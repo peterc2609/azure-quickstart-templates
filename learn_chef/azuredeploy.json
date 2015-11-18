@@ -4,11 +4,12 @@
     "parameters": {
         "location": {
             "type": "string",
-            "defaultValue": "West Europe",
+            "defaultValue": "North Europe",
             "allowedValues": [
                 "East US",
                 "West US",
                 "West Europe",
+                "North Europe",
                 "East Asia",
                 "South East Asia"
             ],
@@ -105,6 +106,13 @@
                 "Description": "The Name of the Chef Windows Sandbox."
             }
         },
+        "chefubusandName": {
+            "type": "string",
+            "defaultValue": "CHEFUBUSAND",
+            "metadata": {
+                "Description": "The Name of the Chef Ubuntu Sandbox."
+            }
+        },
         "addcAdminUsername": {
             "type": "string",
             "defaultValue": "adadmin",
@@ -133,6 +141,13 @@
                 "Description": "The name of the Windows Server account with local admin rights."
             }
         },
+        "chefubusandAdminUsername": {
+            "type": "string",
+            "defaultvalue": "chefadmin",
+            "metadata": {
+                "Description": "The name of the Ubuntu Serer account with sudo rights."
+            }
+        },
         "sqladminUsername": {
             "type": "string",
             "defaultValue": "sqladmin",
@@ -148,6 +163,13 @@
             }
         },
         "chefsrvAdminPassword": {
+            "type": "securestring",
+            "defaultValue": "LearnChef!",
+            "metadata": {
+                "Description": "The password of the Ubuntu Server account with sudo rights."
+            }
+        },
+        "chefubusandAdminPassword": {
             "type": "securestring",
             "defaultValue": "LearnChef!",
             "metadata": {
@@ -256,6 +278,53 @@
             }
         },
         "chefsrvImageVersion": {
+            "type": "string",
+            "defaultValue": "latest",
+            "allowedValues": [
+                "latest"
+            ],
+            "metadata": {
+                "description": "The Version Number of the fully patched Ubuntu Image being deployed."
+            }
+        },
+        "chefubusandImagePublisher": {
+            "type": "string",
+            "defaultValue": "Canonical",
+            "allowedValues": [
+                "Canonical"
+            ],
+            "metadata": {
+                "description": "The Vendor Image Publisher of the Image being used for the Ubuntu Server VM."
+            }
+        },
+        "chefubusandImageOffer": {
+            "type": "string",
+            "defaultValue": "UbuntuServer",
+            "allowedValues": [
+                "UbuntuServer"
+            ],
+            "metadata": {
+                "description": "The Vendor Image Offer of the Image being used for the Ubuntu Server VM."
+            }
+        },
+        "chefubusandImageSku": {
+            "type": "string",
+            "defaultValue": "14.04.2-LTS",
+            "allowedValues": [
+                "12.04.2-LTS",
+                "12.04.3-LTS",
+                "12.04.4-LTS",
+                "12.04.5-LTS",
+                "12.10",
+                "14.04.2-LTS",
+                "14.10",
+                "15.04"
+            ],
+            "metadata": {
+                "description": "The Vendor Image SKU of the Image being used for the Ubuntu Server VM."
+            }
+        },
+        "chefubusandImageVersion": {
             "type": "string",
             "defaultValue": "latest",
             "allowedValues": [
@@ -379,6 +448,13 @@
                 "description": "The Name of the Chef Windows Sandbox OS Disk."
             }
         },
+        "chefubusandOSDiskName": {
+            "type": "string",
+            "defaultValue": "chefubusandOSDisk",
+            "metadata": {
+                "description": "The Name of the Chef Ubuntu Sandbox OS Disk."
+            }
+        },
         "addcDataDiskName": {
             "type": "string",
             "defaultValue": "addcDataDisk",
@@ -419,6 +495,20 @@
             "defaultValue": 100,
             "metadata": {
                 "description": "The Size of the Chef Windows Sandbox Data Disk in GB."
+            }
+        },
+        "chefubusandDataDiskName": {
+            "type": "string",
+            "defaultValue": "chefubuSandDataDisk",
+            "metadata": {
+                "description": "The Name of the Chef Ubuntu Sandbox Data Disk."
+            }
+        },
+        "chefubusandDataDiskSize": {
+            "type": "int",
+            "defaultValue": 100,
+            "metadata": {
+                "description": "The Size of the Chef Ubuntu Sandbox Data Disk in GB."
             }
         },
         "addcVMSize": {
@@ -477,6 +567,20 @@
                 "description": "The Size of the Chef Windows Sandbox VM being deployed in Azure."
             }
         },
+        "chefubusandVMSize": {
+            "type": "string",
+            "defaultValue": "Standard_D1",
+            "allowedValues": [
+                "Standard_D1",
+                "Standard_A1",
+                "Standard_A2",
+                "Standard_A3",
+                "Standard_A4"
+            ],
+            "metadata": {
+                "description": "The Size of the Chef Ubuntu Sandbox VM being deployed in Azure."
+            }
+        },
         "adpubipDnsName": {
             "type": "string",
             "defaultValue": "adsrv",
@@ -503,6 +607,13 @@
             "defaultValue": "chefwinsand",
             "metadata": {
                 "description": "This is the FQDN for RDP Access into the Chef Windows Sandbox VM."
+            }
+        },
+        "chefubusandpubipDnsName": {
+            "type": "string",
+            "defaultValue": "chefubusand",
+            "metadata": {
+                "description": "This is the FQDN for SSH Access into the Chef Ubuntu Sandbox VM."
             }
         },
         "adDomainNameFQDN": {
@@ -540,6 +651,13 @@
             },
             "defaultValue": "10.0.2.6"
         },
+        "chefubusandNicIPAddress": {
+            "type": "string",
+            "metadata": {
+                "description": "The IP address of the new Chef Ubuntu Sandbox VM."
+            },
+            "defaultValue": "10.0.2.7"
+        },
         "chefOrganization": {
             "type": "string",
             "defaultValue": "learn_chef_12_env",
@@ -549,7 +667,7 @@
         },
         "installChefServerScriptUri": {
             "type": "string",
-            "defaultValue": "https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/learn_chef/install_chef_server.sh",
+            "defaultValue": "https://raw.githubusercontent.com/peterc2609/azure-quickstart-templates/master/learn_chef/install_chef_server.sh",
             "metadata": {
                 "description": "The location of the custom Chef Server Installation Script for the Ubuntu Server VM."
             }
@@ -563,7 +681,7 @@
         },
         "addcCustomConfigsScriptUri": {
             "type": "string",
-            "defaultValue": "https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/learn_chef/ADDC-Custom-Configs.ps1",
+            "defaultValue": "https://raw.githubusercontent.com/peterc2609/azure-quickstart-templates/master/learn_chef/ADDC-Custom-Configs.ps1",
             "metadata": {
                 "description": "The location of the custom Configuration Script for the Active Directory Domain Controller VM."
             }
@@ -577,7 +695,7 @@
         },
         "chefwinwksCustomConfigsScriptUri": {
             "type": "string",
-            "defaultValue": "https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/learn_chef/CHEFWINWKS-Custom-Configs.ps1",
+            "defaultValue": "https://raw.githubusercontent.com/peterc2609/azure-quickstart-templates/master/learn_chef/CHEFWINWKS-Custom-Configs.ps1",
             "metadata": {
                 "description": "The location of the custom Configuration Script for the Chef Windows Workstation VM."
             }
@@ -591,7 +709,7 @@
         },
         "chefwinsandCustomConfigsScriptUri": {
             "type": "string",
-            "defaultValue": "https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/learn_chef/CHEFWINSAND-Custom-Configs.ps1",
+            "defaultValue": "https://raw.githubusercontent.com/peterc2609/azure-quickstart-templates/master/learn_chef/CHEFWINSAND-Custom-Configs.ps1",
             "metadata": {
                 "description": "The location of the custom Configuration Script for the Chef Windows Sandbox VM."
             }
@@ -605,14 +723,14 @@
         },
         "vnetDNSTemplateUri": {
             "type": "string",
-            "defaultValue": "https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/learn_chef/vnet-with-dns-server.json",
+            "defaultValue": "https://raw.githubusercontent.com/peterc2609/azure-quickstart-templates/master/learn_chef/vnet-with-dns-server.json",
             "metadata": {
                 "description": "The location of the custom vNET DNS Template that is applied to the DC Subnet."
             }
         },
         "assetLocation": {
             "type": "string",
-            "defaultValue": "https://raw.githubusercontent.com/starkfell/azure-quickstart-templates/master/learn_chef",
+            "defaultValue": "https://raw.githubusercontent.com/peterc2609/azure-quickstart-templates/master/learn_chef",
             "metadata": {
                 "description": "The location of resources such as templates and DSC modules that the script is dependent"
             }
@@ -1027,6 +1145,53 @@
                     }
                 }
             ]
+        },
+        {
+            "name": "[parameters('chefubusandName')]",
+            "type": "Microsoft.Compute/virtualMachines",
+            "location": "[parameters('location')]",
+            "apiVersion": "2015-05-01-preview",
+            "tags": {
+                "displayName": "[parameters('chefubusandName')]"
+            },
+            "dependsOn": [
+                "[concat('Microsoft.Storage/storageAccounts/', parameters('contosoChefStorageName'))]",
+                "[concat('Microsoft.Network/networkInterfaces/', parameters('chefubusanName'), 'NetworkInterface')]"
+            ],
+            "properties": {
+                "hardwareProfile": {
+                    "vmSize": "[parameters('chefubusandVMSize')]"
+                },
+                "osProfile": {
+                    "computername": "[parameters('chefubusandName')]",
+                    "adminUsername": "[parameters('chefubusandAdminUsername')]",
+                    "adminPassword": "[parameters('chefubusandAdminPassword')]"
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "[parameters('chefubusandImagePublisher')]",
+                        "offer": "[parameters('chefubusandImageOffer')]",
+                        "sku": "[parameters('chefubusandImageSku')]",
+                        "version": "[parameters('chefubusandImageVersion')]"
+                    },
+                    "osDisk": {
+                        "name": "[parameters('chefubusandOSDiskName')]",
+                        "vhd": {
+                            "uri": "[concat('http://', parameters('contosoChefStorageName'), '.blob.core.windows.net/vhds', '/', parameters('chefubusandOSDiskName'), '.vhd')]"
+                        },
+                        "caching": "ReadWrite",
+                        "createOption": "FromImage"
+                    }
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('chefubusandName'), 'NetworkInterface'))]"
+                        }
+                    ]
+                }
+            },
+            "resources": []
         },
         {
             "name": "[parameters('chefwinwksName')]",
