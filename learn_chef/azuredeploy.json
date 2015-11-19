@@ -942,6 +942,41 @@
             }
         },
         {
+            "name": "[concat(parameters('chefubusandName'), 'NetworkInterface')]",
+            "type": "Microsoft.Network/networkInterfaces",
+            "location": "[parameters('location')]",
+            "apiVersion": "2015-05-01-preview",
+            "dependsOn": [
+                "[concat('Microsoft.Network/virtualNetworks/', parameters('vNetName'))]",
+                "[concat('Microsoft.Network/publicIPAddresses/', parameters('chefubusandpubipDnsName'))]"
+            ],
+            "tags": {
+                "displayName": "[concat(parameters('chefubusandName'), 'Nic')]"
+            },
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig1",
+                        "properties": {
+                            "privateIPAllocationMethod": "Static",
+                            "privateIPAddress": "[parameters('chefubusandNicIPAddress')]",
+                            "subnet": {
+                                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('vNetName')), '/subnets/', parameters('chefSubnetName'))]"
+                            },
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('chefubusandpubipDnsName'))]"
+                            }
+                        }
+                    }
+                ],
+                "dnsSettings": {
+                    "domainNameLabel": "[parameters('adDomainNameFQDN')]",
+                    "dnsServers": [ "[parameters('adNicIPAddress')]" ]
+                }
+            }
+        },
+
+        {
             "name": "[parameters('adpubipDnsName')]",
             "type": "Microsoft.Network/publicIPAddresses",
             "location": "[parameters('location')]",
