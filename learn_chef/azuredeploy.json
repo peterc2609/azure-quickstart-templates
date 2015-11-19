@@ -4,7 +4,7 @@
     "parameters": {
         "location": {
             "type": "string",
-            "defaultValue": "North Europe",
+            "defaultValue": "West Europe",
             "allowedValues": [
                 "East US",
                 "West US",
@@ -143,9 +143,9 @@
         },
         "chefubusandAdminUsername": {
             "type": "string",
-            "defaultvalue": "chefadmin",
+            "defaultValue": "chefadmin",
             "metadata": {
-                "Description": "The name of the Ubuntu Serer account with sudo rights."
+                "Description": "The name of the Ubuntu Server account with sudo rights."
             }
         },
         "sqladminUsername": {
@@ -737,7 +737,7 @@
         }
     },
     "variables": {
-    },
+        },
     "resources": [
         {
             "apiVersion": "2015-05-01-preview",
@@ -941,7 +941,6 @@
                 }
             }
         },
-
         {
             "name": "[parameters('adpubipDnsName')]",
             "type": "Microsoft.Network/publicIPAddresses",
@@ -1000,6 +999,21 @@
                 "publicIPAllocationMethod": "Dynamic",
                 "dnsSettings": {
                     "domainNameLabel": "[parameters('chefwinsandpubipDnsName')]"
+                }
+            }
+        },
+        {
+            "name": "[parameters('chefubusandpubipDnsName')]",
+            "type": "Microsoft.Network/publicIPAddresses",
+            "location": "[parameters('location')]",
+            "apiVersion": "2015-05-01-preview",
+            "tags": {
+                "displayName": "[parameters('chefubusandpubipDnsName')]"
+            },
+            "properties": {
+                "publicIPAllocationMethod": "Dynamic",
+                "dnsSettings": {
+                    "domainNameLabel": "[parameters('chefubusandpubipDnsName')]"
                 }
             }
         },
@@ -1182,53 +1196,6 @@
             ]
         },
         {
-            "name": "[parameters('chefubusandName')]",
-            "type": "Microsoft.Compute/virtualMachines",
-            "location": "[parameters('location')]",
-            "apiVersion": "2015-05-01-preview",
-            "tags": {
-                "displayName": "[parameters('chefubusandName')]"
-            },
-            "dependsOn": [
-                "[concat('Microsoft.Storage/storageAccounts/', parameters('contosoChefStorageName'))]",
-                "[concat('Microsoft.Network/networkInterfaces/', parameters('chefubusandName'), 'NetworkInterface')]"
-            ],
-            "properties": {
-                "hardwareProfile": {
-                    "vmSize": "[parameters('chefubusandVMSize')]"
-                },
-                "osProfile": {
-                    "computername": "[parameters('chefubusandName')]",
-                    "adminUsername": "[parameters('chefubusandAdminUsername')]",
-                    "adminPassword": "[parameters('chefubusandAdminPassword')]"
-                },
-                "storageProfile": {
-                    "imageReference": {
-                        "publisher": "[parameters('chefubusandImagePublisher')]",
-                        "offer": "[parameters('chefubusandImageOffer')]",
-                        "sku": "[parameters('chefubusandImageSku')]",
-                        "version": "[parameters('chefubusandImageVersion')]"
-                    },
-                    "osDisk": {
-                        "name": "[parameters('chefubusandOSDiskName')]",
-                        "vhd": {
-                            "uri": "[concat('http://', parameters('contosoChefStorageName'), '.blob.core.windows.net/vhds', '/', parameters('chefubusandOSDiskName'), '.vhd')]"
-                        },
-                        "caching": "ReadWrite",
-                        "createOption": "FromImage"
-                    }
-                },
-                "networkProfile": {
-                    "networkInterfaces": [
-                        {
-                            "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('chefubusandName'), 'NetworkInterface'))]"
-                        }
-                    ]
-                }
-            },
-            "resources": []
-        },
-        {
             "name": "[parameters('chefwinwksName')]",
             "type": "Microsoft.Compute/virtualMachines",
             "location": "[parameters('location')]",
@@ -1387,6 +1354,66 @@
                     }
                 }
             ]
+        },
+        {
+            "name": "[parameters('chefubusandName')]",
+            "type": "Microsoft.Compute/virtualMachines",
+            "location": "[parameters('location')]",
+            "apiVersion": "2015-05-01-preview",
+            "dependsOn": [
+                "[concat('Microsoft.Storage/storageAccounts/', parameters('contosoChefStorageName'))]",
+                "[concat('Microsoft.Network/networkInterfaces/', parameters('chefubusandName'), 'NetworkInterface')]"
+            ],
+            "tags": {
+                "displayName": "[parameters('chefubusandName')]"
+            },
+            "properties": {
+                "hardwareProfile": {
+                    "vmSize": "[parameters('chefubusandVMSize')]"
+                },
+                "osProfile": {
+                    "computername": "[parameters('chefubusandName')]",
+                    "adminUsername": "[parameters('chefubusandAdminUsername')]",
+                    "adminPassword": "[parameters('chefubusandAdminPassword')]"
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "[parameters('chefubusandImagePublisher')]",
+                        "offer": "[parameters('chefubusandImageOffer')]",
+                        "sku": "[parameters('chefubusandImageSku')]",
+                        "version": "[parameters('chefubusandImageVersion')]"
+                    },
+                    "osDisk": {
+                        "name": "[parameters('chefubusandOSDiskName')]",
+                        "vhd": {
+                            "uri": "[concat('http://', parameters('contosoChefStorageName'), '.blob.core.windows.net/vhds', '/', parameters('chefubusandOSDiskName'), '.vhd')]"
+                        },
+                        "caching": "ReadWrite",
+                        "createOption": "FromImage"
+                    },
+                    "dataDisks": [
+                        {
+                            "vhd": {
+                                "uri": "[concat('http://', parameters('contosoChefStorageName'), '.blob.core.windows.net/vhds', '/', parameters('chefubusandDataDiskName'),'-1.vhd')]"
+                            },
+                            "name": "[concat(parameters('chefubusandName'),'-data-disk1')]",
+                            "caching": "None",
+                            "createOption": "empty",
+                            "diskSizeGB": "[parameters('chefubusandDataDiskSize')]",
+                            "lun": 0
+                        }
+                    ]
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('chefubusandName'), 'NetworkInterface'))]"
+                        }
+                    ]
+                }
+            },
+            "resources": [
+                          ]
         },
         {
             "name": "updateDCVNetDNS",
